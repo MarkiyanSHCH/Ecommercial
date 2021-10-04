@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
+
 using WebAPI.Models;
 using WebAPI.Repository;
 
@@ -20,7 +20,7 @@ namespace WebAPI.Services
         public IEnumerable<Category> Get(IConfiguration _configuration)
         {
             string query = "Exec ReadAllCategories";
-            
+
             return _database.ReadDatabase(_configuration, query).AsEnumerable().Select(row => new Category
             {
                 Id = Convert.ToInt32(row["Id"]),

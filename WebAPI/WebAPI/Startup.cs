@@ -60,7 +60,7 @@ namespace WebAPI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-           
+
 
             if (env.IsDevelopment())
             {

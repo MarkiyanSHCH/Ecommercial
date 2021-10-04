@@ -3,15 +3,9 @@ using AuthApi.Services;
 
 using AuthCommon;
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AuthApi.Controllers
 {
@@ -28,15 +22,15 @@ namespace AuthApi.Controllers
             _configuration = configuration;
             _services = new AuthServices();
             _options = options;
-        } 
+        }
 
         [Route("login")]
         [HttpPost]
-        public  IActionResult Login([FromBody]Login request)
+        public IActionResult Login([FromBody] Login request)
         {
             var user = _services.GetUser(_configuration, request);
 
-            if(user != null)
+            if (user != null)
             {
                 var token = _services.GenerateJWT(user, _options);
 
@@ -49,6 +43,6 @@ namespace AuthApi.Controllers
             return Unauthorized();
         }
 
-        
+
     }
 }
