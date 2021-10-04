@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+      <div class="m-4 col-md-3 shadow-none bg-light rounded" *ngFor="let dataItem of orders">
+        <a style="text-decoration:none;" [routerLink]="['/product/',dataItem.id]">
+        <h2>{{dataItem.name}}</h2>
+         <img src="/assets/images/{{dataItem.photoFileName}}" class="img-responsive" ><br>
+         <p>Price : {{dataItem.price}}</p>
+        </a>
+      </div>
+    </div>
+</div>

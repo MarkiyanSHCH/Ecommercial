@@ -26,7 +26,7 @@ namespace WebAPI.Services
                     Id = Convert.ToInt32(row["Id"]),
                     Name = Convert.ToString(row["Name"]),
                     Price = Convert.ToInt32(row["Price"]),
-                    CategoryId = Convert.ToString(row["CategoryId"]),
+                    CategoryId = Convert.ToInt32(row["CategoryId"]),
                     PhotoFileName = Convert.ToString(row["photoFileName"])
             });
         }
@@ -51,7 +51,7 @@ namespace WebAPI.Services
                 Name = Convert.ToString(row["Name"]),
                 Description = Convert.ToString(row["Description"]),
                 Price = Convert.ToInt32(row["Price"]),
-                CategoryId = Convert.ToString(row["CategoryId"]),
+                CategoryId = Convert.ToInt32(row["CategoryId"]),
                 PhotoFileName = Convert.ToString(row["PhotoFileName"]),
                 characteristics = characteristics
             }).First();
@@ -67,7 +67,7 @@ namespace WebAPI.Services
                 Id = Convert.ToInt32(row["Id"]),
                 Name = Convert.ToString(row["Name"]),
                 Price = Convert.ToInt32(row["Price"]),
-                CategoryId = Convert.ToString(row["CategoryId"]),
+                CategoryId = Convert.ToInt32(row["CategoryId"]),
                 PhotoFileName = Convert.ToString(row["photoFileName"])
             });
         }
