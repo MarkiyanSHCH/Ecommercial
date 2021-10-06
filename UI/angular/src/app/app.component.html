@@ -1,18 +1,26 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="product">All</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" routerLink="">All</a>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="nav navbar-nav navbar-left">
         <li class="nav-item"  *ngFor=" let dataItem of CategoriesList">
           <a class="nav-item nav-link" routerLink="product/category/{{dataItem.id}}" >{{dataItem.name}}</a>
         </li>
       </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf='!isLoggedIn'>
+        <li><input type="text" placeholder="email" name="email" matInput #email></li>
+        <li><input type="password" placeholder="Password" name="psw" matInput #password></li>
+        <li><button type="submit" (click) = 'login(email.value, password.value)'>Login</button></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf='isLoggedIn'>
+        <li><a class="nav-item nav-link" [routerLink]="['/orders']" *ngIf="isLoggedIn" routerLinkActive = 'active' [routerLinkActiveOptions]="{exact: true}">Orders</a></li>
+        <li><button type="submit" (click) = 'logout()'>Logout</button></li>
+      </ul>
     </div>
   </div>
 </nav>
+
+
 
 <div class="container">
   <router-outlet></router-outlet>

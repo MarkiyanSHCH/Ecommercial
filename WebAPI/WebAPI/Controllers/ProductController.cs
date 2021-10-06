@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
+
 using WebAPI.Services;
 
 namespace WebAPI.Controllers
@@ -15,11 +9,11 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        public readonly IConfiguration _configuration;  
-        public readonly ProductServices _services;
+        private readonly IConfiguration _configuration;
+        private readonly ProductServices _services;
 
-        public ProductController(IConfiguration configuration) 
-        {  
+        public ProductController(IConfiguration configuration)
+        {
             _configuration = configuration;
             _services = new ProductServices();
         }
@@ -34,8 +28,8 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            
-            return Ok(_services.GetById(_configuration,id));
+
+            return Ok(_services.GetById(_configuration, id));
         }
 
         [HttpGet("category/{id}")]
