@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { SharedService } from 'src/app/shared.service';
 import { ACCESS_TOKEN_KEY, AuthService } from './services/auth.service';
 
@@ -11,6 +12,10 @@ export class AppComponent implements OnInit {
   title = 'Task';
 
   constructor(private service:SharedService, private _authService: AuthService) { }
+
+  ngOnInit(): void {
+    this.refreshProdList();
+  }
 
   public get isLoggedIn(): boolean{
     return this._authService.isAuthenticated()
@@ -30,10 +35,6 @@ export class AppComponent implements OnInit {
     this._authService.logout()
   }
   CategoriesList:any=[];
-
-  ngOnInit(): void {
-      this.refreshProdList();
-  }
 
   refreshProdList(){
     this.service.getCategory().subscribe(data=>{

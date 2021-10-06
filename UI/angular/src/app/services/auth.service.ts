@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AUTH_API_URL } from '../app-injection-tokens';
-import {JwtHelperService} from '@auth0/angular-jwt'
 import { Router } from '@angular/router';
-import { Token } from '../models/Token';
+
+import { JwtHelperService } from '@auth0/angular-jwt';
+
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
+import { AUTH_API_URL } from '../app-injection-tokens';
+import { Token } from '../models/Token';
 
 export const ACCESS_TOKEN_KEY = 'store_access_token' 
 
@@ -40,5 +43,3 @@ export class AuthService{
     this.router.navigate(['']);
   }
 }
-
-

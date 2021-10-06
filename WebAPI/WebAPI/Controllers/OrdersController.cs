@@ -23,7 +23,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [Route("")]
         public IActionResult GetOrders()
         {
