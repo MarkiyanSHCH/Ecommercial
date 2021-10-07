@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { SharedService } from 'src/app/shared.service';
 
 @Component({
@@ -7,16 +8,13 @@ import { SharedService } from 'src/app/shared.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
+
 export class DetailComponent implements OnInit {
 
   id!: number;
   Product:any;
 
-  constructor(private service:SharedService, private activeRoute: ActivatedRoute, private changedetectect: ChangeDetectorRef) {
-
-  }
-
-  
+  constructor(private service:SharedService, private activeRoute: ActivatedRoute, private changedetectect: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(async params =>{
@@ -24,12 +22,9 @@ export class DetailComponent implements OnInit {
       await this.refreshProdList();
       this.changedetectect.detectChanges();
     });
-    
-
   }
 
   async refreshProdList(){
    this.Product =  await this.service.getProductById(this.id);
   }
-
 }

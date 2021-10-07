@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { SharedService } from 'src/app/shared.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params =>{
-      if(this.router.url.startsWith("/product/category")){
+      if(this.router.url.startsWith("/category")){
         this.id = params.id;
         this.refreshProdListByCategory();
       }
@@ -24,7 +25,6 @@ export class ProductComponent implements OnInit {
         this.refreshProdList();
       }
     });
-
   }
 
   refreshProdList(){
