@@ -287,7 +287,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Microsoft.IdentityModel.Tokens >= 6.12.2",
       "System.IdentityModel.Tokens.Jwt >= 6.12.2"
     ]
   },
@@ -335,10 +334,6 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
-          "Microsoft.IdentityModel.Tokens": {
-            "target": "Package",
-            "version": "[6.12.2, )"
-          },
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",
             "version": "[6.12.2, )"

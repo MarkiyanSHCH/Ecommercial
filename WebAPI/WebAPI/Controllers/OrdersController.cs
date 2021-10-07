@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+
+using WebAPI.Models;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers
@@ -12,21 +14,21 @@ namespace WebAPI.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private string UserId => User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        private string _userId => User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
         private readonly IConfiguration _configuration;
-        private readonly OrderServices _services;
+        private readonly OrderServices _orderServices;
 
         public OrdersController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _services = new OrderServices();
+            _orderServices = new OrderServices();
         }
 
         [HttpGet]
         [Route("")]
         public IActionResult GetOrders()
         {
-            var orders = _services.GetOrders(_configuration, UserId);
+            IEnumerable<Product> orders = _orderServices.GetOrders(_configuration, _userId);
 
             if (orders != null)
             {

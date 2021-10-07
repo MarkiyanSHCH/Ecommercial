@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+
+using Microsoft.Extensions.Configuration;
 
 using WebAPI.Models;
 using WebAPI.Repository;

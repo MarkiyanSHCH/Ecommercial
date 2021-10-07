@@ -10,33 +10,32 @@ namespace WebAPI.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly ProductServices _services;
+        private readonly ProductServices _productServices;
 
         public ProductController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _services = new ProductServices();
+            _productServices = new ProductServices();
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_services.Get(_configuration));
+            return Ok(_productServices.Get(_configuration));
         }
-
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
 
-            return Ok(_services.GetById(_configuration, id));
+            return Ok(_productServices.GetById(_configuration, id));
         }
 
         [HttpGet("category/{id}")]
         public IActionResult GetByCategory(int id)
         {
 
-            return Ok(_services.GetByCategory(_configuration, id));
+            return Ok(_productServices.GetByCategory(_configuration, id));
         }
     }
 }

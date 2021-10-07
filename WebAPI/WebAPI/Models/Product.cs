@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAPI.Models
 {
@@ -13,6 +14,9 @@ namespace WebAPI.Models
 
         public IEnumerable<Characteristics> characteristics { get; set; }
 
-
+        public Product()
+        {
+            characteristics = Enumerable.Empty<Characteristics>();
+        }
     }
 }

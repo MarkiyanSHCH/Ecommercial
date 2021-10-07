@@ -1,47 +1,35 @@
-﻿using AuthApi.Models;
-using AuthApi.Repository;
-
-using AuthCommon;
+﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
+using AuthApi.Models;
+using AuthApi.Repository;
+
+using AuthCommon;
 
 namespace AuthApi.Services
 {
     public class AuthServices
     {
-        public readonly DataBase _database;
-        public AuthServices()
+        private readonly IOptions<AuthOptions> _authOptions;
+        private readonly AuthRepository _authRepository;
+        public AuthServices(IOptions<AuthOptions> authOptions)
         {
-            _database = new DataBase();
+            _authRepository = new AuthRepository();
+            _authOptions = authOptions;
         }
 
         public Account GetUser(IConfiguration _configuration, Login request)
+            => _authRepository.GetAccount(_configuration,request);
+
+        public string GenerateJWT(Account user)
         {
-            string query = @"Exec spUsers_GetUser @pEmail = '" + request.Email + "', @pPassword = '" + request.Password + "'";
-
-
-            return _database.ReadDatabase(_configuration, query).AsEnumerable().Select(row => new Account
-            {
-                Id = Convert.ToInt32(row["Id"]),
-                Name = Convert.ToString(row["Name"]),
-                Email = Convert.ToString(row["Email"]),
-                Password = Convert.ToString(row["Password"]),
-            }).First();
-
-        }
-
-        public string GenerateJWT(Account user, IOptions<AuthOptions> _options)
-        {
-            var authParams = _options.Value;
+            var authParams = _authOptions.Value;
             var securityKey = authParams.GetSymmetricSecurityKey();
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
