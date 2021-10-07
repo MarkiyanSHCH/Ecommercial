@@ -12,7 +12,8 @@ namespace WebAPI.Services
 {
     public class CategoryServices
     {
-        public readonly DataBase _database;
+        private readonly DataBase _database;
+
         public CategoryServices()
         {
             _database = new DataBase();
@@ -27,6 +28,5 @@ namespace WebAPI.Services
                 Name = Convert.ToString(row["Name"]),
             });
         }
-
     }
 }

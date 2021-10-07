@@ -12,7 +12,8 @@ namespace WebAPI.Services
 {
     public class OrderServices
     {
-        public readonly DataBase _database;
+        private readonly DataBase _database;
+
         public OrderServices()
         {
             _database = new DataBase();
@@ -31,6 +32,5 @@ namespace WebAPI.Services
                 PhotoFileName = Convert.ToString(row["photoFileName"])
             });
         }
-
     }
 }

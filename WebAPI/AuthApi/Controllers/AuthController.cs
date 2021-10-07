@@ -19,23 +19,17 @@ namespace AuthApi.Controllers
         public AuthController(IConfiguration configuration, IOptions<AuthOptions> authOptions)
         {
             _configuration = configuration;
-            _authServices = new AuthServices(authOptions);
+            _authServices = new AuthServices(configuration, authOptions);
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] Login request)
         {
-            var user = _authServices.GetUser(_configuration, request);
+            Account user = _authServices.GetAccount(request);
 
             if (user != null)
-            {
-                var token = _authServices.GenerateJWT(user);
+                return Ok(new { access_token = _authServices.GenerateJWT(user) });
 
-                return Ok(new
-                {
-                    access_token = token
-                });
-            }
             return Unauthorized();
         }
     }

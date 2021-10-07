@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { Product } from './models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,19 @@ export class SharedService {
   constructor(private http: HttpClient) {
     }
 
-  getProducts():Observable<any[]> {
-      return this.http.get<any>(this.APIUrl + '/product');
+  getProducts():Observable<Product[]> {
+      return this.http.get<Product[]>(this.APIUrl + '/product');
   }
    
-  getProductById(id: number): Promise<any> {
-      return this.http.get(this.APIUrl + '/product/' + id).toPromise();
+  getProductById(id: number):Observable<Product> {
+      return this.http.get<Product>(this.APIUrl + '/product/' + id);
   }
 
-  getProductByCategory(id: number):Observable<any[]> {
-    return this.http.get<any>(this.APIUrl + '/product/category/' + id);
+  getProductByCategory(id: number):Observable<Product[]> {
+    return this.http.get<Product[]>(this.APIUrl + '/product/category/' + id);
   }
 
   getCategory():Observable<any[]>{
-    return this.http.get<any>(this.APIUrl + '/category/');
+    return this.http.get<any[]>(this.APIUrl + '/category/');
   }
 }

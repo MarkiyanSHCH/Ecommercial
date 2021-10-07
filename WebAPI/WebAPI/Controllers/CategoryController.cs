@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
+using WebAPI.Models;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers
@@ -21,8 +24,12 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_categoryServices.Get(_configuration));
-        }
+            IEnumerable<Category> products = _categoryServices.Get(_configuration);
 
+            if (products != null)
+                return Ok(products);
+
+            return NotFound();
+        }
     }
 }

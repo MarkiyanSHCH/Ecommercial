@@ -10,8 +10,8 @@ import { AUTH_API_URL, STORE_API_URL } from './app-injection-tokens';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OrdersComponent } from './components/orders/orders.component';
-import { DetailComponent } from './product/detail/detail.component';
-import { ProductComponent } from './product/product.component';
+import { DetailComponent } from './components//products/detail/detail.component';
+import { ProductsComponent } from './components/products/products.component';
 import { ACCESS_TOKEN_KEY } from './services/auth.service';
 
 export function tokenGetter(){
@@ -21,7 +21,7 @@ export function tokenGetter(){
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
+    ProductsComponent,
     DetailComponent,
     OrdersComponent,
   ],

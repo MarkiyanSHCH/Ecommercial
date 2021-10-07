@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
+using WebAPI.Models;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers
@@ -21,21 +24,34 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_productServices.Get(_configuration));
+            IEnumerable<Product> products = _productServices.Get(_configuration);
+
+            if (products != null)
+                return Ok(products);
+
+            return NotFound();
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
+            Product product = _productServices.GetById(_configuration, id);
 
-            return Ok(_productServices.GetById(_configuration, id));
+            if (product != null)
+                return Ok(product);
+
+            return NotFound();
         }
 
         [HttpGet("category/{id}")]
         public IActionResult GetByCategory(int id)
         {
+            IEnumerable<Product> products = _productServices.GetByCategory(_configuration, id);
 
-            return Ok(_productServices.GetByCategory(_configuration, id));
+            if (products != null)
+                return Ok(products);
+
+            return NotFound();
         }
     }
 }

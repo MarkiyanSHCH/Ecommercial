@@ -12,7 +12,8 @@ namespace WebAPI.Services
 {
     public class ProductServices
     {
-        public readonly DataBase _database;
+        private readonly DataBase _database;
+
         public ProductServices()
         {
             _database = new DataBase();
@@ -39,7 +40,6 @@ namespace WebAPI.Services
 
             string queryChar = @"Exec ReadCharacteristicForProduct @idProduct = " + id;
 
-
             IEnumerable<Characteristics> characteristics = _database.ReadDatabase(_configuration, queryChar).AsEnumerable().Select(row => new Characteristics
             {
                 Name = Convert.ToString(row["Name"]),
@@ -57,7 +57,6 @@ namespace WebAPI.Services
                 PhotoFileName = Convert.ToString(row["PhotoFileName"]),
                 characteristics = characteristics
             }).First();
-
         }
 
         public IEnumerable<Product> GetByCategory(IConfiguration _configuration, int id)

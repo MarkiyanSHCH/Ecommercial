@@ -5,18 +5,21 @@ using Microsoft.Extensions.Configuration;
 
 using AuthApi.Models;
 
-
-
 namespace AuthApi.Repository
 {
     public class AuthRepository
     {
-        public Account GetAccount(IConfiguration _configuration, Login request)
+        private readonly string _sqlDataSource;
+        public AuthRepository(IConfiguration configuration)
         {
-            string sqlDataSource = _configuration.GetConnectionString("ProductAppCon");
+            _sqlDataSource = configuration.GetConnectionString("ProductAppCon");
+        }
+
+        public Account GetAccount(Login request)
+        {
             var account = new Account();
 
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            using (SqlConnection myCon = new SqlConnection(_sqlDataSource))
             using (SqlCommand command = new SqlCommand("spUsers_GetUser", myCon))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -27,9 +30,6 @@ namespace AuthApi.Repository
                 using SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                     account = Account.MapFrom(reader);
-
-                myCon.Close();
-
             }
             return account.ToDomainModel();
         }

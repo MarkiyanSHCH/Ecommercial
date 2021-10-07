@@ -25,15 +25,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("")]
         public IActionResult GetOrders()
         {
             IEnumerable<Product> orders = _orderServices.GetOrders(_configuration, _userId);
 
             if (orders != null)
-            {
                 return Ok(orders);
-            }
 
             return NotFound();
         }

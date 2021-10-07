@@ -18,14 +18,15 @@ namespace AuthApi.Services
     {
         private readonly IOptions<AuthOptions> _authOptions;
         private readonly AuthRepository _authRepository;
-        public AuthServices(IOptions<AuthOptions> authOptions)
+
+        public AuthServices(IConfiguration configuration, IOptions<AuthOptions> authOptions)
         {
-            _authRepository = new AuthRepository();
+            _authRepository = new AuthRepository(configuration);
             _authOptions = authOptions;
         }
 
-        public Account GetUser(IConfiguration _configuration, Login request)
-            => _authRepository.GetAccount(_configuration,request);
+        public Account GetAccount( Login request)
+            => _authRepository.GetAccount(request);
 
         public string GenerateJWT(Account user)
         {
@@ -45,8 +46,8 @@ namespace AuthApi.Services
                 expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
                 signingCredentials: credentials
                 );
-            return new JwtSecurityTokenHandler().WriteToken(token);
 
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

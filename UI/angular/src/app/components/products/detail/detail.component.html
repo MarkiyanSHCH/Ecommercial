@@ -1,0 +1,12 @@
+<div *ngIf="Product">
+  <div>
+      <h2><p>Product Name: {{Product.name}}</p></h2>
+      <img src="/assets/images/{{Product.photoFileName}}" class="img-responsive" ><br>
+      <p>Description: {{Product.description}}</p>
+      <p>Price: {{Product.price}}</p>
+      <h2>Characteristics</h2>
+      <div *ngFor="let char of Product.characteristics"> 
+          <span> {{char.name}}: {{char.value}}</span>
+      </div>
+  </div>
+</div>
