@@ -328,3 +328,12 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+*.dll
+*.v2
+*.v1
+WebAPI/.vs/WebAPI/v17/.suo
+*.pdb
+*.cache
+WebAPI/AuthApi/obj/Debug/netcoreapp3.1/AuthApi.csproj.FileListAbsolute.txt
+*.dll
+*.pdb

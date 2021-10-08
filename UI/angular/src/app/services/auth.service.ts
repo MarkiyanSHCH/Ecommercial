@@ -15,7 +15,9 @@ export const ACCESS_TOKEN_KEY = 'store_access_token'
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService{
+
   constructor(
     private http: HttpClient,
     @Inject(AUTH_API_URL) private apiUrl:string,
@@ -37,9 +39,11 @@ export class AuthService{
     var token = localStorage.getItem(ACCESS_TOKEN_KEY);
     return !!(token && !this.jwtHelper.isTokenExpired(token))
   }
+
   
   logout():void{
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     this.router.navigate(['']);
   }
+  
 }

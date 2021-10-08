@@ -17,21 +17,20 @@ namespace AuthApi.Repository
 
         public Account GetAccount(Login request)
         {
-            var account = new Account();
 
-            using (SqlConnection myCon = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = new SqlCommand("spUsers_GetUser", myCon))
+            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+            using (SqlCommand command = new SqlCommand("spUsers_GetUser", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@pEmail", SqlDbType.NVarChar, 100).Value = request.Email;
                 command.Parameters.Add("@pPassword", SqlDbType.NVarChar, 100).Value = request.Password;
 
-                myCon.Open();
+                connection.Open();
                 using SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
-                    account = Account.MapFrom(reader);
+                    return Account.MapFrom(reader);
             }
-            return account.ToDomainModel();
+            return null;
         }
     }
 }

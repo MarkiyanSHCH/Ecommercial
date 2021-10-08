@@ -30,4 +30,3 @@ C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthApi\obj\Debug\netcoreapp3.1\AuthA
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthApi\obj\Debug\netcoreapp3.1\AuthApi.dll
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthApi\obj\Debug\netcoreapp3.1\AuthApi.pdb
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthApi\obj\Debug\netcoreapp3.1\AuthApi.genruntimeconfig.cache
-C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthApi\obj\Debug\netcoreapp3.1\AuthApi.csproj.CopyComplete

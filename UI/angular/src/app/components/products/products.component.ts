@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Product } from 'src/app/models/Product';
-import { SharedService } from 'src/app/shared.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -11,13 +11,13 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private service:SharedService,
+  constructor(private service:ProductService,
     private activeRoute: ActivatedRoute, 
     private router:Router
     ) { }
 
   id: number = <number>{};
-  ProductList:Product[]=<Product[]>[];
+  productList: Product[] = <Product[]>{};
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params =>{
@@ -33,18 +33,17 @@ export class ProductsComponent implements OnInit {
 
   refreshProdList(){
     this.service.getProducts().subscribe(data=>{
-      this.ProductList=data;
+      this.productList=data.productList;
     });
   }
 
   refreshProdListByCategory(){
     this.service.getProductByCategory(this.id).subscribe(data=>{
-      this.ProductList=data;
+      this.productList=data.productList;
     });
   }
   
   routingTo(productId: Product){
     this.router.navigate([`product/${productId}`])
   }
-
 }

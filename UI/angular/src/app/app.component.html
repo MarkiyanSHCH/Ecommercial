@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-xl">
     <a class="navbar-brand" 
-        routerLink="">All</a>
+        routerLink="">
+        All
+    </a>
     <button class="navbar-toggler" 
             type="button" 
             data-bs-toggle="collapse" 
-            data-bs-target="#collapseTarget" 
-            aria-expanded="false" 
-            aria-label="Toggle navigation">
+            data-bs-target="#collapseTarget">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" 
@@ -27,13 +27,12 @@
           *ngIf='!isLoggedIn'>
         <li class="nav-item dropdown">
             <a  class="nav-link dropdown-toggle" 
-                data-bs-toggle="dropdown">Login
+                data-bs-toggle="dropdown">
+                Login
             </a>
-            <div class="dropdown-menu dropdown-menu-end"
-                  id="dropdown-login" 
-                  style="padding: 10px; padding-bottom: 10px;">
-                <form class="form-horizontal" 
-                      method="post">
+            <div class="dropdown-menu dropdown-menu-end p-3"
+                  id="dropdown-login">
+                <form class="form-horizontal">
                     <input class="form-control login" 
                             type="text" 
                             name="Email" 
@@ -44,17 +43,20 @@
                             name="password"
                             placeholder="Password" 
                             matInput #password/><br>
-                    <input class="btn btn-primary" 
+                    <button class="auth-button d-flex justify-content-center pb-2" 
                             type="submit" 
                             name="submit" 
-                            value="Login"  
-                            (click)='login(email.value, password.value)'/>
+                            (click)='login(email.value, password.value)'>
+                            Login
+                    </button>
                 </form>
             </div>
         </li>
         <li class="nav-item">
           <a  class="nav-link dropdown-toggle" 
-              data-bs-toggle="dropdown">Register</a>
+              data-bs-toggle="dropdown">
+              Register
+          </a>
         </li>
       </ul>
       <ul class="navbar-nav mr-right" 
@@ -64,24 +66,26 @@
               data-bs-toggle="dropdown">
               <i class="bi bi-person"></i>
           </a>
-          <div class="dropdown-menu dropdown-menu-end" 
-                id="dropdown-account" 
-                style="padding: 15px; padding-bottom: 10px;">
+          <div class="dropdown-menu dropdown-menu-end p-3" 
+                id="dropdown-account">
             <form class="form-horizontal" 
                   method="post">
               <a class="dropdown-item" 
                   routerLink="/orders">
-                  <i class="bi bi-card-list"></i> Orders
+                  <i class="bi bi-card-list"></i> 
+                  Orders
               </a>
               <a class="dropdown-item" 
                   routerLink="/orders">
-                  <i class="bi bi-cart4"></i> Cart
+                  <i class="bi bi-cart4"></i> 
+                  Cart
               </a><br>
-              <input class="btn btn-primary" 
+              <button class="btn btn-primary" 
                       type="submit" 
-                      name="submit" 
-                      value="Logout"  
-                      (click)='logout()'/>
+                      name="submit"  
+                      (click)='logout()'>
+                      Logout
+              </button>
             </form>
           </div>
         </li>

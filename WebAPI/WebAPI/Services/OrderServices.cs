@@ -23,13 +23,23 @@ namespace WebAPI.Services
         {
             string query = "Exec spProduct_GetOrdersProduct @UserId = " + UserId;
 
+            string queryChar = @"Exec ReadCharacteristicForProduct @idProduct = " + UserId;
+
+            IEnumerable<Characteristics> characteristics = _database.ReadDatabase(_configuration, queryChar).AsEnumerable().Select(row => new Characteristics
+            {
+                Name = Convert.ToString(row["Name"]),
+                Value = Convert.ToString(row["Value"])
+            });
+
             return _database.ReadDatabase(_configuration, query).AsEnumerable().Select(row => new Product
             {
                 Id = Convert.ToInt32(row["Id"]),
                 Name = Convert.ToString(row["Name"]),
                 Price = Convert.ToInt32(row["Price"]),
                 CategoryId = Convert.ToInt32(row["CategoryId"]),
-                PhotoFileName = Convert.ToString(row["photoFileName"])
+                Description = Convert.ToString(row["Description"]),
+                PhotoFileName = Convert.ToString(row["photoFileName"]),
+                characteristics = characteristics
             });
         }
     }

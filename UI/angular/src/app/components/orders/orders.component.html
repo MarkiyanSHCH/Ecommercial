@@ -1,11 +1,26 @@
-<div class="container">
-    <div class="row">
-      <div class="m-4 col-md-3 shadow-none bg-light rounded" *ngFor="let dataItem of orders">
-        <a style="text-decoration:none;" [routerLink]="['/product/',dataItem.id]">
-        <h2>{{dataItem.name}}</h2>
-         <img src="/assets/images/{{dataItem.photoFileName}}" class="img-responsive" ><br>
-         <p>Price : {{dataItem.price}}</p>
-        </a>
-      </div>
-    </div>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Characteristic</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataItem of orders">
+      <th scope="row">{{dataItem.id}}</th>
+      <td>{{dataItem.name}}</td>
+      <td>{{dataItem.description}}</td>
+      <td>
+        <table>
+          <tr *ngFor="let characteristic of dataItem.characteristics">
+            <td>{{characteristic.name}}: {{characteristic.value}}</td>
+          </tr>
+        </table>
+      </td>
+      <td>${{dataItem.price}}</td>
+    </tr>
+  </tbody>
+</table>

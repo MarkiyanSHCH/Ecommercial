@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from 'src/app/models/Product';
 
-import { SharedService } from 'src/app/shared.service';
+import { Product } from 'src/app/models/Product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-detail',
@@ -14,7 +14,7 @@ export class DetailComponent implements OnInit {
   id: number = <number>{};
   Product: Product = <Product>{};
 
-  constructor(private service:SharedService, 
+  constructor(private service:ProductService, 
     private activeRoute: ActivatedRoute, 
     private changedetectect: ChangeDetectorRef
     ) {}

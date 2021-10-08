@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SharedService } from 'src/app/shared.service';
-import { ACCESS_TOKEN_KEY, AuthService } from './services/auth.service';
+import { CategoryService } from './services/category.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,11 @@ import { ACCESS_TOKEN_KEY, AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Task';
 
-  constructor(private service:SharedService, private _authService: AuthService) { }
+  CategoriesList:any=[];
+  
+  constructor(private service:CategoryService, 
+    private _authService: AuthService) { }
 
   ngOnInit(): void {
     this.refreshProdList();
@@ -34,7 +36,6 @@ export class AppComponent implements OnInit {
   logout(){
     this._authService.logout()
   }
-  CategoriesList:any=[];
 
   refreshProdList(){
     this.service.getCategory().subscribe(data=>{
