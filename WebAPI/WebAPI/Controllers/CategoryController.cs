@@ -15,11 +15,8 @@ namespace WebAPI.Controllers
         public readonly IConfiguration _configuration;
         public readonly CategoryServices _categoryServices;
 
-        public CategoryController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _categoryServices = new CategoryServices();
-        }
+        public CategoryController(IConfiguration configuration, CategoryServices categoryServices)
+            =>(this._configuration, this._categoryServices) = (configuration, categoryServices);
 
         [HttpGet]
         public IActionResult Get()

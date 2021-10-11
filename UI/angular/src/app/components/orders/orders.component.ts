@@ -10,14 +10,14 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class OrdersComponent implements OnInit {
 
-  orders: Product[] = <Product[]>{};
+  orders: Product[] = <Product[]>[];
 
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.orderService.getOrders()
       .subscribe(res =>{
-        this.orders = res.productList
+        this.orders = res.products
       })
   }
 }

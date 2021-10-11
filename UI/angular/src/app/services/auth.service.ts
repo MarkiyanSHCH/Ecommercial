@@ -40,7 +40,6 @@ export class AuthService{
     return !!(token && !this.jwtHelper.isTokenExpired(token))
   }
 
-  
   logout():void{
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     this.router.navigate(['']);

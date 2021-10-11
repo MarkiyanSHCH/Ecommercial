@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 
 using Microsoft.AspNetCore.Authorization;
@@ -20,16 +19,16 @@ namespace WebAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly OrderServices _orderServices;
 
-        public OrdersController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _orderServices = new OrderServices();
-        }
+        public OrdersController(IConfiguration configuration, OrderServices orderServices)
+            => (this._configuration, this._orderServices) = (configuration, orderServices);
 
         [HttpGet]
         public IActionResult GetOrders()
         {
-            IEnumerable<Product> orders = _orderServices.GetOrders(_configuration, _userId);
+            ProductList orders = new ProductList
+            {
+                Products = _orderServices.GetOrders(_configuration, _userId).ToList()
+            };
 
             if (orders != null)
                 return Ok(orders);

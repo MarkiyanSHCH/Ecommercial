@@ -1,7 +1,6 @@
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthCommon\bin\Debug\netcoreapp3.1\AuthCommon.deps.json
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthCommon\bin\Debug\netcoreapp3.1\AuthCommon.dll
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthCommon\bin\Debug\netcoreapp3.1\AuthCommon.pdb
-C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthCommon\obj\Debug\netcoreapp3.1\AuthCommon.csproj.AssemblyReference.cache
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthCommon\obj\Debug\netcoreapp3.1\AuthCommon.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthCommon\obj\Debug\netcoreapp3.1\AuthCommon.AssemblyInfoInputs.cache
 C:\Users\Macbook\Desktop\ApiProject\WebAPI\AuthCommon\obj\Debug\netcoreapp3.1\AuthCommon.AssemblyInfo.cs

@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
     ) { }
 
   id: number = <number>{};
-  productList: Product[] = <Product[]>{};
+  productList: Product[] = <Product[]>[];
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params =>{
@@ -33,13 +33,13 @@ export class ProductsComponent implements OnInit {
 
   refreshProdList(){
     this.service.getProducts().subscribe(data=>{
-      this.productList=data.productList;
+      this.productList=data.products;
     });
   }
 
   refreshProdListByCategory(){
     this.service.getProductByCategory(this.id).subscribe(data=>{
-      this.productList=data.productList;
+      this.productList=data.products;
     });
   }
   

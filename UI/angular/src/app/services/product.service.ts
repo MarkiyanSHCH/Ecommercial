@@ -16,17 +16,16 @@ export class ProductService {
   private baseApiUrl = `${this.apiUrl}api/`
 
   constructor(private http: HttpClient, @Inject(STORE_API_URL) private apiUrl: string) { }
-  
-  getProducts():Observable<ProductsList> {
+
+  getProducts(): Observable<ProductsList> {
     return this.http.get<ProductsList>(`${this.baseApiUrl}product`);
   }
-  
-  getProductById(id: number):Observable<Product> {
+
+  getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.baseApiUrl}product/` + id);
   }
-  
-  getProductByCategory(id: number):Observable<ProductsList> {
-  return this.http.get<ProductsList>(`${this.baseApiUrl}product/category/` + id);
+
+  getProductByCategory(id: number): Observable<ProductsList> {
+    return this.http.get<ProductsList>(`${this.baseApiUrl}product/category/` + id);
   }
-  
 }

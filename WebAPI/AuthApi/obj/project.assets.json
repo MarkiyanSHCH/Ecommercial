@@ -202,19 +202,6 @@
             "rid": "win"
           }
         }
-      },
-      "AuthCommon/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "dependencies": {
-          "System.IdentityModel.Tokens.Jwt": "6.12.2"
-        },
-        "compile": {
-          "bin/placeholder/AuthCommon.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AuthCommon.dll": {}
-        }
       }
     }
   },
@@ -738,16 +725,10 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "AuthCommon/1.0.0": {
-      "type": "project",
-      "path": "../AuthCommon/AuthCommon.csproj",
-      "msbuildProject": "../AuthCommon/AuthCommon.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "AuthCommon >= 1.0.0",
       "System.Data.SqlClient >= 4.8.2",
       "System.IdentityModel.Tokens.Jwt >= 6.12.2"
     ]
@@ -783,11 +764,7 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {
-            "C:\\Users\\Macbook\\Desktop\\ApiProject\\WebAPI\\AuthCommon\\AuthCommon.csproj": {
-              "projectPath": "C:\\Users\\Macbook\\Desktop\\ApiProject\\WebAPI\\AuthCommon\\AuthCommon.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

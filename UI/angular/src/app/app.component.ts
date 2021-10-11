@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
 
+  title=""
   CategoriesList:any=[];
   
   constructor(private service:CategoryService, 
@@ -24,7 +25,6 @@ export class AppComponent implements OnInit {
   }
 
   login(email:string,password:string){
-    console.log(localStorage.key(0))
     this._authService.login(email,password)
       .subscribe(res => {
 

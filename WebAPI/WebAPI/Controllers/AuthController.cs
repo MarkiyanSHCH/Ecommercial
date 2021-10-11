@@ -2,10 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-using AuthApi.Models;
-using AuthApi.Services;
-
 using AuthCommon;
+using AuthApi.Services;
+using AuthApi.Models;
 
 namespace AuthApi.Controllers
 {
@@ -16,11 +15,8 @@ namespace AuthApi.Controllers
         private readonly IConfiguration _configuration;
         private readonly AuthServices _authServices;
 
-        public AuthController(IConfiguration configuration, IOptions<AuthOptions> authOptions)
-        {
-            _configuration = configuration;
-            _authServices = new AuthServices(configuration, authOptions);
-        }
+        public AuthController(IConfiguration configuration, AuthServices authServices)
+            => (this._configuration, this._authServices) = (configuration, authServices);
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] Login request)

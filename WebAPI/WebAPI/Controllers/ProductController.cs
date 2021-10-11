@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -15,16 +15,17 @@ namespace WebAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly ProductServices _productServices;
 
-        public ProductController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _productServices = new ProductServices();
-        }
+        public ProductController(IConfiguration configuration, ProductServices productServices)
+            => (this._configuration, this._productServices) = (configuration, productServices);
 
         [HttpGet]
         public IActionResult Get()
         {
-            IEnumerable<Product> products = _productServices.Get(_configuration);
+            ProductList products = new ProductList 
+            { 
+                Products = _productServices.Get(_configuration).ToList()
+            };
+                
 
             if (products != null)
                 return Ok(products);
@@ -37,8 +38,7 @@ namespace WebAPI.Controllers
         {
             Product product = _productServices.GetById(_configuration, id);
 
-            if (product != null)
-                return Ok(product);
+            if (product != null) return Ok(product);
 
             return NotFound();
         }
@@ -46,10 +46,12 @@ namespace WebAPI.Controllers
         [HttpGet("category/{id}")]
         public IActionResult GetByCategory(int id)
         {
-            IEnumerable<Product> products = _productServices.GetByCategory(_configuration, id);
+            ProductList products = new ProductList
+            {
+                Products = _productServices.GetByCategory(_configuration, id).ToList()
+            };
 
-            if (products != null)
-                return Ok(products);
+            if (products != null) return Ok(products);
 
             return NotFound();
         }

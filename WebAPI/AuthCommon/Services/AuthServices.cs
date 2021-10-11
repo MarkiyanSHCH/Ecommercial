@@ -19,11 +19,8 @@ namespace AuthApi.Services
         private readonly IOptions<AuthOptions> _authOptions;
         private readonly AuthRepository _authRepository;
 
-        public AuthServices(IConfiguration configuration, IOptions<AuthOptions> authOptions)
-        {
-            _authRepository = new AuthRepository(configuration);
-            _authOptions = authOptions;
-        }
+        public AuthServices(IOptions<AuthOptions> authOptions, AuthRepository authRepository)
+            => (this._authOptions, this._authRepository) = (authOptions, authRepository);
 
         public Account GetAccount( Login request)
             => _authRepository.GetAccount(request);
