@@ -4,14 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
-using AuthCommon;
-
-using WebAPI.Services;
-
-using AuthApi.Services;
-using AuthApi.Repository;
+using Core;
+using Core.Services;
+using Data.Repository;
+using Core.Repository;
 
 namespace WebAPI
 {
@@ -23,16 +20,6 @@ namespace WebAPI
         }
 
         public IConfiguration Configuration { get; }
-
-        private IServiceCollection Services(IServiceCollection services)
-                   => services
-                        .AddScoped<IConfiguration, IConfiguration>()
-                        .AddScoped<ProductServices, ProductServices>()
-                        .AddScoped<OrderServices, OrderServices>()
-                        .AddScoped<CategoryServices, CategoryServices>()
-                        .AddScoped<AuthServices, AuthServices>()
-                        .AddScoped<AuthRepository, AuthRepository>()    
-                        .AddScoped<IOptions<AuthOptions>, IOptions<AuthOptions>>();
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -68,18 +55,21 @@ namespace WebAPI
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
-
             services.AddControllers();
 
-
+            services.AddScoped<IAuthRepository, AuthRepository>()
+                    .AddScoped<IProductRepository, ProductRepository>()
+                    .AddScoped<ICategoryRepository, CategoryRepository>()
+                    .AddScoped<IOrderRepository, OrderRepository>()
+                    .AddScoped<ProductServices, ProductServices>()
+                    .AddScoped<OrderServices, OrderServices>()
+                    .AddScoped<CategoryServices, CategoryServices>()
+                    .AddScoped<AuthServices, AuthServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

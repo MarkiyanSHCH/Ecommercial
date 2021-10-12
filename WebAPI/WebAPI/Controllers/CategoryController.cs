@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
-using WebAPI.Models;
-using WebAPI.Services;
+using Domain.Models;
+using Core.Services;
 
 namespace WebAPI.Controllers
 {
@@ -12,16 +11,15 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        public readonly IConfiguration _configuration;
         public readonly CategoryServices _categoryServices;
 
-        public CategoryController(IConfiguration configuration, CategoryServices categoryServices)
-            =>(this._configuration, this._categoryServices) = (configuration, categoryServices);
+        public CategoryController(CategoryServices categoryServices)
+            => (this._categoryServices) = (categoryServices);
 
         [HttpGet]
         public IActionResult Get()
         {
-            IEnumerable<Category> products = _categoryServices.Get(_configuration);
+            IEnumerable<Category> products = _categoryServices.Get();
 
             if (products != null)
                 return Ok(products);

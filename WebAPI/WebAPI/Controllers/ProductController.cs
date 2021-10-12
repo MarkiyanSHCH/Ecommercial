@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
+using Core.Services;
 using WebAPI.Models;
-using WebAPI.Services;
+using Domain.Models;
 
 namespace WebAPI.Controllers
 {
@@ -12,23 +12,20 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly ProductServices _productServices;
 
-        public ProductController(IConfiguration configuration, ProductServices productServices)
-            => (this._configuration, this._productServices) = (configuration, productServices);
+        public ProductController(ProductServices productServices)
+            => (this._productServices) = (productServices);
 
         [HttpGet]
         public IActionResult Get()
         {
-            ProductList products = new ProductList 
-            { 
-                Products = _productServices.Get(_configuration).ToList()
+            ProductList products = new ProductList
+            {
+                Products = _productServices.Get().ToList()
             };
-                
 
-            if (products != null)
-                return Ok(products);
+            if (products != null) return Ok(products);
 
             return NotFound();
         }
@@ -36,7 +33,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            Product product = _productServices.GetById(_configuration, id);
+            Product product = _productServices.GetById(id);
 
             if (product != null) return Ok(product);
 
@@ -48,7 +45,7 @@ namespace WebAPI.Controllers
         {
             ProductList products = new ProductList
             {
-                Products = _productServices.GetByCategory(_configuration, id).ToList()
+                Products = _productServices.GetByCategory(id).ToList()
             };
 
             if (products != null) return Ok(products);
