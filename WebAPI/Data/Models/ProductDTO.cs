@@ -21,8 +21,7 @@ namespace Data.Models
         public static ProductDTO MapFrom(SqlDataReader reader)
              => new ProductDTO
              {
-                 Id = !reader.IsDBNull(reader.GetOrdinal("Id")) 
-                        ? reader.GetInt32(nameof(Id)) : 0,
+                 Id = reader.GetInt32(nameof(Id)),
                  Name = !reader.IsDBNull(reader.GetOrdinal("Name")) 
                         ? reader.GetString(nameof(Name)) : null,
                  Description = !reader.IsDBNull(reader.GetOrdinal("Description")) 

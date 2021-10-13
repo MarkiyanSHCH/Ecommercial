@@ -20,7 +20,12 @@ namespace Core.Services
             => (this._authOptions, this._authRepository) = (authOptions, authRepository);
 
         public Account GetAccount(string Email, string Password)
-            => this._authRepository.GetAccount(Email, Password);
+        {
+            Account user = this._authRepository.GetAccount(Email);
+            if (user.Password == Password) return user;
+
+            return null;
+        }
 
         public string GenerateJWT(Account user)
         {

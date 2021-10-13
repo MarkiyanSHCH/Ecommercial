@@ -25,5 +25,19 @@ GO
 CREATE PROCEDURE [dbo].[spProduct_GetOrdersProduct] 
     @UserId INT
 AS
-SELECT p.* FROM Products p, Orders o,Users u
-WHERE o.ProductId = p.Id AND o.UserId = u.Id
+BEGIN
+	SET NOCOUNT OFF;
+    SELECT 
+        Products.[Id],
+        Products.[Name], 
+        Products.[Description], 
+        Products.[Price], 
+        Products.[CategoryId], 
+        Products.[PhotoFileName]
+    FROM Products
+	INNER JOIN Orders
+		ON Products.Id = Orders.ProductId
+	INNER JOIN Users
+		ON Orders.UserId = Users.Id
+END
+GO

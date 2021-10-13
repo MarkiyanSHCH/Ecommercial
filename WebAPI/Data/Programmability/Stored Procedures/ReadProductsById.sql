@@ -22,7 +22,19 @@ GO
 
 --============================================================================
 
-CREATE PROCEDURE [dbo].[ReadProductsById] @id INT
-AS 
-SELECT * FROM Products
-WHERE Id = @id
+CREATE PROCEDURE [dbo].[ReadProductsById] 
+    @id INT
+AS
+BEGIN
+	SET NOCOUNT OFF;
+    SELECT 
+        Products.[Id],
+    	Products.[Name], 
+    	Products.[Description], 
+    	Products.[Price], 
+    	Products.[CategoryId], 
+    	Products.[PhotoFileName]
+    FROM Products
+    WHERE Id = @id
+END
+GO

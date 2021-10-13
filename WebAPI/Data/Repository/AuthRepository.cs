@@ -16,7 +16,7 @@ namespace Data.Repository
         public AuthRepository(IConfiguration configuration)
             => this._sqlDataSource = configuration.GetConnectionString("ProductAppCon");
 
-        public Account GetAccount(string Email, string Password)
+        public Account GetAccount(string Email)
         {
             using (SqlConnection connection = new SqlConnection(_sqlDataSource))
             using (SqlCommand command = new SqlCommand("spUsers_GetUser", connection))
@@ -25,9 +25,6 @@ namespace Data.Repository
                 command.Parameters
                     .Add("@pEmail", SqlDbType.NVarChar, 100)
                     .Value = Email;
-                command.Parameters
-                    .Add("@pPassword", SqlDbType.NVarChar, 100)
-                    .Value = Password;
 
                 connection.Open();
 

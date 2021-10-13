@@ -24,13 +24,17 @@ GO
 
 CREATE PROCEDURE [dbo].[ReadProductsByCategory] 
     @id INT
-AS 
-SELECT 
-    Products.[Id],
-	Products.[Name], 
-	Products.[Description], 
-	Products.[Price], 
-	Products.[CategoryId], 
-	Products.[PhotoFileName]
-FROM Products
-WHERE CategoryId = @id
+AS
+BEGIN
+	SET NOCOUNT OFF;
+    SELECT 
+        Products.[Id],
+    	Products.[Name], 
+    	Products.[Description], 
+    	Products.[Price], 
+    	Products.[CategoryId], 
+    	Products.[PhotoFileName]
+    FROM Products
+    WHERE CategoryId = @id
+END
+GO

@@ -22,20 +22,25 @@ GO
 
 --============================================================================
 
-CREATE PROCEDURE spProduct_GetProductByIdWithCharacteristic @id INT
-as
-SELECT 
-	p.[Id],
-	p.[Name], 
-	p.[Description], 
-	p.[Price], 
-	p.[CategoryId], 
-	p.[PhotoFileName], 
-	cc.[Name] AS CharName, 
-	pc.[Value] AS CharValue 
-From Products AS p
-INNER JOIN ProductCharacteristics AS pc
-	ON p.Id = pc.ProductId
-INNER JOIN CategoryCharacterictic AS cc
-	ON pc.CharacteristicId = cc.Id
-WHERE p.Id = @id
+CREATE PROCEDURE spProduct_GetProductByIdWithCharacteristic 
+	@id INT
+AS
+BEGIN
+	SET NOCOUNT OFF;
+	SELECT 
+		Products.[Id],
+		Products.[Name], 
+		Products.[Description], 
+		Products.[Price], 
+		Products.[CategoryId], 
+		Products.[PhotoFileName], 
+		CategoryCharacterictic.[Name] AS CharName, 
+		ProductCharacteristics.[Value] AS CharValue 
+	From Products
+	INNER JOIN ProductCharacteristics
+		ON Products.Id = ProductCharacteristics.ProductId
+	INNER JOIN CategoryCharacterictic
+		ON ProductCharacteristics.CharacteristicId = CategoryCharacterictic.Id
+	WHERE p.Id = @id
+END
+GO

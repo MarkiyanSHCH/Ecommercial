@@ -23,13 +23,16 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[ReadAllProducts] 
-AS 
-SELECT 
-    Products.[Id],
-	Products.[Name], 
-	Products.[Description], 
-	Products.[Price], 
-	Products.[CategoryId], 
-	Products.[PhotoFileName]
-FROM Products
-GO;
+AS
+BEGIN
+	SET NOCOUNT OFF;
+    SELECT 
+        Products.[Id],
+        Products.[Name], 
+        Products.[Description], 
+        Products.[Price], 
+        Products.[CategoryId], 
+        Products.[PhotoFileName]
+    FROM Products
+END
+GO

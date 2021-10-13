@@ -23,8 +23,16 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[spUsers_GetUser]
-	@pEmail varchar(50), 
-	@pPassword varchar(100)
-as
-SELECT * FROM Users
-WHERE Email = @pEmail AND [Password] = @pPassword
+	@Email varchar(50)
+AS
+BEGIN
+	SET NOCOUNT OFF;
+    SELECT 
+        Users.[Id],
+        Users.[Name], 
+        Users.[Email], 
+        Users.[Password]
+        FROM Users
+    WHERE Email = @Email
+END
+GO
