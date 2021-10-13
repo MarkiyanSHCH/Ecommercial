@@ -10,7 +10,7 @@ namespace Core.Services
         private readonly ICategoryRepository _categoryRepository;
 
         public CategoryServices(ICategoryRepository categoryRepository)
-            => (this._categoryRepository) = (categoryRepository);
+            => this._categoryRepository = categoryRepository;
 
         public IEnumerable<Category> Get()
             => this._categoryRepository.GetAll();

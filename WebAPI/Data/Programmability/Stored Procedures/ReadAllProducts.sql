@@ -22,7 +22,14 @@ GO
 
 --============================================================================
 
-ALTER PROCEDURE [dbo].[ReadAllProducts] 
-as 
-select * from Products
-go;
+CREATE PROCEDURE [dbo].[ReadAllProducts] 
+AS 
+SELECT 
+    Products.[Id],
+	Products.[Name], 
+	Products.[Description], 
+	Products.[Price], 
+	Products.[CategoryId], 
+	Products.[PhotoFileName]
+FROM Products
+GO;

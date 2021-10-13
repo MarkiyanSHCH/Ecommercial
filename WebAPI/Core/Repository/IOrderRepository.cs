@@ -6,6 +6,6 @@ namespace Core.Repository
 {
     public interface IOrderRepository
     {
-        public IEnumerable<Product> GetAll(string Id);
+        IEnumerable<Product> GetAll(string Id);
     }
 }

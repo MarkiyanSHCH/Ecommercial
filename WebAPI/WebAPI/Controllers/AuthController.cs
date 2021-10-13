@@ -13,7 +13,7 @@ namespace AuthApi.Controllers
         private readonly AuthServices _authServices;
 
         public AuthController(AuthServices authServices)
-            => (this._authServices) = (authServices);
+            => this._authServices = authServices;
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] Login request)

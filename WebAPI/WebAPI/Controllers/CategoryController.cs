@@ -14,7 +14,7 @@ namespace WebAPI.Controllers
         public readonly CategoryServices _categoryServices;
 
         public CategoryController(CategoryServices categoryServices)
-            => (this._categoryServices) = (categoryServices);
+            => this._categoryServices = categoryServices;
 
         [HttpGet]
         public IActionResult Get()

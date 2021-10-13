@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
         private readonly ProductServices _productServices;
 
         public ProductController(ProductServices productServices)
-            => (this._productServices) = (productServices);
+            => this._productServices = productServices;
 
         [HttpGet]
         public IActionResult Get()

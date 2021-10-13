@@ -14,7 +14,7 @@ namespace Data.Repository
         private readonly string _sqlDataSource;
 
         public AuthRepository(IConfiguration configuration)
-            => (this._sqlDataSource) = (configuration.GetConnectionString("ProductAppCon"));
+            => this._sqlDataSource = configuration.GetConnectionString("ProductAppCon");
 
         public Account GetAccount(string Email, string Password)
         {
@@ -22,8 +22,12 @@ namespace Data.Repository
             using (SqlCommand command = new SqlCommand("spUsers_GetUser", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@pEmail", SqlDbType.NVarChar, 100).Value = Email;
-                command.Parameters.Add("@pPassword", SqlDbType.NVarChar, 100).Value = Password;
+                command.Parameters
+                    .Add("@pEmail", SqlDbType.NVarChar, 100)
+                    .Value = Email;
+                command.Parameters
+                    .Add("@pPassword", SqlDbType.NVarChar, 100)
+                    .Value = Password;
 
                 connection.Open();
 

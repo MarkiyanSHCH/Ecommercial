@@ -6,6 +6,6 @@ namespace Core.Repository
 {
     public interface ICategoryRepository
     {
-        public IEnumerable<Category> GetAll();
+        IEnumerable<Category> GetAll();
     }
 }

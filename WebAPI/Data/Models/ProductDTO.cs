@@ -21,14 +21,22 @@ namespace Data.Models
         public static ProductDTO MapFrom(SqlDataReader reader)
              => new ProductDTO
              {
-                 Id = !reader.IsDBNull(reader.GetOrdinal("Id")) ? reader.GetInt32(nameof(Id)) : 0,
-                 Name = !reader.IsDBNull(reader.GetOrdinal("Name")) ? reader.GetString(nameof(Name)) : null,
-                 Description = !reader.IsDBNull(reader.GetOrdinal("Description")) ? reader.GetString(nameof(Description)) : null,
-                 Price = !reader.IsDBNull(reader.GetOrdinal("Price")) ? reader.GetDouble(nameof(Price)) : 0,
-                 CategoryId = !reader.IsDBNull(reader.GetOrdinal("CategoryId")) ? reader.GetInt32(nameof(CategoryId)) : 0,
-                 PhotoFileName = !reader.IsDBNull(reader.GetOrdinal("PhotoFileName")) ? reader.GetString(nameof(PhotoFileName)) : null,
-                 CharacteristicsName = HasColumn(reader, "CharName") ? reader.GetString("CharName") : null,
-                 CharacteristicsValue = HasColumn(reader, "CharValue") ? reader.GetString("CharValue") : null
+                 Id = !reader.IsDBNull(reader.GetOrdinal("Id")) 
+                        ? reader.GetInt32(nameof(Id)) : 0,
+                 Name = !reader.IsDBNull(reader.GetOrdinal("Name")) 
+                        ? reader.GetString(nameof(Name)) : null,
+                 Description = !reader.IsDBNull(reader.GetOrdinal("Description")) 
+                        ? reader.GetString(nameof(Description)) : null,
+                 Price = !reader.IsDBNull(reader.GetOrdinal("Price")) 
+                        ? reader.GetDouble(nameof(Price)) : 0,
+                 CategoryId = !reader.IsDBNull(reader.GetOrdinal("CategoryId")) 
+                        ? reader.GetInt32(nameof(CategoryId)) : 0,
+                 PhotoFileName = !reader.IsDBNull(reader.GetOrdinal("PhotoFileName")) 
+                        ? reader.GetString(nameof(PhotoFileName)) : null,
+                 CharacteristicsName = HasColumn(reader, "CharName") 
+                        ? reader.GetString("CharName") : null,
+                 CharacteristicsValue = HasColumn(reader, "CharValue") 
+                        ? reader.GetString("CharValue") : null
              };
 
         public Product ToDomainModel()

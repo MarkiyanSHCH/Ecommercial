@@ -22,8 +22,14 @@ GO
 
 --============================================================================
 
-CREATE PROCEDURE [dbo].[ReadCharacteristicForProduct] @idProduct int
-as 
-SELECT CategoryCharacterictic.Name, ProductCharacteristics.Value FROM ProductCharacteristics
-INNER JOIN CategoryCharacterictic on ProductCharacteristics.CharacteristicId = CategoryCharacterictic.Id 
-where ProductCharacteristics.ProductId = @idProduct
+CREATE PROCEDURE [dbo].[ReadCharacteristicForProduct] @idProduct INT
+AS 
+SELECT 
+    CategoryCharacterictic.[Name], 
+    ProductCharacteristics.[Value] 
+FROM ProductCharacteristics
+INNER JOIN 
+    CategoryCharacterictic 
+    ON 
+    ProductCharacteristics.CharacteristicId = CategoryCharacterictic.Id 
+WHERE ProductCharacteristics.ProductId = @idProduct

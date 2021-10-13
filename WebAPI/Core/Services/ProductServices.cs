@@ -10,7 +10,7 @@ namespace Core.Services
         private readonly IProductRepository _productRepository;
 
         public ProductServices(IProductRepository productRepository)
-            => (this._productRepository) = productRepository;
+            => this._productRepository = productRepository;
 
         public IEnumerable<Product> Get()
             => this._productRepository.GetAll();

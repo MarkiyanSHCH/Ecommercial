@@ -41,7 +41,9 @@ namespace Data.Repository
             using (SqlCommand command = new SqlCommand("ReadProductsByCategory", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@id", SqlDbType.Int).Value = Id;
+                command.Parameters
+                    .Add("@id", SqlDbType.Int)
+                    .Value = Id;
 
                 connection.Open();
 
@@ -56,10 +58,13 @@ namespace Data.Repository
             var productList = new List<ProductDTO>();
 
             using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = new SqlCommand("spProduct_GetProductByIdWithCharacteristic", connection))
+            using (SqlCommand command = 
+                new SqlCommand("spProduct_GetProductByIdWithCharacteristic", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@id", SqlDbType.Int).Value = Id;
+                command.Parameters
+                    .Add("@id", SqlDbType.Int)
+                    .Value = Id;
 
                 connection.Open();
 

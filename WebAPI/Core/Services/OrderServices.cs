@@ -10,7 +10,7 @@ namespace Core.Services
         private readonly IOrderRepository _orderRepository;
 
         public OrderServices(IOrderRepository orderRepository)
-            => (this._orderRepository) = (orderRepository);
+            => this._orderRepository = orderRepository;
 
         public IEnumerable<Product> GetOrders(string UserId)
             => this._orderRepository.GetAll(UserId);

@@ -22,8 +22,7 @@ GO
 
 --============================================================================
 
-
-CREATE PROCEDURE spProduct_GetProductByIdWithCharacteristic @id int
+CREATE PROCEDURE spProduct_GetProductByIdWithCharacteristic @id INT
 as
 SELECT 
 	p.[Id],
@@ -32,9 +31,9 @@ SELECT
 	p.[Price], 
 	p.[CategoryId], 
 	p.[PhotoFileName], 
-	cc.[Name] as CharName, 
-	pc.[Value] as CharValue 
-From Products as p
+	cc.[Name] AS CharName, 
+	pc.[Value] AS CharValue 
+From Products AS p
 INNER JOIN ProductCharacteristics AS pc
 	ON p.Id = pc.ProductId
 INNER JOIN CategoryCharacterictic AS cc

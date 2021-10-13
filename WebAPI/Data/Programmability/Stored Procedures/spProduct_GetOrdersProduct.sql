@@ -22,7 +22,8 @@ GO
 
 --============================================================================
 
-ALTER PROCEDURE [dbo].[spProduct_GetOrdersProduct] @UserId int
-as
-SELECT p.* from Products p, Orders o,Users u
+CREATE PROCEDURE [dbo].[spProduct_GetOrdersProduct] 
+    @UserId INT
+AS
+SELECT p.* FROM Products p, Orders o,Users u
 WHERE o.ProductId = p.Id AND o.UserId = u.Id

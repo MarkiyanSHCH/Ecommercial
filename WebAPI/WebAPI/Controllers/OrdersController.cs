@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         private readonly OrderServices _orderServices;
 
         public OrdersController(OrderServices orderServices)
-            => (this._orderServices) = (orderServices);
+            => this._orderServices = orderServices;
 
         [HttpGet]
         public IActionResult GetOrders()

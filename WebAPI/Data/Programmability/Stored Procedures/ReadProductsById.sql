@@ -22,7 +22,7 @@ GO
 
 --============================================================================
 
-CREATE PROCEDURE [dbo].[ReadProductsById] @id int
-as 
-select * from Products
-where Id = @id
+CREATE PROCEDURE [dbo].[ReadProductsById] @id INT
+AS 
+SELECT * FROM Products
+WHERE Id = @id

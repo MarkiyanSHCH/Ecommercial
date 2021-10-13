@@ -20,12 +20,12 @@ namespace Core.Services
             => (this._authOptions, this._authRepository) = (authOptions, authRepository);
 
         public Account GetAccount(string Email, string Password)
-            => _authRepository.GetAccount(Email, Password);
+            => this._authRepository.GetAccount(Email, Password);
 
         public string GenerateJWT(Account user)
         {
-            var authParams = _authOptions.Value;
-            var securityKey = authParams.GetSymmetricSecurityKey();
+            AuthOptions authParams = _authOptions.Value;
+            SymmetricSecurityKey securityKey = authParams.GetSymmetricSecurityKey();
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>

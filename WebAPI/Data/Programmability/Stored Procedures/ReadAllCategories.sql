@@ -22,6 +22,9 @@ GO
 
 --============================================================================
 
-ALTER PROCEDURE [dbo].[ReadAllCategories]
-as 
-select * from Categories
+CREATE PROCEDURE [dbo].[ReadAllCategories]
+AS
+SELECT 
+    Сategories.Id, 
+    Categories.[Name] 
+FROM Categories

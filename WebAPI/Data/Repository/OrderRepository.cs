@@ -27,7 +27,9 @@ namespace Data.Repository
             using (SqlCommand command = new SqlCommand("spProduct_GetOrdersProduct", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@UserId", SqlDbType.Int).Value = Convert.ToInt32(Id);
+                command.Parameters
+                    .Add("@UserId", SqlDbType.Int)
+                    .Value = Convert.ToInt32(Id);
 
                 connection.Open();
 
