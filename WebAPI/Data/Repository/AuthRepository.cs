@@ -23,7 +23,7 @@ namespace Data.Repository
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters
-                    .Add("@pEmail", SqlDbType.NVarChar, 100)
+                    .Add("@Email", SqlDbType.NVarChar, 100)
                     .Value = Email;
 
                 connection.Open();

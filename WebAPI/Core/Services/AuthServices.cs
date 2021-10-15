@@ -22,7 +22,8 @@ namespace Core.Services
         public Account GetAccount(string Email, string Password)
         {
             Account user = this._authRepository.GetAccount(Email);
-            if (user.Password == Password) return user;
+            if(user != null)
+                if (user.Password == Password) return user;
 
             return null;
         }

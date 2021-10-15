@@ -1,22 +1,22 @@
-<div class="container" style="margin-top:50px;">
-  <div class="row ">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" 
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3" 
           *ngFor="let dataItem of productList">
-      <div class="card-sl">
+      <div class="card-sl mb-3">
         <div class="card-image">
           <img src="/assets/images/{{dataItem.photoFileName}}" />
         </div>
-        <div class="card-heading">
+        <div class="card-heading bg-white p-2">
           {{dataItem.name}}
         </div>
-        <div class="card-text">
+        <div class="card-text bg-white p-2">
           ${{dataItem.price}}
         </div>
-        <button class="card-button text-white d-flex justify-content-center"
+        <button class="btn btn-outline-dark rounded-bottom border-0 p-2 w-100 d-flex justify-content-center"
             [routerLink]="['/product/',dataItem.id]">
             Detail
         </button>
-      </div><br>
+      </div>
     </div>
   </div>  
 </div>

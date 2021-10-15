@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CategoryService } from './services/category.service';
 import { AuthService } from './services/auth.service';
+import { LoginDashboardComponent } from './module/authorization-dashboard/login-dashboard/login-dashboard.component';
+import { Login } from './models/Login';
+
 
 @Component({
   selector: 'app-root',
@@ -10,11 +14,14 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  title = ""
+  title = "Home"
   CategoriesList: any = [];
 
-  constructor(private _categoryService: CategoryService,
-    private _authService: AuthService) { }
+  constructor(
+    private _modalService: NgbModal,
+    private _categoryService: CategoryService,
+    private _authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.refreshProdList();
@@ -24,13 +31,13 @@ export class AppComponent implements OnInit {
     return this._authService.isAuthenticated()
   }
 
-  login(email: string, password: string) {
-    this._authService.login(email, password)
-      .subscribe(res => {
-
-      }, error => {
-        alert("Wrong login or password")
-      })
+  login(): void {
+    const modalRef = this._modalService.open(LoginDashboardComponent, { centered: true });
+    const module = <LoginDashboardComponent>modalRef.componentInstance;
+    module.login.subscribe((account: Login) =>
+      this._authService.login(account.email, account.password)
+        .subscribe(res => module.activeModal.dismiss(),
+          error => module.errorMessage("Invalide Email or Password")));
   }
 
   logout() {
@@ -38,9 +45,10 @@ export class AppComponent implements OnInit {
   }
 
   refreshProdList() {
-    this._categoryService.getCategory().subscribe(data => {
-      this.CategoriesList = data;
-    });
+    this._categoryService.getCategory()
+      .subscribe(data =>
+        this.CategoriesList = data
+      );
   }
 
 }

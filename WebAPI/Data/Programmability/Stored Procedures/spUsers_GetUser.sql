@@ -27,12 +27,12 @@ CREATE PROCEDURE [dbo].[spUsers_GetUser]
 AS
 BEGIN
 	SET NOCOUNT OFF;
-    SELECT 
-        Users.[Id],
-        Users.[Name], 
-        Users.[Email], 
-        Users.[Password]
+    	SELECT
+		Users.[Id],
+		Users.[Name],
+		Users.[Email],
+		Users.[Password]
         FROM Users
-    WHERE Email = @Email
+	WHERE Email = @Email
 END
 GO

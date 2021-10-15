@@ -11,22 +11,21 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class DetailComponent implements OnInit {
 
-  id: number = <number>{};
+  id: any;
   Product: Product = <Product>{};
 
-  constructor(private service:ProductService, 
-    private activeRoute: ActivatedRoute, 
-    private changedetectect: ChangeDetectorRef
-    ) {}
+  constructor(
+    private _productService: ProductService,
+    private _activeRoute: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
-      this.activeRoute.params.subscribe(params =>{
-      this.id = params.id;
-      this.refreshProdList();
-      this.changedetectect.detectChanges();
-    });
+    this.id = this._activeRoute.snapshot.paramMap.get("id");
+    this.getProduct();
   }
-  refreshProdList(){
-   this.service.getProductById(this.id).subscribe(res => this.Product = res);
+
+  getProduct() {
+    this._productService.getProductById(this.id).subscribe(res => this.Product = res);
   }
+
 }

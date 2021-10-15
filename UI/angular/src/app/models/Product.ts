@@ -1,6 +1,6 @@
 import { Characteristic } from "./Characteristic";
 
-export interface Product{
+export interface Product {
     id: number;
     name: string;
     description: string;

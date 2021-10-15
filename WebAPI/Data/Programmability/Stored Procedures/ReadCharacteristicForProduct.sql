@@ -22,17 +22,17 @@ GO
 
 --============================================================================
 
-CREATE PROCEDURE [dbo].[ReadCharacteristicForProduct] 
-    @idProduct INT
+CREATE PROCEDURE [dbo].[ReadCharacteristicForProduct]
+	@idProduct INT
 AS
 BEGIN
 	SET NOCOUNT OFF;
-    SELECT 
-        CategoryCharacterictic.[Name], 
-        ProductCharacteristics.[Value] 
-    FROM ProductCharacteristics
-    INNER JOIN CategoryCharacterictic 
-        ON ProductCharacteristics.CharacteristicId = CategoryCharacterictic.Id 
-    WHERE ProductCharacteristics.ProductId = @idProduct
+    	SELECT 
+        	CategoryCharacterictic.[Name], 
+        	ProductCharacteristics.[Value] 
+    	FROM ProductCharacteristics
+    	INNER JOIN CategoryCharacterictic 
+        	ON ProductCharacteristics.CharacteristicId = CategoryCharacterictic.Id 
+    	WHERE ProductCharacteristics.ProductId = @idProduct
 END
 GO

@@ -8,24 +8,13 @@
     border-radius: 0.5rem 0.5rem 0rem 0rem;
 }
 .card-heading {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold;
-    background: #fff;
-    padding: 10px 15px;
 }
 .card-text {
-    padding: 10px 15px;
-    background: #fff;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #636262;
-}
-.card-button {
-    padding: 10px 0;
-    width: 100%;
-    background-color: #212529;
-    border-radius: 0 0 8px 8px;
 }
 .card-button:hover {
     background-color: #353B41;
-    color: #fff;
 }

@@ -27,7 +27,7 @@ CREATE PROCEDURE spProduct_GetProductByIdWithCharacteristic
 AS
 BEGIN
 	SET NOCOUNT OFF;
-	SELECT 
+	SELECT
 		Products.[Id],
 		Products.[Name], 
 		Products.[Description], 

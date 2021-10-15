@@ -6,15 +6,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { environment } from 'src/environments/environment';
-import { AUTH_API_URL, STORE_API_URL } from './app-injection-tokens';
+import { API_URL } from './app-injection-tokens';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { DetailComponent } from './components//products/detail/detail.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ACCESS_TOKEN_KEY } from './services/auth.service';
+import { AuthorizationDashboardModule } from './module/authorization-dashboard/authorization-dashboard.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-export function tokenGetter(){
+export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)
 }
 
@@ -32,22 +34,20 @@ export function tokenGetter(){
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    
+    AuthorizationDashboardModule,
+
     JwtModule.forRoot({
-      config:{
+      config: {
         tokenGetter,
         allowedDomains: environment.tokenWhiteListedDomins
       }
-    })
+    }),
+    NgbModule
   ],
 
   providers: [{
-    provide: AUTH_API_URL,
+    provide: API_URL,
     useValue: environment.authApi
-  },
-  {
-    provide: STORE_API_URL,
-    useValue: environment.storeApi
   }],
 
   bootstrap: [AppComponent]

@@ -4,7 +4,6 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Description</th>
-      <th scope="col">Characteristic</th>
       <th scope="col">Price</th>
     </tr>
   </thead>
@@ -13,13 +12,6 @@
       <th scope="row">{{dataItem.id}}</th>
       <td>{{dataItem.name}}</td>
       <td>{{dataItem.description}}</td>
-      <td>
-        <table>
-          <tr *ngFor="let characteristic of dataItem.characteristics">
-            <td>{{characteristic.name}}: {{characteristic.value}}</td>
-          </tr>
-        </table>
-      </td>
       <td>${{dataItem.price}}</td>
     </tr>
   </tbody>

@@ -12,12 +12,12 @@ export class OrdersComponent implements OnInit {
 
   orders: Product[] = <Product[]>[];
 
-  constructor(private orderService: OrderService) { }
+  constructor(private _orderService: OrderService) { }
 
   ngOnInit(): void {
-    this.orderService.getOrders()
-      .subscribe(res =>{
-        this.orders = res.products
-      })
+    this._orderService
+      .getOrders()
+      .subscribe(res => this.orders = res.products)
   }
+
 }

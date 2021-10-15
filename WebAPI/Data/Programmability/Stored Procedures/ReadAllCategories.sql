@@ -26,9 +26,9 @@ CREATE PROCEDURE [dbo].[ReadAllCategories]
 AS
 BEGIN
 	SET NOCOUNT OFF;
-    SELECT
-        Сategories.Id, 
-        Categories.[Name] 
-    FROM Categories
+    	SELECT
+        	Сategories.Id, 
+        	Categories.[Name] 
+    	FROM Categories
 END
 GO
