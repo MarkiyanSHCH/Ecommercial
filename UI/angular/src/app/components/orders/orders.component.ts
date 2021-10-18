@@ -19,5 +19,4 @@ export class OrdersComponent implements OnInit {
       .getOrders()
       .subscribe(res => this.orders = res.products)
   }
-
 }

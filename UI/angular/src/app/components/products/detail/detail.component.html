@@ -1,11 +1,11 @@
 <div class="container mt-5 mb-5">
   <div class="card overflow-hidden border-0">
     <div class="row"
-          *ngIf="Product">
+          *ngIf="product">
       <div class="col-6 border-end">
         <div class="overflow-hidden w-100 h-100">
           <div class="d-flex flex-column justify-content-center">
-            <img src="/assets/images/{{Product.photoFileName}}"
+            <img src="/assets/images/{{product.photoFileName}}"
                   id="main_product_image">
           </div>
         </div>
@@ -13,17 +13,17 @@
       <div class="col-6">
         <div class="p-3 position-relative">
           <div class="d-flex justify-content-between align-items-center">
-            <h3>{{Product.name}}</h3>
+            <h3>{{product.name}}</h3>
           </div>
           <div class="mt-2 pr-3 content">
-            <p>{{Product.description}}</p>
+            <p>{{product.description}}</p>
           </div>
-          <h3>${{Product.price}}</h3>
+          <h3>${{product.price}}</h3>
           <div class="mt-4">
             <span class="fw-bold">Characteristics : </span>
             <div>
-              <ul *ngFor="let char of Product.characteristics">
-                <li>{{char.name}}: {{char.value}}</li>
+              <ul *ngFor="let property of product.characteristics">
+                <li>{{property.name}}: {{property.value}}</li>
               </ul>
             </div>
           </div>

@@ -14,7 +14,6 @@ import { Category } from './models/Category';
 })
 export class AppComponent implements OnInit {
 
-  title = "Home"
   categoriesList: Category[] = <Category[]>[];
 
   constructor(

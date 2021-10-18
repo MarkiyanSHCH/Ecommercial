@@ -1,18 +1,21 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let dataItem of orders">
-      <th scope="row">{{dataItem.id}}</th>
-      <td>{{dataItem.name}}</td>
-      <td>{{dataItem.description}}</td>
-      <td>${{dataItem.price}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="font-size-sm mb-4">
+  <div class="row no-gutters header py-2 px-3 d-none d-md-flex">
+    <div class="col-11 offset-1">
+      <div class="row">
+        <div class="col-3">#</div>
+        <div class="col-2">Name</div>
+        <div class="col-2">Description</div>
+        <div class="col-3">Price</div>
+      </div><hr>
+    </div>
+  </div>
+  <div class="col-11 offset-1" *ngFor="let dataItem of orders">
+    <div class="row">
+      <div class="col-3">{{dataItem.id}}</div>
+      <div class="col-2">{{dataItem.name}}</div>
+      <div class="col-2">{{dataItem.description}}</div>
+      <div class="col-3">${{dataItem.price}}</div>
+    </div>
+    <hr>
+  </div>
+</div>

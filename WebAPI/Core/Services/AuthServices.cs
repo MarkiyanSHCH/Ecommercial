@@ -22,10 +22,7 @@ namespace Core.Services
         public Account GetAccount(string Email, string Password)
         {
             Account user = this._authRepository.GetAccount(Email);
-            if (user != null || user.Password == Password)
-                return user;
-
-            return null;
+            return user != null || user.Password == Password ? user : null;
         }
 
         public string GenerateJWT(Account user)

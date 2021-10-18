@@ -41,5 +41,4 @@ export class AuthService {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     this._router.navigate(['']);
   }
-
 }

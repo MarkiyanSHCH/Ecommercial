@@ -13,7 +13,7 @@ import { ProductsList } from '../models/Products';
 })
 export class ProductService {
 
-  private baseApiUrl = `${this._apiUrl}api/`
+  private _baseApiUrl = `${this._apiUrl}api/`
 
   constructor(
     private _http: HttpClient,
@@ -21,15 +21,14 @@ export class ProductService {
     ) { }
 
   getProducts(): Observable<ProductsList> {
-    return this._http.get<ProductsList>(`${this.baseApiUrl}product`);
+    return this._http.get<ProductsList>(`${this._baseApiUrl}product`);
   }
 
   getProductById(id: number): Observable<Product> {
-    return this._http.get<Product>(`${this.baseApiUrl}product/` + id);
+    return this._http.get<Product>(`${this._baseApiUrl}product/` + id);
   }
 
   getProductByCategory(id: number): Observable<ProductsList> {
-    return this._http.get<ProductsList>(`${this.baseApiUrl}product/category/` + id);
+    return this._http.get<ProductsList>(`${this._baseApiUrl}product/category/` + id);
   }
-
 }

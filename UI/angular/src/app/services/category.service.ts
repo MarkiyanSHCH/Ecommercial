@@ -11,7 +11,7 @@ import { CategoryList } from '../models/Categories';
 })
 export class CategoryService {
 
-  private baseApiUrl = `${this._apiUrl}api/`
+  private _baseApiUrl = `${this._apiUrl}api/`
 
   constructor(
     private _http: HttpClient,
@@ -19,7 +19,6 @@ export class CategoryService {
     ) { }
 
   getCategory(): Observable<CategoryList> {
-    return this._http.get<CategoryList>(`${this.baseApiUrl}category`);
+    return this._http.get<CategoryList>(`${this._baseApiUrl}category`);
   }
-
 }

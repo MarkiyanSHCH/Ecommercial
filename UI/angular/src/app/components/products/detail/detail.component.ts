@@ -11,7 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class DetailComponent implements OnInit {
 
-  Product: Product = <Product>{};
+  product: Product = <Product>{};
 
   constructor(
     private _productService: ProductService,
@@ -23,6 +23,6 @@ export class DetailComponent implements OnInit {
     .getProductById(Number(
       this._activeRoute.snapshot.paramMap.get("id")
       ))
-    .subscribe(res => this.Product = res);
+    .subscribe(res => this.product = res);
   }
 }

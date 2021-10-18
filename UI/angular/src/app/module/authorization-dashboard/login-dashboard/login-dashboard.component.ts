@@ -26,5 +26,4 @@ export class LoginDashboardComponent implements OnInit {
   errorMessage(err: string): void {
     this.error = err;
   }
-
 }

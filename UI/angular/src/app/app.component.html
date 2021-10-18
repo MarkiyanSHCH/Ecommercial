@@ -57,27 +57,23 @@
           <div
             class="dropdown-menu dropdown-menu-end"
             id="dropdown-account">
-            <form
-              class="form-horizontal"
-              method="post">
-              <a
-                class="dropdown-item"
-                routerLink="/order">
-                <i class="bi bi-card-list"></i>
-                Order
-              </a>
-              <a
-                class="dropdown-item mb-2"
-                routerLink="/orders">
-                <i class="bi bi-cart4"></i>
-                Cart
-              </a>
-              <a
-                class="dropdown-item"
-                (click)="logout()">
-                Logout
-              </a>
-            </form>
+            <a
+              class="dropdown-item"
+              routerLink="/order">
+              <i class="bi bi-card-list"></i>
+              Order
+            </a>
+            <a
+              class="dropdown-item mb-2"
+              routerLink="/orders">
+              <i class="bi bi-cart4"></i>
+              Cart
+            </a>
+            <a
+              class="dropdown-item"
+              (click)="logout()">
+              Logout
+            </a>
           </div>
         </li>
       </ul>
