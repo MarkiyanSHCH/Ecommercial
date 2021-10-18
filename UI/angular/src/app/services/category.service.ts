@@ -16,7 +16,7 @@ export class CategoryService {
   constructor(
     private _http: HttpClient,
     @Inject(API_URL) private _apiUrl: string
-    ) { }
+  ) { }
 
   getCategory(): Observable<CategoryList> {
     return this._http.get<CategoryList>(`${this._baseApiUrl}category`);

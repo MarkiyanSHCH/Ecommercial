@@ -16,7 +16,7 @@ export class OrderService {
   constructor(
     private _http: HttpClient,
     @Inject(API_URL) private _apiUrl: string
-    ) { }
+  ) { }
 
   getOrders(): Observable<ProductsList> {
     return this._http.get<ProductsList>(`${this._baseApiUrl}orders`)

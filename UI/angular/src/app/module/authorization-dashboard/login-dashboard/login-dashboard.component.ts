@@ -7,7 +7,7 @@ import { Login } from 'src/app/models/Login';
   templateUrl: './login-dashboard.component.html',
   styleUrls: ['./login-dashboard.component.css']
 })
-export class LoginDashboardComponent implements OnInit {
+export class LoginDashboardComponent {
 
   model: Login = <Login>{};
   error: string = '';
@@ -15,15 +15,4 @@ export class LoginDashboardComponent implements OnInit {
   @Output() login = new EventEmitter<Login>();
 
   constructor(public activeModal: NgbActiveModal) { }
-
-  ngOnInit(): void {
-  }
-
-  onLoginClicked(): void {
-    this.login.next(this.model);
-  }
-
-  errorMessage(err: string): void {
-    this.error = err;
-  }
 }

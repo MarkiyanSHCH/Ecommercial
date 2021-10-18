@@ -16,7 +16,7 @@ namespace Data.Repository
         private readonly string _sqlDataSource;
 
         public ProductRepository(IConfiguration configuration)
-            => (this._sqlDataSource) = (configuration.GetConnectionString("ProductAppCon"));
+            => this._sqlDataSource = configuration.GetConnectionString("ProductAppCon");
 
         public IEnumerable<Product> GetAll()
         {

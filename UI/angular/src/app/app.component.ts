@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     module.login.subscribe((account: Login) =>
       this._authService.login(account.email, account.password)
         .subscribe(res => module.activeModal.dismiss(),
-          error => module.errorMessage("Invalide Email or Password")));
+          error => module.error = `Invalide Email or Password`));
   }
 
   logout() {

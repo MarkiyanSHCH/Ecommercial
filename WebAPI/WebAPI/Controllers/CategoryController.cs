@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        public readonly CategoryServices _categoryServices;
+        private readonly CategoryServices _categoryServices;
 
         public CategoryController(CategoryServices categoryServices)
             => this._categoryServices = categoryServices;
