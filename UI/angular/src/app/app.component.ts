@@ -5,7 +5,7 @@ import { CategoryService } from './services/category.service';
 import { AuthService } from './services/auth.service';
 import { LoginDashboardComponent } from './module/authorization-dashboard/login-dashboard/login-dashboard.component';
 import { Login } from './models/Login';
-
+import { Category } from './models/Category';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import { Login } from './models/Login';
 export class AppComponent implements OnInit {
 
   title = "Home"
-  CategoriesList: any = [];
+  categoriesList: Category[] = <Category[]>[];
 
   constructor(
     private _modalService: NgbModal,
@@ -47,8 +47,7 @@ export class AppComponent implements OnInit {
   refreshProdList() {
     this._categoryService.getCategory()
       .subscribe(data =>
-        this.CategoriesList = data
+        this.categoriesList = data.categories
       );
   }
-
 }

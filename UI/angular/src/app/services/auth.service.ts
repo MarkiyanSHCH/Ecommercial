@@ -18,14 +18,14 @@ export const ACCESS_TOKEN_KEY = 'store_access_token'
 export class AuthService {
 
   constructor(
-    private http: HttpClient,
-    @Inject(API_URL) private apiUrl: string,
-    private jwtHelper: JwtHelperService,
-    private router: Router
+    private _http: HttpClient,
+    @Inject(API_URL) private _apiUrl: string,
+    private _jwtHelper: JwtHelperService,
+    private _router: Router
   ) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<Token>(`${this.apiUrl}api/auth/login`, {
+    return this._http.post<Token>(`${this._apiUrl}api/auth/login`, {
       email, password
     }).pipe(
       tap(signInResult => localStorage.setItem(ACCESS_TOKEN_KEY, signInResult.access_token))
@@ -34,12 +34,12 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     var token = localStorage.getItem(ACCESS_TOKEN_KEY);
-    return !!(token && !this.jwtHelper.isTokenExpired(token))
+    return !!(token && !this._jwtHelper.isTokenExpired(token))
   }
 
   logout(): void {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
-    this.router.navigate(['']);
+    this._router.navigate(['']);
   }
 
 }

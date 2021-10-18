@@ -3,20 +3,23 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { Category } from '../models/Category';
 import { API_URL } from '../app-injection-tokens';
+import { CategoryList } from '../models/Categories';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  private baseApiUrl = `${this.apiUrl}api/`
+  private baseApiUrl = `${this._apiUrl}api/`
 
-  constructor(private http: HttpClient, @Inject(API_URL) private apiUrl: string) { }
+  constructor(
+    private _http: HttpClient,
+    @Inject(API_URL) private _apiUrl: string
+    ) { }
 
-  getCategory(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.baseApiUrl}category`);
+  getCategory(): Observable<CategoryList> {
+    return this._http.get<CategoryList>(`${this.baseApiUrl}category`);
   }
 
 }

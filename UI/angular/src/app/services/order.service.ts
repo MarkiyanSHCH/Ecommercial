@@ -11,13 +11,15 @@ import { ProductsList } from '../models/Products';
 })
 export class OrderService {
 
-  private baseApiUrl = `${this.apiUrl}api/`
+  private baseApiUrl = `${this._apiUrl}api/`
 
-  constructor(private http: HttpClient,
-    @Inject(API_URL) private apiUrl: string) { }
+  constructor(
+    private _http: HttpClient,
+    @Inject(API_URL) private _apiUrl: string
+    ) { }
 
   getOrders(): Observable<ProductsList> {
-    return this.http.get<ProductsList>(`${this.baseApiUrl}orders`)
+    return this._http.get<ProductsList>(`${this.baseApiUrl}orders`)
   }
 
 }

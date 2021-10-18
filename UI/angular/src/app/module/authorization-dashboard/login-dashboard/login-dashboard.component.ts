@@ -10,7 +10,7 @@ import { Login } from 'src/app/models/Login';
 export class LoginDashboardComponent implements OnInit {
 
   model: Login = <Login>{};
-  error: string | undefined;
+  error: string = '';
 
   @Output() login = new EventEmitter<Login>();
 
@@ -22,8 +22,8 @@ export class LoginDashboardComponent implements OnInit {
   onLoginClicked(): void {
     this.login.next(this.model);
   }
-  
-  errorMessage(err: string): void{
+
+  errorMessage(err: string): void {
     this.error = err;
   }
 

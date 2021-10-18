@@ -17,35 +17,18 @@ export class ProductsComponent implements OnInit {
     private _router: Router
   ) { }
 
-  id: any | undefined;
   productList: Product[] = <Product[]>[];
 
   ngOnInit(): void {
     this._activeRoute.params.subscribe(params => {
-      if (this._router.url.startsWith("/category")) {
-        this.id = params.id;
-        this.refreshProdListByCategory();
-      }
-      else {
-        this.refreshProdList();
-      }
+      if (this._router.url.startsWith("/category"))
+        this._productService.getProductByCategory(params.id).subscribe(data => {
+          this.productList = data.products;
+        });
+      else
+        this._productService.getProducts().subscribe(data => {
+          this.productList = data.products;
+        });
     });
   }
-
-  refreshProdList() {
-    this._productService.getProducts().subscribe(data => {
-      this.productList = data.products;
-    });
-  }
-
-  refreshProdListByCategory() {
-    this._productService.getProductByCategory(this.id).subscribe(data => {
-      this.productList = data.products;
-    });
-  }
-
-  routingTo(productId: Product) {
-    this._router.navigate([`product/${productId}`])
-  }
-
 }

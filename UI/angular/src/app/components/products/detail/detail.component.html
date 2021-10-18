@@ -1,39 +1,37 @@
 <div class="container mt-5 mb-5">
-    <div class="card overflow-hidden border-0">
-        <div 
-            class="row"
-            *ngIf="Product">
-            <div class="col-md-6 border-end">
-                <div class="main_image overflow-hidden">
-                    <div class="d-flex flex-column justify-content-center">
-                        <img 
-                            src="/assets/images/{{Product.photoFileName}}" 
-                            id="main_product_image">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="p-3 position-relative">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h3>{{Product.name}}</h3>
-                    </div>
-                    <div class="mt-2 pr-3 content">
-                        <p>{{Product.description}}</p>
-                    </div>
-                    <h3>${{Product.price}}</h3>
-                    <div class="mt-4">
-                        <span class="fw-bold">Characteristics : </span>
-                        <div>
-                            <ul *ngFor="let char of Product.characteristics">
-                                <li>{{char.name}}: {{char.value}}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="buttons d-flex flex-row mt-5 gap-3">
-                        <button class="btn btn-outline-dark">Buy Now</button>
-                    </div>
-                </div>
-            </div>
+  <div class="card overflow-hidden border-0">
+    <div class="row"
+          *ngIf="Product">
+      <div class="col-6 border-end">
+        <div class="overflow-hidden w-100 h-100">
+          <div class="d-flex flex-column justify-content-center">
+            <img src="/assets/images/{{Product.photoFileName}}"
+                  id="main_product_image">
+          </div>
         </div>
+      </div>
+      <div class="col-6">
+        <div class="p-3 position-relative">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3>{{Product.name}}</h3>
+          </div>
+          <div class="mt-2 pr-3 content">
+            <p>{{Product.description}}</p>
+          </div>
+          <h3>${{Product.price}}</h3>
+          <div class="mt-4">
+            <span class="fw-bold">Characteristics : </span>
+            <div>
+              <ul *ngFor="let char of Product.characteristics">
+                <li>{{char.name}}: {{char.value}}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="buttons d-flex flex-row mt-5">
+            <button class="btn btn-outline-dark">Buy Now</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
