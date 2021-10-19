@@ -1,11 +1,14 @@
-using AuthCommon;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+using Core;
+using Core.Services;
+using Data.Repository;
+using Core.Repository;
 
 namespace WebAPI
 {
@@ -22,6 +25,8 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             var authOptions = Configuration.GetSection("Auth").Get<AuthOptions>();
+
+            services.Configure<AuthOptions>(Configuration.GetSection("Auth"));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -50,18 +55,21 @@ namespace WebAPI
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
-
             services.AddControllers();
 
-
+            services.AddScoped<IAuthRepository, AuthRepository>()
+                    .AddScoped<IProductRepository, ProductRepository>()
+                    .AddScoped<ICategoryRepository, CategoryRepository>()
+                    .AddScoped<IOrderRepository, OrderRepository>()
+                    .AddScoped<ProductServices, ProductServices>()
+                    .AddScoped<OrderServices, OrderServices>()
+                    .AddScoped<CategoryServices, CategoryServices>()
+                    .AddScoped<AuthServices, AuthServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

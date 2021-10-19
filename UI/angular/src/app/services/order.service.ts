@@ -3,16 +3,22 @@ import { Inject, Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { STORE_API_URL } from '../app-injection-tokens';
-import { Product } from '../models/Product';
+import { API_URL } from '../app-injection-tokens';
+import { ProductsList } from '../models/Products';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private baseApiUrl = `${this.apiUrl}api/`
-  constructor(private http: HttpClient, @Inject(STORE_API_URL) private apiUrl: string) { }
-  getOrders(): Observable<Product[]>{
-    return this.http.get<Product[]>(`${this.baseApiUrl}orders`)
+
+  private _baseApiUrl = `${this._apiUrl}api/`
+
+  constructor(
+    private _http: HttpClient,
+    @Inject(API_URL) private _apiUrl: string
+  ) { }
+
+  getOrders(): Observable<ProductsList> {
+    return this._http.get<ProductsList>(`${this._baseApiUrl}orders`)
   }
 }

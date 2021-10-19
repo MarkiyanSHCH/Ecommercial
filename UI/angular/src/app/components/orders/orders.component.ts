@@ -9,12 +9,14 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  orders: Product[] = []
-  constructor(private os: OrderService) { }
+
+  orders: Product[] = <Product[]>[];
+
+  constructor(private _orderService: OrderService) { }
+
   ngOnInit(): void {
-    this.os.getOrders()
-      .subscribe(res =>{
-        this.orders = res
-      })
+    this._orderService
+      .getOrders()
+      .subscribe(res => this.orders = res.products)
   }
 }

@@ -1,37 +1,35 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 
-using WebAPI.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+using Core.Services;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private string UserId => User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
-        private readonly IConfiguration _configuration;
-        private readonly OrderServices _services;
+        private string _userId => User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        private readonly OrderServices _orderServices;
 
-        public OrdersController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _services = new OrderServices();
-        }
+        public OrdersController(OrderServices orderServices)
+            => this._orderServices = orderServices;
 
         [HttpGet]
-        [Route("")]
         public IActionResult GetOrders()
         {
-            var orders = _services.GetOrders(_configuration, UserId);
+            ProductList orders = new ProductList
+            {
+                Products = _orderServices.GetOrders(_userId).ToList()
+            };
 
             if (orders != null)
-            {
                 return Ok(orders);
-            }
 
             return NotFound();
         }

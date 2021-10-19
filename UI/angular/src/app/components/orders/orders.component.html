@@ -1,11 +1,21 @@
-<div class="container">
-    <div class="row">
-      <div class="m-4 col-md-3 shadow-none bg-light rounded" *ngFor="let dataItem of orders">
-        <a style="text-decoration:none;" [routerLink]="['/product/',dataItem.id]">
-        <h2>{{dataItem.name}}</h2>
-         <img src="/assets/images/{{dataItem.photoFileName}}" class="img-responsive" ><br>
-         <p>Price : {{dataItem.price}}</p>
-        </a>
+<div class="font-size-sm mb-4">
+  <div class="row no-gutters header py-2 px-3 d-none d-md-flex">
+    <div class="col-11 offset-1 border-bottom border-dark">
+      <div class="row">
+        <div class="col-3">#</div>
+        <div class="col-2">Name</div>
+        <div class="col-2">Description</div>
+        <div class="col-3">Price</div>
       </div>
     </div>
+
+    <div class="col-11 offset-1 border-bottom border-dark py-2" *ngFor="let dataItem of orders">
+      <div class="row">
+        <div class="col-3">{{dataItem.id}}</div>
+        <div class="col-2">{{dataItem.name}}</div>
+        <div class="col-2">{{dataItem.description}}</div>
+        <div class="col-3">${{dataItem.price}}</div>
+      </div>
+    </div>
+  </div>
 </div>

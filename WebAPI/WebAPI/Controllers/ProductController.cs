@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using System.Linq;
 
-using WebAPI.Services;
+using Microsoft.AspNetCore.Mvc;
+
+using Core.Services;
+using WebAPI.Models;
+using Domain.Models;
 
 namespace WebAPI.Controllers
 {
@@ -9,34 +12,45 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        private readonly ProductServices _services;
+        private readonly ProductServices _productServices;
 
-        public ProductController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _services = new ProductServices();
-        }
+        public ProductController(ProductServices productServices)
+            => this._productServices = productServices;
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_services.Get(_configuration));
-        }
+            ProductList products = new ProductList
+            {
+                Products = _productServices.Get().ToList()
+            };
 
+            if (products != null) return Ok(products);
+
+            return NotFound();
+        }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
+            Product product = _productServices.GetById(id);
 
-            return Ok(_services.GetById(_configuration, id));
+            if (product != null) return Ok(product);
+
+            return NotFound();
         }
 
         [HttpGet("category/{id}")]
         public IActionResult GetByCategory(int id)
         {
+            ProductList products = new ProductList
+            {
+                Products = _productServices.GetByCategory(id).ToList()
+            };
 
-            return Ok(_services.GetByCategory(_configuration, id));
+            if (products != null) return Ok(products);
+
+            return NotFound();
         }
     }
 }

@@ -1,0 +1,38 @@
+<div class="shadow-sm-md p-2">
+  <div class="modal-header">
+    <button class="btn" type="button" aria-label="Close" (click)="activeModal.dismiss()">
+      X
+    </button>
+    <span class="text-danger">{{error}}</span>
+  </div>
+
+  <div class="modal-body text-transform-none">
+    <form name="form" (ngSubmit)="loginForm.form.valid && login.next(this.model)" #loginForm="ngForm" novalidate>
+      <div class="form-group required">
+        <label for="emailInput">Email</label>
+        <input id="emailInput" type="text" name="email" class="form-control" [(ngModel)]="model.email" #email="ngModel"
+          [ngClass]="{ 'is-invalid': loginForm.submitted && email.invalid }" pattern="[A-Za-zÀ-ÿ0-9.@]+" required />
+        <div class="invalid-feedback" *ngIf="loginForm.submitted && email.invalid">
+          <div *ngIf="email.errors?.pattern">Email is invalid.</div>
+          <div *ngIf="email.errors?.required">Email is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group required">
+        <label for="passwordInput">Password</label>
+        <input id="passwordInput" type="password" name="password" class="form-control" [(ngModel)]="model.password"
+          #password="ngModel" [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid }" required />
+        <div class="invalid-feedback" *ngIf="loginForm.submitted && password.invalid">
+          <div *ngIf="password.errors?.required">Password is required.</div>
+        </div>
+      </div>
+
+      <div class="row mt-3 mb-3">
+        <div class="col-12">
+          <button type="submit"
+            class="auth-button rounded border-0 d-flex text-white justify-content-center p-2 mt-3 w-100">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
