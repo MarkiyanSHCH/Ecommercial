@@ -11,13 +11,13 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductsComponent implements OnInit {
 
+  productList: Product[] = <Product[]>[];
+
   constructor(
     private _productService: ProductService,
     private _activeRoute: ActivatedRoute,
     private _router: Router
   ) { }
-
-  productList: Product[] = <Product[]>[];
 
   ngOnInit(): void {
     this._activeRoute.params.subscribe(params => {
@@ -30,5 +30,9 @@ export class ProductsComponent implements OnInit {
           this.productList = data.products;
         });
     });
+  }
+
+  getCover(product: Product): string {
+    return 'url(' + product.photoFileName + ')';
   }
 }

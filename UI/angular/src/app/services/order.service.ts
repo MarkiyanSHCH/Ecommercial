@@ -21,4 +21,12 @@ export class OrderService {
   getOrders(): Observable<ProductsList> {
     return this._http.get<ProductsList>(`${this._baseApiUrl}orders`)
   }
+
+  createOrder(id: number) {
+    return this._http.post(`${this._baseApiUrl}orders`, id)
+  }
+
+  deleteOrder(id: number) {
+    return this._http.delete(`${this._baseApiUrl}orders/` + id);
+  }
 }

@@ -12,7 +12,13 @@ namespace Core.Services
         public OrderServices(IOrderRepository orderRepository)
             => this._orderRepository = orderRepository;
 
-        public IEnumerable<Product> GetOrders(string UserId)
+        public IEnumerable<Product> GetOrders(int UserId)
             => this._orderRepository.GetAll(UserId);
+
+        public bool AddOrderProduct(int UserId, int ProductId)
+            => this._orderRepository.AddOrderProduct(UserId, ProductId);
+
+        public bool RemoveOrderProduct(int UserId, int ProductId)
+            => this._orderRepository.RemoveOrderProduct(UserId, ProductId);
     }
 }

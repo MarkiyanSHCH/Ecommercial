@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Product } from 'src/app/models/Product';
+import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -11,18 +12,23 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class DetailComponent implements OnInit {
 
+  id: number = 0;
   product: Product = <Product>{};
 
   constructor(
     private _productService: ProductService,
-    private _activeRoute: ActivatedRoute,
+    private _orderService: OrderService,
+    private _activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.id = Number(this._activeRoute.snapshot.paramMap.get("id"))
     this._productService
-    .getProductById(Number(
-      this._activeRoute.snapshot.paramMap.get("id")
-      ))
-    .subscribe(res => this.product = res);
+      .getProductById(this.id)
+      .subscribe(res => this.product = res);
+  }
+
+  addOrderProduct() {
+    this._orderService.createOrder(this.id).subscribe();
   }
 }

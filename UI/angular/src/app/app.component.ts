@@ -23,7 +23,10 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.refreshProdList();
+    this._categoryService.getCategory()
+      .subscribe(data =>
+        this.categoriesList = data.categories
+      );
   }
 
   public get isLoggedIn(): boolean {
@@ -41,12 +44,5 @@ export class AppComponent implements OnInit {
 
   logout() {
     this._authService.logout()
-  }
-
-  refreshProdList() {
-    this._categoryService.getCategory()
-      .subscribe(data =>
-        this.categoriesList = data.categories
-      );
   }
 }

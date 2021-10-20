@@ -19,4 +19,8 @@ export class OrdersComponent implements OnInit {
       .getOrders()
       .subscribe(res => this.orders = res.products)
   }
+
+  delete(id: number) {
+    this._orderService.deleteOrder(id).subscribe((res) => this.ngOnInit());
+  }
 }

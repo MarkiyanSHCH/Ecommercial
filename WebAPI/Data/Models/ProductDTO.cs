@@ -33,9 +33,13 @@ namespace Data.Models
                  PhotoFileName = !reader.IsDBNull(reader.GetOrdinal("PhotoFileName")) 
                         ? reader.GetString(nameof(PhotoFileName)) : null,
                  CharacteristicsName = HasColumn(reader, "CharName") 
-                        ? reader.GetString("CharName") : null,
-                 CharacteristicsValue = HasColumn(reader, "CharValue") 
+                        ? !reader.IsDBNull(reader.GetOrdinal("CharName"))
+                        ? reader.GetString("CharName") : null 
+                        : null,
+                 CharacteristicsValue = HasColumn(reader, "CharValue")
+                        ? !reader.IsDBNull(reader.GetOrdinal("CharValue"))
                         ? reader.GetString("CharValue") : null
+                        : null,
              };
 
         public Product ToDomainModel()
