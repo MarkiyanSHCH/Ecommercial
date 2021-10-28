@@ -1,35 +1,38 @@
-import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Login } from '../models/auth/login';
 
-import { API_URL } from '../app-injection-tokens';
-import { Token } from '../models/Token';
+import { LoginDashboardComponent } from '../module/login-dashboard/login-dashboard.component';
+import { AuthHttpService } from './http/auth.http.service';
 
 export const ACCESS_TOKEN_KEY = 'store_access_token'
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
 
+  isAutorise = new EventEmitter<void>();
+
   constructor(
-    private _http: HttpClient,
-    @Inject(API_URL) private _apiUrl: string,
+    private _modalService: NgbModal,
     private _jwtHelper: JwtHelperService,
-    private _router: Router
+    private _router: Router,
+    public authHttpService: AuthHttpService
   ) { }
 
-  login(email: string, password: string): Observable<any> {
-    return this._http.post<Token>(`${this._apiUrl}api/auth/login`, {
-      email, password
-    }).pipe(
-      tap(signInResult => localStorage.setItem(ACCESS_TOKEN_KEY, signInResult.access_token))
-    );
+  login(): void {
+    const modalRef = this._modalService.open(LoginDashboardComponent, { centered: true });
+    const module = <LoginDashboardComponent>modalRef.componentInstance;
+    module.login.subscribe((account: Login) =>
+      this.authHttpService.login(account.email, account.password)
+        .subscribe(() => {
+          module.activeModal.dismiss();
+          this.isAutorise.next();
+        },
+          () => module.error = `Invalide Email or Password`));
   }
 
   isAuthenticated(): boolean {

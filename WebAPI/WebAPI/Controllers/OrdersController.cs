@@ -24,9 +24,9 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetOrders()
         {
-            ProductList orders = new ProductList
+            GetOrdersList orders = new GetOrdersList
             {
-                Products = this._orderServices.GetOrders(_userId).ToList()
+                Orders = this._orderServices.GetAllOrders(_userId).ToList()
             };
 
             if (orders != null) return Ok(orders);
@@ -34,20 +34,38 @@ namespace WebAPI.Controllers
             return NotFound();
         }
 
+        [HttpGet("{orderId}/lines")]
+        public IActionResult GetOrderLines(int orderId)
+        {
+            GetOrderLinesList orderLines = new GetOrderLinesList
+            {
+                OrderLines = this._orderServices.GetAllOrderLines(orderId).ToList()
+            };
+
+            if (orderLines != null) return Ok(orderLines);
+
+            return NotFound();
+        }
+
         [HttpPost]
-        public IActionResult PostOrder([FromBody] int ProductId)
-        { 
+        public IActionResult PostOrder([FromBody] PostOrderRequest request)
+        {
             if (_userId == 0) return Unauthorized();
 
-            if (ProductId != 0)
-            {
-                this._orderServices.AddOrderProduct(_userId, ProductId);
-                return Ok(ProductId);
-            }
+            if (request != null)
+                return Ok(
+                    this._orderServices
+                        .AddOrderProduct(
+                            _userId,
+                            request.ShopId,
+                            request.TotalPrice,
+                            request.OrderLines)
+                        );
+
             return BadRequest();
         }
 
-        [HttpDelete("{ProductId:int}")]
+        /*[HttpDelete("{ProductId:int}")]
         public IActionResult RemoveOrderItem([FromRoute] int ProductId)
         {
             if (ProductId != 0)
@@ -56,6 +74,6 @@ namespace WebAPI.Controllers
                 return NoContent();
             }
             return BadRequest();
-        }
+        }*/
     }
 }

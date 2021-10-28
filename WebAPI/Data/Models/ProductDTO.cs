@@ -56,7 +56,8 @@ namespace Data.Models
         public static Product ToDomainModel(List<ProductDTO> productList)
         {
             Product product = productList.First().ToDomainModel();
-            product.Characteristics = productList.Select(item => new Characteristics { Name = item.CharacteristicsName, Value = item.CharacteristicsValue });
+            product.Characteristics = productList.Select(item => 
+                new Characteristics { Name = item.CharacteristicsName, Value = item.CharacteristicsValue });
             return product;
         }
 

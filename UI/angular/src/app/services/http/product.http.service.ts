@@ -3,17 +3,15 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { Product } from '../models/Product';
-import { API_URL } from '../app-injection-tokens';
-import { ProductsList } from '../models/Products';
+import { Product } from 'src/app/models/product/product';
+import { API_URL } from 'src/app/app-injection-tokens';
+import { ProductsList } from 'src/app/models/product/products';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
-
-  private _baseApiUrl = `${this._apiUrl}api/`
+export class ProductHttpService {
 
   constructor(
     private _http: HttpClient,
@@ -21,14 +19,14 @@ export class ProductService {
   ) { }
 
   getProducts(): Observable<ProductsList> {
-    return this._http.get<ProductsList>(`${this._baseApiUrl}product`);
+    return this._http.get<ProductsList>(`${this._apiUrl}product`);
   }
 
   getProductById(id: number): Observable<Product> {
-    return this._http.get<Product>(`${this._baseApiUrl}product/` + id);
+    return this._http.get<Product>(`${this._apiUrl}product/` + id);
   }
 
   getProductByCategory(id: number): Observable<ProductsList> {
-    return this._http.get<ProductsList>(`${this._baseApiUrl}product/category/` + id);
+    return this._http.get<ProductsList>(`${this._apiUrl}product/category/` + id);
   }
 }

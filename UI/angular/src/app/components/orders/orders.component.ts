@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Product } from 'src/app/models/Product';
-import { OrderService } from 'src/app/services/order.service';
+import { Order } from 'src/app/models/order/order';
+import { OrderLine } from 'src/app/models/order/orderLine';
+import { OrderHttpService } from 'src/app/services/http/order.http.service';
 
 @Component({
   selector: 'app-orders',
@@ -10,17 +11,24 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class OrdersComponent implements OnInit {
 
-  orders: Product[] = <Product[]>[];
+  orders: Order[] = <Order[]>[];
+  orderLines: OrderLine[] = <OrderLine[]>[];
 
-  constructor(private _orderService: OrderService) { }
+  constructor(private _orderHttpService: OrderHttpService) { }
 
   ngOnInit(): void {
-    this._orderService
-      .getOrders()
-      .subscribe(res => this.orders = res.products)
+    this.getOrders();
   }
 
-  delete(id: number) {
-    this._orderService.deleteOrder(id).subscribe((res) => this.ngOnInit());
+  getOrders() {
+    this._orderHttpService
+      .getOrders()
+      .subscribe(res => this.orders = res.orders);
+  }
+
+  getOrderLines(orderId: number) {
+    this._orderHttpService
+      .getOrderLines(orderId)
+      .subscribe(res => this.orderLines = res.orderLines);
   }
 }

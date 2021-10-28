@@ -33,6 +33,27 @@ namespace Data.Repository
             return productList.Select(dto => dto.ToDomainModel());
         }
 
+        public Product GetById(int Id)
+        {
+            var productList = new List<ProductDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+            using (SqlCommand command =
+                new SqlCommand("spProduct_GetProductByIdWithCharacteristic", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters
+                    .Add("@id", SqlDbType.Int)
+                    .Value = Id;
+
+                connection.Open();
+
+                using SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
+            }
+            return ProductDTO.ToDomainModel(productList);
+        }
+
         public IEnumerable<Product> GetByCategory(int Id)
         {
             var productList = new List<ProductDTO>();
@@ -51,27 +72,6 @@ namespace Data.Repository
                 while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
             }
             return productList.Select(dto => dto.ToDomainModel());
-        }
-
-        public Product GetById(int Id)
-        {
-            var productList = new List<ProductDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = 
-                new SqlCommand("spProduct_GetProductByIdWithCharacteristic", connection))
-            {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters
-                    .Add("@id", SqlDbType.Int)
-                    .Value = Id;
-
-                connection.Open();
-
-                using SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
-            }
-            return ProductDTO.ToDomainModel(productList);
         }
     }
 }

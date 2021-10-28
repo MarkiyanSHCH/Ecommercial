@@ -12,9 +12,10 @@ import { AppComponent } from './app.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { DetailComponent } from './components//products/detail/detail.component';
 import { ProductsComponent } from './components/products/products.component';
-import { ACCESS_TOKEN_KEY } from './services/auth.service';
-import { AuthorizationDashboardModule } from './module/authorization-dashboard/authorization-dashboard.module';
+import { ACCESS_TOKEN_KEY } from './services/http/auth.http.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalWindowModule } from './module/modal-window.module';
+import { CartComponent } from './components/cart/cart.component';
 
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)
@@ -26,6 +27,7 @@ export function tokenGetter() {
     ProductsComponent,
     DetailComponent,
     OrdersComponent,
+    CartComponent
   ],
 
   imports: [
@@ -34,7 +36,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AuthorizationDashboardModule,
+    ModalWindowModule,
 
     JwtModule.forRoot({
       config: {

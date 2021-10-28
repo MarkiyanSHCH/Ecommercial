@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  authApi: 'https://localhost:44357/',
+  authApi: 'https://localhost:44357/api/',
   tokenWhiteListedDomins: ['localhost:44357']
 };
 

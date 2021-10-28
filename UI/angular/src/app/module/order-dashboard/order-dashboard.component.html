@@ -1,0 +1,47 @@
+<div class="shadow-sm-md p-2">
+  <div class="modal-header">
+    <button class="btn"
+            type="button"
+            aria-label="Close"
+            (click)="activeModal.dismiss()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="modal-body text-transform-none">
+    <form name="form"
+          class="input-group"
+          #orderForm="ngForm"
+          (ngSubmit)="orderForm.form.valid && order.next(model)"
+          novalidate>
+      <div class="container">
+        <div class="form-group required">
+          <select class="form-control"
+                  id="addressInput"
+                  type="text"
+                  name="address"
+                  [(ngModel)]="model.shopId"
+                  #address="ngModel"
+                  [ngClass]="{ 'is-invalid': orderForm.submitted && address.invalid }"
+                  required>
+            <option *ngFor="let shop of shopsModal"
+                    [ngValue]="shop.id">{{shop.address}}</option>
+          </select>
+          <div class="invalid-feedback"
+               *ngIf="orderForm.submitted && address.invalid">
+            <div *ngIf="address.errors?.required">address is required.</div>
+          </div>
+        </div>
+        <div class="form-group d-flex justify-content-end">
+          <span>Subtotal: {{totalPrice}}</span>
+        </div>
+        <div class="row mt-3 mb-3">
+          <div class="col-12">
+            <button type="submit"
+                    class="auth-button rounded border-0 d-flex text-white justify-content-center p-2 mt-3 w-100">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

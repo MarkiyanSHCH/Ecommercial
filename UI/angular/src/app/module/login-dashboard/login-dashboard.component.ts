@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Login } from 'src/app/models/Login';
+
+import { Login } from 'src/app/models/auth/login';
 
 @Component({
   selector: 'app-login-dashboard',

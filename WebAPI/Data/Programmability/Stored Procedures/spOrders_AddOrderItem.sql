@@ -23,18 +23,48 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[spOrders_AddOrderItem]
+	@TotalPrice float,
 	@UserId int,
-	@ProductId int
+	@ShopId int,
+	@OrderLines Lines READONLY
 AS
 BEGIN
 	SET NOCOUNT OFF;
-	INSERT INTO [dbo].[Orders](
-		UserId,
-		ProductId
+	--========================================================================
+    -- Insert:
+    --========================================================================
+	BEGIN TRANSACTION;
+
+	INSERT INTO Orders 
+	(
+		[TotalPrice],
+		[UserId],
+		[ShopId]
 	)
-	VALUES(
+	VALUES 
+	(
+		@TotalPrice,
 		@UserId,
-		@ProductId
+		@ShopId
+	);
+
+	DECLARE @OrderId INT = CONVERT(INT, SCOPE_IDENTITY());
+	
+	INSERT INTO OrderLines
+	(
+		[OrderId],
+		[ProductId],
+		[Note],
+		[Quantity]
 	)
+	SELECT 
+		@OrderId,
+		ProductId,
+		Note,
+		Quantity
+	FROM @OrderLines;
+
+	COMMIT TRANSACTION;
+
+	SELECT @OrderId AS 'Id';
 END
-GO

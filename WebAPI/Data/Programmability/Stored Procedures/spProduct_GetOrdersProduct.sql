@@ -37,7 +37,8 @@ BEGIN
 	FROM Products
 	INNER JOIN Orders
 		ON Products.Id = Orders.ProductId
-	INNER JOIN Users
-		ON Orders.UserId = Users.Id
+	WHERE Orders.UserId = @UserId
 END
 GO
+
+exec spProduct_GetOrdersProduct @UserId=2

@@ -1,4 +1,4 @@
-import { Characteristic } from "./Characteristic";
+import { Characteristic } from "./characteristic";
 
 export interface Product {
     id: number;
