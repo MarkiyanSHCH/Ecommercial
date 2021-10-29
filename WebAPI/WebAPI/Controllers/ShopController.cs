@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,11 +32,11 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{shopId}")]
-        public IActionResult GetById([FromQuery]int? shopId)
+        public IActionResult GetById([Required][FromQuery]int shopId)
         {
-            if (shopId == null) return BadRequest();
+            if (shopId > 0) return BadRequest();
 
-            Shop shop = this._shopServices.GetById((int)shopId);
+            Shop shop = this._shopServices.GetById(shopId);
 
             if (shop != null) return Ok(shop);
 

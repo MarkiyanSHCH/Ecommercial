@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,11 +32,11 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int? id)
+        public IActionResult GetById([Required] int id)
         {
-            if (id == null) return BadRequest();
+            if (id > 0) return BadRequest();
 
-            Product product = this._productServices.GetById((int)id);
+            Product product = this._productServices.GetById(id);
 
             if (product != null) return Ok(product);
 
@@ -43,9 +44,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("category/{id}")]
-        public IActionResult GetByCategory(int id)
+        public IActionResult GetByCategory([Required] int id)
         {
-            if (id == null) return BadRequest();
+            if (id > 0) return BadRequest();
 
             var products = new GetProductList
             {

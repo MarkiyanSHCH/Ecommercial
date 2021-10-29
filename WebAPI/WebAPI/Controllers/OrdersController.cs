@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,14 +38,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{orderId}/lines")]
-        public IActionResult GetOrderLines(int? orderId)
+        public IActionResult GetOrderLines([Required] int orderId)
         {
-            if (this._userId == 0) return Unauthorized();
-            if (orderId == null) return BadRequest();
+            if (this._userId > 0) return Unauthorized();
+            if (orderId > 0) return BadRequest();
 
             var orderLines = new GetOrderLinesList
             {
-                OrderLines = this._orderServices.GetAllOrderLines((int)orderId).ToList()
+                OrderLines = this._orderServices.GetAllOrderLines(orderId).ToList()
             };
 
             if (orderLines.OrderLines.Any()) return Ok(orderLines);
@@ -55,7 +56,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult PostOrder([FromBody] PostOrderRequest request)
         {
-            if (this._userId == 0) return Unauthorized();
+            if (this._userId > 0) return Unauthorized();
 
             if (request != null)
                 return Ok(
