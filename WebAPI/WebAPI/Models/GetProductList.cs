@@ -5,11 +5,11 @@ using Domain.Models;
 
 namespace WebAPI.Models
 {
-    public class ProductList
+    public class GetProductList
     {
         public IEnumerable<Product> Products { get; set; }
 
-        public ProductList()
+        public GetProductList()
             => this.Products = Enumerable.Empty<Product>();
     }
 }

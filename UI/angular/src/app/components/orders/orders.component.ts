@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 
 import { Order } from 'src/app/models/order/order';
 import { OrderLine } from 'src/app/models/order/orderLine';
@@ -23,12 +24,14 @@ export class OrdersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._orderHttpService
-    .getOrders()
-    .subscribe(res => this.orders = res.orders);
-    this._shopHttpService
+    forkJoin({
+      order: this._orderHttpService
+      .getOrders()
+      .subscribe(res => this.orders = res.orders),
+      shop:  this._shopHttpService
       .getShops()
-      .subscribe(res => this.shops = res.shops);
+      .subscribe(res => this.shops = res.shops)
+    });
   }
 
   returnShop(shopId: number): Shop {

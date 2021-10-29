@@ -19,9 +19,9 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var categories = new CategoryList
+            var categories = new GetCategoryList
             {
-                Categories = _categoryServices.Get().ToList()
+                Categories = this._categoryServices.Get().ToList()
             };
 
             if (categories.Categories.Any()) return Ok(categories);

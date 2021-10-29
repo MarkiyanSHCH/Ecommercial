@@ -1,16 +1,17 @@
+import { forkJoin } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CartItem } from 'src/app/models/cart/cartItem';
-import { Product } from 'src/app/models/product/product';
-import { OrderDashboardComponent } from 'src/app/module/order-dashboard/order-dashboard.component'
 import { Order } from 'src/app/models/order/order';
-import { OrderHttpService } from 'src/app/services/http/order.http.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { Product } from 'src/app/models/product/product';
 import { Shop } from 'src/app/models/shop/shop';
-import { ShopHttpService } from 'src/app/services/http/shop.http.service';
+import { OrderDashboardComponent } from 'src/app/module/order-dashboard/order-dashboard.component';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartHttpService } from 'src/app/services/http/cart.http.service';
+import { OrderHttpService } from 'src/app/services/http/order.http.service';
+import { ShopHttpService } from 'src/app/services/http/shop.http.service';
 
 export const CART_ITEMS = ('CartItemArray');
 
@@ -48,12 +49,14 @@ export class CartComponent implements OnInit {
   loadPageInfo() {
     this.cartItems = JSON.parse(localStorage.getItem(CART_ITEMS) || '[]');
     this._productIds = this.cartItems.map(x => x.productId);
-    this._cartHttpService
-      .getCartItem(this._productIds)
-      .subscribe(res => this.items = res.products);
-    this._shopHttpService
-      .getShops()
-      .subscribe(res => this.shops = res.shops);
+    forkJoin({
+      cartItem: this._cartHttpService
+        .getCartItem(this._productIds)
+        .subscribe(res => this.items = res.products),
+      shop: this._shopHttpService
+        .getShops()
+        .subscribe(res => this.shops = res.shops)
+    });
   }
 
   delete(index: number) {

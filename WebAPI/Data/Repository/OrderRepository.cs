@@ -42,7 +42,7 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
-                return null;
+                return Enumerable.Empty<Order>();
             }
         }
 
@@ -69,7 +69,7 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
-                return null;
+                return Enumerable.Empty<OrderLine>();
             }
         }
 

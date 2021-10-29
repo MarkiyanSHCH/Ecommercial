@@ -15,8 +15,8 @@ namespace Data.Models
         public double Price { get; set; }
         public int CategoryId { get; set; }
         public string PhotoFileName { get; set; }
-        public string CharacteristicsName { get; set; }
-        public string CharacteristicsValue { get; set; }
+        public string PropertyName { get; set; }
+        public string PropertyValue { get; set; }
 
         public static ProductDTO MapFrom(SqlDataReader reader)
              => new ProductDTO
@@ -32,12 +32,12 @@ namespace Data.Models
                         ? reader.GetInt32(nameof(CategoryId)) : 0,
                  PhotoFileName = !reader.IsDBNull(reader.GetOrdinal(nameof(PhotoFileName)))
                         ? reader.GetString(nameof(PhotoFileName)) : null,
-                 CharacteristicsName = HasColumn(reader, "CharName")
-                        ? !reader.IsDBNull(reader.GetOrdinal("CharName"))
+                 PropertyName = HasColumn(reader, nameof(PropertyName))
+                        ? !reader.IsDBNull(reader.GetOrdinal(nameof(PropertyName)))
                         ? reader.GetString("CharName") : null
                         : null,
-                 CharacteristicsValue = HasColumn(reader, "CharValue")
-                        ? !reader.IsDBNull(reader.GetOrdinal("CharValue"))
+                 PropertyValue = HasColumn(reader, nameof(PropertyValue))
+                        ? !reader.IsDBNull(reader.GetOrdinal(nameof(PropertyValue)))
                         ? reader.GetString("CharValue") : null
                         : null,
              };
@@ -56,13 +56,14 @@ namespace Data.Models
         public static Product ToDomainModel(List<ProductDTO> productList)
         {
             Product product = productList.First().ToDomainModel();
-                product.Characteristics = productList.First().CharacteristicsValue != null ? productList.Select(item =>
-                new Characteristics
-                {
-                    Name = item.CharacteristicsName,
-                    Value = item.CharacteristicsValue
-                })
-                : Enumerable.Empty<Characteristics>();
+            product.Properties = productList.First().PropertyValue != null
+                ? productList.Select(item =>
+                    new Property
+                    {
+                        Name = item.PropertyName,
+                        Value = item.PropertyValue
+                    })
+                : Enumerable.Empty<Property>();
 
             return product;
         }

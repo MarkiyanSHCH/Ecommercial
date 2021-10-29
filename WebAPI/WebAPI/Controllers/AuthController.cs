@@ -16,12 +16,12 @@ namespace AuthApi.Controllers
             => this._authServices = authServices;
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] Login request)
+        public IActionResult Login([FromBody] PostLogin request)
         {
-            Account user = _authServices.GetAccount(request.Email, request.Password);
+            Account user = this._authServices.GetAccount(request.Email, request.Password);
 
             if (user != null)
-                return Ok(new { access_token = _authServices.GenerateJWT(user) });
+                return Ok(new { access_token = this._authServices.GenerateJWT(user) });
 
             return Unauthorized();
         }

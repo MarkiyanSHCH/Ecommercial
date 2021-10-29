@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data;
+using System;
 
 using Microsoft.Extensions.Configuration;
 
@@ -11,7 +12,7 @@ using Core.Repository;
 
 namespace Data.Repository
 {
-    public class ShopRepository: IShopRepository
+    public class ShopRepository : IShopRepository
     {
         private readonly string _sqlDataSource;
 
@@ -20,36 +21,50 @@ namespace Data.Repository
 
         public IEnumerable<Shop> GetAll()
         {
-            var shopList = new List<ShopDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = new SqlCommand("spShops_GetAll", connection))
+            try
             {
-                connection.Open();
+                var shopList = new List<ShopDTO>();
 
-                using SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read()) shopList.Add(ShopDTO.MapFrom(reader));
+                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlCommand command = new SqlCommand("spShops_GetAll", connection))
+                {
+                    connection.Open();
+
+                    using SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) shopList.Add(ShopDTO.MapFrom(reader));
+                }
+                return shopList.Select(dto => dto.ToDomainModel());
             }
-            return shopList.Select(dto => dto.ToDomainModel());
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<Shop>();
+            }
         }
 
         public Shop GetById(int ShopId)
         {
-            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = new SqlCommand("spShops_GetById", connection))
+            try
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters
-                    .Add("@ShopId", SqlDbType.Int, 100)
-                    .Value = ShopId;
+                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlCommand command = new SqlCommand("spShops_GetById", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters
+                        .Add("@ShopId", SqlDbType.Int, 100)
+                        .Value = ShopId;
 
-                connection.Open();
+                    connection.Open();
 
-                using SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                    return ShopDTO.MapFrom(reader).ToDomainModel();
+                    using SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                        return ShopDTO.MapFrom(reader).ToDomainModel();
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

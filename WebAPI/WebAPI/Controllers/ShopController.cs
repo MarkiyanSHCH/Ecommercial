@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         {
             var shops = new GetShopList
             {
-                Shops = _shopServices.GetAll().ToList()
+                Shops = this._shopServices.GetAll().ToList()
             };
 
             if (shops.Shops.Any()) return Ok(shops);
@@ -31,9 +31,11 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{shopId}")]
-        public IActionResult GetById([FromQuery]int shopId)
+        public IActionResult GetById([FromQuery]int? shopId)
         {
-            Shop shop = _shopServices.GetById(shopId);
+            if (shopId == null) return BadRequest();
+
+            Shop shop = this._shopServices.GetById((int)shopId);
 
             if (shop != null) return Ok(shop);
 

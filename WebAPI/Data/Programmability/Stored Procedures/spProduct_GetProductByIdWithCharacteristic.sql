@@ -34,8 +34,8 @@ BEGIN
 		Products.[Price], 
 		Products.[CategoryId], 
 		Products.[PhotoFileName], 
-		CategoryCharacterictic.[Name] AS CharName, 
-		ProductCharacteristics.[Value] AS CharValue 
+		CategoryCharacterictic.[Name] AS PropertyName, 
+		ProductCharacteristics.[Value] AS PropertyValue 
 	From Products
 	Left JOIN ProductCharacteristics
 		ON Products.Id = ProductCharacteristics.ProductId

@@ -16,7 +16,7 @@
           novalidate>
       <div class="container">
         <div class="form-group required">
-          <label for="countrySelect">Select address: </label>
+          <label>Select address: </label>
           <select class="form-control"
                   id="addressInput"
                   type="text"
@@ -34,14 +34,10 @@
         <div class="form-group d-flex justify-content-end">
           <span>Subtotal: {{totalPrice}}</span>
         </div>
-        <div class="row mt-3 mb-3">
-          <div class="col-12">
-            <button type="submit"
-                    class="btn btn-outline-dark w-100 mt-3 py-2">
-              Submit
-            </button>
-          </div>
-        </div>
+        <button type="submit"
+                class="btn btn-outline-dark w-100 mt-3 py-2">
+          Submit
+        </button>
       </div>
     </form>
   </div>

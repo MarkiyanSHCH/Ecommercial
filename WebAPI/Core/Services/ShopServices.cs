@@ -14,8 +14,8 @@ namespace Core.Services
 
         public IEnumerable<Shop> GetAll()
             => this._shopRepository.GetAll();
+
         public Shop GetById(int ShopId)
             => this._shopRepository.GetById(ShopId);
-
     }
 }

@@ -37,13 +37,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{orderId}/lines")]
-        public IActionResult GetOrderLines(int orderId)
+        public IActionResult GetOrderLines(int? orderId)
         {
             if (this._userId == 0) return Unauthorized();
+            if (orderId == null) return BadRequest();
 
             var orderLines = new GetOrderLinesList
             {
-                OrderLines = this._orderServices.GetAllOrderLines(orderId).ToList()
+                OrderLines = this._orderServices.GetAllOrderLines((int)orderId).ToList()
             };
 
             if (orderLines.OrderLines.Any()) return Ok(orderLines);

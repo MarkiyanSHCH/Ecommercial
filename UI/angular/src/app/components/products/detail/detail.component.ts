@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { Characteristic } from 'src/app/models/product/characteristic';
 import { Product } from 'src/app/models/product/product';
-import { CartModuleComponent } from 'src/app/module/cart-dashboard/cart-dashboard.component';
 import { CartItem } from 'src/app/models/cart/cartItem';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductHttpService } from 'src/app/services/http/product.http.service';
-import { Characteristic } from 'src/app/models/product/characteristic';
+import { CartModuleComponent } from 'src/app/module/cart-dashboard/cart-dashboard.component';
 
 @Component({
   selector: 'app-detail',
@@ -32,10 +32,7 @@ export class DetailComponent implements OnInit {
       .getProductById(Number(
         this._activeRoute.snapshot.paramMap.get("id")
       ))
-      .subscribe(res => {
-        this.product = res;
-        console.log(res)
-      });
+      .subscribe(res => this.product = res);
   }
 
   addCartProduct() {

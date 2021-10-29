@@ -2,7 +2,7 @@
 
 namespace WebAPI.Models
 {
-    public class Login
+    public class PostLogin
     {
         [Required]
         [EmailAddress]

@@ -8,9 +8,9 @@ a:active {
   text-decoration: none;
   color: inherit;
 }
-font-size-1-125 {
+font-size-lg {
   font-size: 1.125rem;
 }
-font-size-0-875 {
+font-size-sm {
   font-size: 0.875rem;
 }
