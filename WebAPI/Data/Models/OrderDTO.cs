@@ -17,9 +17,9 @@ namespace Data.Models
              => new OrderDTO
              {
                  Id = reader.GetInt32(nameof(Id)),
-                 TotalPrice = !reader.IsDBNull(reader.GetOrdinal("TotalPrice"))
+                 TotalPrice = !reader.IsDBNull(reader.GetOrdinal(nameof(TotalPrice)))
                         ? reader.GetDouble(nameof(TotalPrice)) : 0,
-                 ShopId = !reader.IsDBNull(reader.GetOrdinal("ShopId"))
+                 ShopId = !reader.IsDBNull(reader.GetOrdinal(nameof(ShopId)))
                         ? reader.GetInt32(nameof(ShopId)) : 0,
                  OrderDate = reader.GetDateTime(nameof(OrderDate))
              };

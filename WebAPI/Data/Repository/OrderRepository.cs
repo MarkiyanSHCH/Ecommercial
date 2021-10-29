@@ -118,31 +118,5 @@ namespace Data.Repository
                 return 0;
             }
         }
-
-        /* public bool RemoveOrderProduct(int UserId, int ProductId)
-         {
-             try
-             {
-                 using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-                 using (SqlCommand command = new SqlCommand("spOrders_RemoveOrderItem", connection))
-                 {
-                     command.CommandType = CommandType.StoredProcedure;
-                     command.Parameters
-                         .Add("@UserId", SqlDbType.Int)
-                         .Value = UserId;
-                     command.Parameters
-                         .Add("@ProductId", SqlDbType.Int)
-                         .Value = ProductId;
-
-                     connection.Open();
-                     command.ExecuteNonQuery();
-                 }
-                 return true;
-             }
-             catch (Exception ex)
-             {
-                 return false;
-             }
-         }*/
     }
 }

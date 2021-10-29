@@ -23,8 +23,8 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[spOrders_RemoveOrderItem]
-	@UserId int,
-	@ProductId int
+	@UserId INT,
+	@ProductId INT
 AS
 BEGIN
 	SET NOCOUNT OFF;

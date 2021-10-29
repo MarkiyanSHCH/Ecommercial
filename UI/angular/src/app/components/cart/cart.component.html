@@ -1,46 +1,46 @@
 <div class="font-size-sm mt-3">
-  <div class="row">
-    <div class="col-12">
-      <div class="row border-bottom border-dark d-none d-md-flex text-center">
-        <div class="col-4 font-weight-bold">Name</div>
-        <div class="col-5 font-weight-bold">Note</div>
-        <div class="col-1 font-weight-bold"><i class="bi bi-basket"></i></div>
-        <div class="col-1 font-weight-bold"><i class="bi bi-wallet"></i></div>
-        <div class="col-1 font-weight-bold"><i class="bi bi-x-lg"></i></div>
-      </div>
+  <div class="row border-bottom border-dark d-none d-md-flex fw-bold">
+    <div class="col-4">Name</div>
+    <div class="col-5">Note</div>
+    <div class="col-1"><i class="bi bi-basket"></i></div>
+    <div class="col-1"><i class="bi bi-wallet"></i></div>
+    <div class="col-1"><i class="bi bi-x-lg"></i></div>
+  </div>
+  <div class="row border-bottom border-dark py-2"
+       *ngFor="let dataItem of cartItems;let i = index">
+    <div class="col-12 col-md-4">
+      <span class="d-md-none fw-bold">Name: </span>
+      <span>{{returnProduct(dataItem.productId).name}}</span>
     </div>
-
-    <div class="col-12 py-2"
-         *ngFor="let dataItem of cartItems;let i = index">
-      <div class="row border-bottom border-dark">
-        <div class="col-12 col-md-4">
-          <span class="d-md-none font-weight-bold">Name: </span>
-          <span>{{returnProduct(dataItem.productId).name}}</span>
-        </div>
-        <div class="col-12 col-md-5">
-          <span class="d-md-none font-weight-bold">Note: </span>
-          <span>{{dataItem.note}}</span>
-        </div>
-        <div class="col-12 col-md-1">
-          <span class="d-md-none font-weight-bold">Quantity: </span>
-          <span>{{dataItem.quantity}}</span>
-        </div>
-        <div class="col-12 col-md-1">
-          <span class="d-md-none font-weight-bold">Price: </span>
-          <span>${{dataItem.quantity*returnProduct(dataItem.productId).price}}</span>
-        </div>
-        <div class="col-12 col-md-1">
-          <button class="btn"
-                  (click)="delete(i)">
-            <i class="bi bi-trash"></i>
-          </button>
-        </div>
-      </div>
+    <div class="col-12 col-md-5">
+      <span class="d-md-none fw-bold">Note: </span>
+      <span>{{dataItem.note}}</span>
+    </div>
+    <div class="col-12 col-md-1">
+      <span class="d-md-none fw-bold">Quantity: </span>
+      <span>{{dataItem.quantity}}</span>
+    </div>
+    <div class="col-12 col-md-1 d-flex justify-content-between mb-2">
+      <span>
+        <span class="d-md-none fw-bold">Price: </span>
+        <span>${{dataItem.quantity*returnProduct(dataItem.productId).price}}</span>
+      </span>
+      <button class="btn btn-outline-dark d-md-none"
+              (click)="delete(i)">Delete
+      </button>
+    </div>
+    <div class="col-12 col-md-1">
+      <button class="btn d-none d-md-block"
+              (click)="delete(i)">
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
   </div>
 </div>
 
 <div class="d-flex justify-content-end mt-2">
-  <button class="btn btn-outline-dark button-order"
-          (click)="onOrderClick()">Order</button>
+  <button class="btn btn-outline-dark px-4 py-2"
+          (click)="onOrderClick()">
+    Order
+  </button>
 </div>

@@ -23,7 +23,7 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[spOrders_GetOrderByUserId]
-	@UserId int
+	@UserId INT
 AS
 BEGIN
 	SET NOCOUNT OFF;

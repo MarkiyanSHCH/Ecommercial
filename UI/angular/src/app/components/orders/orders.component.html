@@ -1,20 +1,15 @@
-<div class="font-size-sm mb-4">
-  <div class="row no-gutters header py-2 px-3 d-none d-md-flex">
-    <div class="col-11 offset-1 border-bottom border-dark">
-      <div class="row">
-        <div class="col-4">#</div>
-        <div class="col-4">Date</div>
-        <div class="col-4">Total Price</div>
-      </div>
-    </div>
-
-    <div class="col-11 offset-1 border-bottom border-dark py-2"
-         *ngFor="let order of orders">
-      <div class="row">
-        <div class="col-4">{{order.id}}</div>
-        <div class="col-4">{{order.orderDate | date:'shortDate'}}</div>
-        <div class="col-4">${{order.totalPrice}}</div>
-      </div>
-    </div>
+<div class="font-size-sm mt-3">
+  <div class="row border-bottom border-dark d-none d-md-flex fw-bold">
+    <div class="col-1">#</div>
+    <div class="col-4">Address</div>
+    <div class="col-4">Date</div>
+    <div class="col-3">Total Price</div>
+  </div>
+  <div class="row border-bottom border-dark py-2"
+       *ngFor="let order of orders">
+    <div class="col-1">{{order.id}}</div>
+    <div class="col-4">{{returnShop(order.shopId).address}}</div>
+    <div class="col-4">{{order.orderDate | date:'shortDate'}}</div>
+    <div class="col-3">${{order.totalPrice}}</div>
   </div>
 </div>

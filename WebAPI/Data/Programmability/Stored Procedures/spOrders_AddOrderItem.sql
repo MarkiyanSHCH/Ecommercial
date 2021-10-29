@@ -23,9 +23,9 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[spOrders_AddOrderItem]
-	@TotalPrice float,
-	@UserId int,
-	@ShopId int,
+	@TotalPrice FLOAT,
+	@UserId INT,
+	@ShopId INT,
 	@OrderLines Lines READONLY
 AS
 BEGIN

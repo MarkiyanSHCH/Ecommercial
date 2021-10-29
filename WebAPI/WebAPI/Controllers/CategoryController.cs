@@ -19,12 +19,12 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            CategoryList categories = new CategoryList
+            var categories = new CategoryList
             {
                 Categories = _categoryServices.Get().ToList()
             };
 
-            if (categories != null) return Ok(categories);
+            if (categories.Categories.Any()) return Ok(categories);
 
             return NotFound();
         }

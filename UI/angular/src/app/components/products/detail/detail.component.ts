@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CartItem } from 'src/app/models/cart/cartItem';
 
 import { Product } from 'src/app/models/product/product';
 import { CartModuleComponent } from 'src/app/module/cart-dashboard/cart-dashboard.component';
-
+import { CartItem } from 'src/app/models/cart/cartItem';
 import { CartService } from 'src/app/services/cart.service';
-import { ProductService } from 'src/app/services/http/product.http.service';
+import { ProductHttpService } from 'src/app/services/http/product.http.service';
+import { Characteristic } from 'src/app/models/product/characteristic';
 
 @Component({
   selector: 'app-detail',
@@ -16,21 +16,26 @@ import { ProductService } from 'src/app/services/http/product.http.service';
 })
 export class DetailComponent implements OnInit {
 
-  product: Product = <Product>{};
+  product: Product = <Product>{
+    characteristics: <Characteristic[]>[]
+  };
 
   constructor(
     private _modalService: NgbModal,
-    private _productService: ProductService,
+    private _productHttpService: ProductHttpService,
     private _cartService: CartService,
     private _activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this._productService
+    this._productHttpService
       .getProductById(Number(
         this._activeRoute.snapshot.paramMap.get("id")
       ))
-      .subscribe(res => this.product = res);
+      .subscribe(res => {
+        this.product = res;
+        console.log(res)
+      });
   }
 
   addCartProduct() {

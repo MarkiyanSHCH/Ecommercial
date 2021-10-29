@@ -40,5 +40,3 @@ BEGIN
 	WHERE Orders.UserId = @UserId
 END
 GO
-
-exec spProduct_GetOrdersProduct @UserId=2

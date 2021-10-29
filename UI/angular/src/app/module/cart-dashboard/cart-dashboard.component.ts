@@ -26,11 +26,11 @@ export class CartModuleComponent {
 
   constructor(public activeModal: NgbActiveModal) { }
 
-  addQuantity() {
+  incrementQuantity() {
     this.model.quantity++;
   }
 
-  removeQuantity() {
+  decrementQuantity() {
     if (this.model.quantity > 1)
       this.model.quantity--;
   }

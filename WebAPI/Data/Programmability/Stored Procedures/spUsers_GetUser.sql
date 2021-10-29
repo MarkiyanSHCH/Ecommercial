@@ -23,7 +23,7 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[spUsers_GetUser]
-	@Email varchar(50)
+	@Email VARCHAR(50)
 AS
 BEGIN
 	SET NOCOUNT OFF;

@@ -15,18 +15,18 @@
           <div class="mt-2 pr-3 content">
             <p>{{product.description}}</p>
           </div>
-          <h3>${{product.price}}</h3>
-          <div class="mt-4">
+          <h3>$ {{product.price}}</h3>
+          <div class="mt-4"
+               *ngIf="product.characteristics.length > 0">
             <span class="fw-bold">Characteristics : </span>
             <div class="mt-1 text-center"
                  *ngFor="let property of product.characteristics">
               <span>{{property.name}}: {{property.value}}</span>
             </div>
           </div>
-          <div class="buttons text-center mt-5">
-            <button class="btn btn-outline-dark"
-                    (click)="addCartProduct()"
-                    id="liveToastBtn">
+          <div class="text-center mt-5">
+            <button class="btn btn-outline-dark px-5 py-3"
+                    (click)="addCartProduct()">
               Buy Now
             </button>
           </div>

@@ -23,7 +23,7 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[spShops_GetById]
-	@ShopId int
+	@ShopId INT
 AS
 BEGIN
 	SET NOCOUNT OFF;

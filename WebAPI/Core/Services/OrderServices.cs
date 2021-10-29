@@ -20,8 +20,5 @@ namespace Core.Services
 
         public int AddOrderProduct(int UserId, int ShopId, double TotalPrice, IEnumerable<OrderLine> orderLines)
             => this._orderRepository.AddOrderProduct(UserId, ShopId, TotalPrice, orderLines);
-
-        /* public bool RemoveOrderProduct(int UserId, int ProductId)
-             => this._orderRepository.RemoveOrderProduct(UserId, ProductId);*/
     }
 }

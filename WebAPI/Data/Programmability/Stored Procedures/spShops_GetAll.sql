@@ -36,5 +36,3 @@ BEGIN
 	FROM Shops
 END
 GO
-
-EXEC spShops_GetAll

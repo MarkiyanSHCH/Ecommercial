@@ -20,12 +20,12 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            ProductList products = new ProductList
+            var products = new ProductList
             {
                 Products = _productServices.Get().ToList()
             };
 
-            if (products != null) return Ok(products);
+            if (products.Products.Any()) return Ok(products);
 
             return NotFound();
         }
@@ -43,12 +43,12 @@ namespace WebAPI.Controllers
         [HttpGet("category/{id}")]
         public IActionResult GetByCategory(int id)
         {
-            ProductList products = new ProductList
+            var products = new ProductList
             {
                 Products = _productServices.GetByCategory(id).ToList()
             };
 
-            if (products != null) return Ok(products);
+            if (products.Products.Any()) return Ok(products);
 
             return NotFound();
         }

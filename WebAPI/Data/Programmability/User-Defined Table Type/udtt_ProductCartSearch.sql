@@ -21,6 +21,6 @@ GO
 --============================================================================
 
 CREATE TYPE [dbo].[ProductCartSearch] AS TABLE(
-	[ItemId] int NOT NULL
+	[ItemId] INT NOT NULL
 );
 GO

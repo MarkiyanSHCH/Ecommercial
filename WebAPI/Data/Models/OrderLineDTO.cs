@@ -20,13 +20,13 @@ namespace Data.Models
              {
                  Id = reader.GetInt32(nameof(Id)),
                  OrderId = reader.GetInt32(nameof(OrderId)),
-                 Note = !reader.IsDBNull(reader.GetOrdinal("Note"))
+                 Note = !reader.IsDBNull(reader.GetOrdinal(nameof(Note)))
                         ? reader.GetString(nameof(Note)) : null,
                  Quantity = reader.GetInt32(nameof(Quantity)),
                  ProductId = reader.GetInt32(nameof(ProductId)),
-                 Name = !reader.IsDBNull(reader.GetOrdinal("Name"))
+                 Name = !reader.IsDBNull(reader.GetOrdinal(nameof(Name)))
                         ? reader.GetString(nameof(Name)) : null,
-                 Price = !reader.IsDBNull(reader.GetOrdinal("Price"))
+                 Price = !reader.IsDBNull(reader.GetOrdinal(nameof(Price)))
                         ? reader.GetDouble(nameof(Price)) : 0
 
              };

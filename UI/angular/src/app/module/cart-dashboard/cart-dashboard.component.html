@@ -40,9 +40,9 @@
           <div class="d-flex justify-content-center">
             <button type="button"
                     class="btn"
-                    (click)="removeQuantity()"><i class="bi bi-dash-square"></i></button>
+                    (click)="decrementQuantity()"><i class="bi bi-dash-square"></i></button>
             <input id="quantityInput"
-                   type="text"
+                   type="number"
                    name="quantity"
                    class="form-control"
                    size="1rem"
@@ -53,7 +53,9 @@
                    required />
             <button type="button"
                     class="btn"
-                    (click)="addQuantity()"><i class="bi bi-plus-square"></i></button>
+                    (click)="incrementQuantity()">
+              <i class="bi bi-plus-square"></i>
+            </button>
           </div>
           <div class="invalid-feedback"
                *ngIf="cartForm.submitted && quatity.invalid">
@@ -61,10 +63,10 @@
             <div *ngIf="quatity.errors?.required">Quantity is required.</div>
           </div>
         </div>
-        <div class="row mt-3 mb-3">
+        <div class="row my-3">
           <div class="col-12">
             <button type="submit"
-                    class="auth-button rounded border-0 d-flex text-white justify-content-center p-2 mt-3 w-100">Add</button>
+                    class="btn btn-outline-dark w-100 mt-3 py-2">Add</button>
           </div>
         </div>
       </div>

@@ -20,25 +20,24 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            GetShopList shops = new GetShopList
+            var shops = new GetShopList
             {
                 Shops = _shopServices.GetAll().ToList()
             };
 
-            if (shops != null) return Ok(shops);
+            if (shops.Shops.Any()) return Ok(shops);
 
             return NotFound();
         }
 
-        //TODO : Think about how to correct get id
-        /*[HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        [HttpGet("{shopId}")]
+        public IActionResult GetById([FromQuery]int shopId)
         {
-            Shop shop = _shopServices.GetById(id);
+            Shop shop = _shopServices.GetById(shopId);
 
             if (shop != null) return Ok(shop);
 
             return NotFound();
-        }*/
+        }
     }
 }

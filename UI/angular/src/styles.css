@@ -1,10 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
-.auth-button {
-    background-color: #212529;
-  }
-  .auth-button:hover {
-    background-color: #353B41;
-  }
-  
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+font-size-1-125 {
+  font-size: 1.125rem;
+}
+font-size-0-875 {
+  font-size: 0.875rem;
+}

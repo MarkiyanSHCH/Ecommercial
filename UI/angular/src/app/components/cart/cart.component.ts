@@ -5,7 +5,7 @@ import { CartItem } from 'src/app/models/cart/cartItem';
 import { Product } from 'src/app/models/product/product';
 import { OrderDashboardComponent } from 'src/app/module/order-dashboard/order-dashboard.component'
 import { Order } from 'src/app/models/order/order';
-import { OrderService } from 'src/app/services/http/order.http.service';
+import { OrderHttpService } from 'src/app/services/http/order.http.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Shop } from 'src/app/models/shop/shop';
@@ -31,13 +31,21 @@ export class CartComponent implements OnInit {
   constructor(
     private _modalService: NgbModal,
     private _cartHttpService: CartHttpService,
-    private _orderService: OrderService,
+    private _orderHttpService: OrderHttpService,
     private _authService: AuthService,
     private _shopHttpService: ShopHttpService,
     private _router: Router
   ) { }
 
   ngOnInit() {
+    this.loadPageInfo();
+  }
+
+  returnProduct(productId: number): Product {
+    return this.items.find(x => x.id === productId) ?? <Product>{};
+  }
+
+  loadPageInfo() {
     this.cartItems = JSON.parse(localStorage.getItem(CART_ITEMS) || '[]');
     this._productIds = this.cartItems.map(x => x.productId);
     this._cartHttpService
@@ -48,16 +56,12 @@ export class CartComponent implements OnInit {
       .subscribe(res => this.shops = res.shops);
   }
 
-  returnProduct(productId: number): Product {
-    return this.items.find(x => x.id === productId) ?? <Product>{};
-  }
-
   delete(index: number) {
     if (index >= 0) {
       this.cartItems = JSON.parse(localStorage.getItem(CART_ITEMS) || '[]');
       this.cartItems.splice(index, 1);
       localStorage.setItem(CART_ITEMS, JSON.stringify(this.cartItems));
-      this.ngOnInit();
+      this.loadPageInfo();
     }
   }
 
@@ -84,12 +88,11 @@ export class CartComponent implements OnInit {
     module.order.subscribe((item: Order) => {
       item.totalPrice = this.totalPrice;
       item.orderLines = this.cartItems;
-      console.log(item);
       module.activeModal.close();
-      this._orderService.postOrder(item).subscribe(() => {
+      this._orderHttpService.postOrder(item).subscribe(() => {
         localStorage.removeItem(CART_ITEMS);
-        this.cartItems =[];
-        this.items =[];
+        this.cartItems = [];
+        this.items = [];
         this._router.navigate(['order']);
       });
     });

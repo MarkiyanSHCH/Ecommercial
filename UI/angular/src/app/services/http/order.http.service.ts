@@ -29,12 +29,4 @@ export class OrderHttpService {
   postOrder(request: Order): Observable<number> {
     return this._http.post<number>(`${this._apiUrl}orders`, request)
   }
-
-  // createOrder(id: number): Observable<number> {
-  //   return this._http.post<number>(`${this._apiUrl}orders`, id);
-  // }
-
-  // deleteOrder(id: number): Observable<number> {
-  //   return this._http.delete<number>(`${this._apiUrl}orders/` + id);
-  // }
 }

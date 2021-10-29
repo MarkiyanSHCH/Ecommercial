@@ -24,12 +24,14 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetOrders()
         {
-            GetOrdersList orders = new GetOrdersList
+            if (this._userId == 0) return Unauthorized();
+
+            var orders = new GetOrdersList
             {
                 Orders = this._orderServices.GetAllOrders(_userId).ToList()
             };
 
-            if (orders != null) return Ok(orders);
+            if (orders.Orders.Any()) return Ok(orders);
 
             return NotFound();
         }
@@ -37,12 +39,14 @@ namespace WebAPI.Controllers
         [HttpGet("{orderId}/lines")]
         public IActionResult GetOrderLines(int orderId)
         {
-            GetOrderLinesList orderLines = new GetOrderLinesList
+            if (this._userId == 0) return Unauthorized();
+
+            var orderLines = new GetOrderLinesList
             {
                 OrderLines = this._orderServices.GetAllOrderLines(orderId).ToList()
             };
 
-            if (orderLines != null) return Ok(orderLines);
+            if (orderLines.OrderLines.Any()) return Ok(orderLines);
 
             return NotFound();
         }
@@ -50,7 +54,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult PostOrder([FromBody] PostOrderRequest request)
         {
-            if (_userId == 0) return Unauthorized();
+            if (this._userId == 0) return Unauthorized();
 
             if (request != null)
                 return Ok(
@@ -64,16 +68,5 @@ namespace WebAPI.Controllers
 
             return BadRequest();
         }
-
-        /*[HttpDelete("{ProductId:int}")]
-        public IActionResult RemoveOrderItem([FromRoute] int ProductId)
-        {
-            if (ProductId != 0)
-            {
-                this._orderServices.RemoveOrderProduct(_userId, ProductId);
-                return NoContent();
-            }
-            return BadRequest();
-        }*/
     }
 }

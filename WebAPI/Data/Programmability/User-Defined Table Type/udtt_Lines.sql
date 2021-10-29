@@ -20,7 +20,8 @@ GO
 
 --============================================================================
 CREATE TYPE Lines AS TABLE(
-	Note nvarchar(150),
-	Quantity int NOT NULL,
-	ProductId int NOT NULL
+	Note NVARCHAR(150),
+	Quantity INT NOT NULL,
+	ProductId INT NOT NULL
 );
+GO

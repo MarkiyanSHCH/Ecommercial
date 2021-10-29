@@ -23,7 +23,7 @@ GO
 --============================================================================
 
 CREATE PROCEDURE [dbo].[spOrderLines_GetOrderLinesByOrder]
-	@OrderId int
+	@OrderId INT
 AS
 BEGIN
 	SET NOCOUNT OFF;
@@ -32,11 +32,11 @@ BEGIN
 		OrderLines.OrderId,
 		OrderLines.Note,
 		OrderLines.Quantity,
-		Products.Id as ProductId,
+		Products.Id AS ProductId,
 		Products.[Name],
 		Products.Price
 	FROM OrderLines
-	FULL JOIN Products on OrderLines.ProductId = Products.Id
+	FULL JOIN Products ON OrderLines.ProductId = Products.Id
 	WHERE OrderLines.OrderId = @OrderId
 END
 GO
