@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById([Required] int id)
         {
-            if (id > 0) return BadRequest();
+            if (id <= 0) return BadRequest();
 
             Product product = this._productServices.GetById(id);
 
@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
         [HttpGet("category/{id}")]
         public IActionResult GetByCategory([Required] int id)
         {
-            if (id > 0) return BadRequest();
+            if (id <= 0) return BadRequest();
 
             var products = new GetProductList
             {

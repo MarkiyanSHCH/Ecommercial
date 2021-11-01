@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { LoginDashboardComponent } from './login-dashboard/login-dashboard.component';
 import { CartModuleComponent } from './cart-dashboard/cart-dashboard.component';
 import { OrderDashboardComponent } from './order-dashboard/order-dashboard.component';
+import { RegistrationDashboardComponent } from './registration-dashboard/registration-dashboard.component';
 
 @NgModule({
   declarations: [
     LoginDashboardComponent,
     CartModuleComponent,
-    OrderDashboardComponent
+    OrderDashboardComponent,
+    RegistrationDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { OrderDashboardComponent } from './order-dashboard/order-dashboard.compo
   exports: [
     CartModuleComponent,
     LoginDashboardComponent,
-    OrderDashboardComponent
+    OrderDashboardComponent,
+    RegistrationDashboardComponent
   ]
 })
 export class ModalWindowModule { }

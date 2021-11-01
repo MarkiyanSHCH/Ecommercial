@@ -23,7 +23,7 @@ export class OrderHttpService {
   }
 
   getOrderLines(orderId: number): Observable<OrderLineList> {
-    return this._http.get<OrderLineList>(`${this._apiUrl}/${orderId}/orders`);
+    return this._http.get<OrderLineList>(`${this._apiUrl}${orderId}/lines`);
   }
 
   postOrder(request: Order): Observable<number> {

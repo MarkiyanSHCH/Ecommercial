@@ -40,8 +40,8 @@ namespace WebAPI.Controllers
         [HttpGet("{orderId}/lines")]
         public IActionResult GetOrderLines([Required] int orderId)
         {
-            if (this._userId > 0) return Unauthorized();
-            if (orderId > 0) return BadRequest();
+            if (this._userId <= 0) return Unauthorized();
+            if (orderId <= 0) return BadRequest();
 
             var orderLines = new GetOrderLinesList
             {
@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult PostOrder([FromBody] PostOrderRequest request)
         {
-            if (this._userId > 0) return Unauthorized();
+            if (this._userId <= 0) return Unauthorized();
 
             if (request != null)
                 return Ok(

@@ -2,13 +2,13 @@
 
 namespace WebAPI.Models
 {
-    public class PostLogin
+    public class PostRegistrationAccountRequest
     {
         [Required]
-        [EmailAddress]
+        public string Name { get; set; }
+        [Required]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-
     }
 }

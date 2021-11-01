@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
         [HttpGet("{shopId}")]
         public IActionResult GetById([Required][FromQuery]int shopId)
         {
-            if (shopId > 0) return BadRequest();
+            if (shopId <= 0) return BadRequest();
 
             Shop shop = this._shopServices.GetById(shopId);
 
