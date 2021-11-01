@@ -1,16 +1,13 @@
 <div class="container my-5">
   <div class="card overflow-hidden border-0">
     <div class="row"
-          *ngIf="product">
-      <div class="col-6 border-end">
-        <div class="overflow-hidden w-100 h-100">
-          <div class="d-flex flex-column justify-content-center">
-            <img src="/assets/images/{{product.photoFileName}}"
-                  id="main_product_image">
-          </div>
+         *ngIf="product">
+      <div class="col-12 col-md-6 border-end">
+        <div class="d-flex flex-column">
+          <img src="{{product.photoFileName}}">
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-12 col-md-6">
         <div class="p-3 position-relative">
           <div class="d-flex justify-content-between align-items-center">
             <h3>{{product.name}}</h3>
@@ -18,17 +15,20 @@
           <div class="mt-2 pr-3 content">
             <p>{{product.description}}</p>
           </div>
-          <h3>${{product.price}}</h3>
-          <div class="mt-4">
+          <h3>$ {{product.price}}</h3>
+          <div class="mt-4"
+               *ngIf="product.characteristics.length > 0">
             <span class="fw-bold">Characteristics : </span>
-            <div>
-              <ul *ngFor="let property of product.characteristics">
-                <li>{{property.name}}: {{property.value}}</li>
-              </ul>
+            <div class="mt-1 text-center"
+                 *ngFor="let property of product.characteristics">
+              <span>{{property.name}}: {{property.value}}</span>
             </div>
           </div>
-          <div class="buttons d-flex flex-row mt-5">
-            <button class="btn btn-outline-dark">Buy Now</button>
+          <div class="text-center mt-5">
+            <button class="btn btn-outline-dark px-5 py-3"
+                    (click)="addCartProduct()">
+              Buy Now
+            </button>
           </div>
         </div>
       </div>

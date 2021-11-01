@@ -29,7 +29,8 @@ namespace Data.Repository
                 connection.Open();
 
                 using SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read()) return AccountDTO.MapFrom(reader).ToDomainModel();
+                if (reader.Read()) 
+                    return AccountDTO.MapFrom(reader).ToDomainModel();
             }
             return null;
         }

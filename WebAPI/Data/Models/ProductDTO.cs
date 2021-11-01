@@ -15,27 +15,31 @@ namespace Data.Models
         public double Price { get; set; }
         public int CategoryId { get; set; }
         public string PhotoFileName { get; set; }
-        public string CharacteristicsName { get; set; }
-        public string CharacteristicsValue { get; set; }
+        public string PropertyName { get; set; }
+        public string PropertyValue { get; set; }
 
         public static ProductDTO MapFrom(SqlDataReader reader)
              => new ProductDTO
              {
                  Id = reader.GetInt32(nameof(Id)),
-                 Name = !reader.IsDBNull(reader.GetOrdinal("Name")) 
+                 Name = !reader.IsDBNull(reader.GetOrdinal(nameof(Name)))
                         ? reader.GetString(nameof(Name)) : null,
-                 Description = !reader.IsDBNull(reader.GetOrdinal("Description")) 
+                 Description = !reader.IsDBNull(reader.GetOrdinal(nameof(Description)))
                         ? reader.GetString(nameof(Description)) : null,
-                 Price = !reader.IsDBNull(reader.GetOrdinal("Price")) 
+                 Price = !reader.IsDBNull(reader.GetOrdinal(nameof(Price)))
                         ? reader.GetDouble(nameof(Price)) : 0,
-                 CategoryId = !reader.IsDBNull(reader.GetOrdinal("CategoryId")) 
+                 CategoryId = !reader.IsDBNull(reader.GetOrdinal(nameof(CategoryId)))
                         ? reader.GetInt32(nameof(CategoryId)) : 0,
-                 PhotoFileName = !reader.IsDBNull(reader.GetOrdinal("PhotoFileName")) 
+                 PhotoFileName = !reader.IsDBNull(reader.GetOrdinal(nameof(PhotoFileName)))
                         ? reader.GetString(nameof(PhotoFileName)) : null,
-                 CharacteristicsName = HasColumn(reader, "CharName") 
-                        ? reader.GetString("CharName") : null,
-                 CharacteristicsValue = HasColumn(reader, "CharValue") 
+                 PropertyName = HasColumn(reader, nameof(PropertyName))
+                        ? !reader.IsDBNull(reader.GetOrdinal(nameof(PropertyName)))
+                        ? reader.GetString("CharName") : null
+                        : null,
+                 PropertyValue = HasColumn(reader, nameof(PropertyValue))
+                        ? !reader.IsDBNull(reader.GetOrdinal(nameof(PropertyValue)))
                         ? reader.GetString("CharValue") : null
+                        : null,
              };
 
         public Product ToDomainModel()
@@ -52,7 +56,15 @@ namespace Data.Models
         public static Product ToDomainModel(List<ProductDTO> productList)
         {
             Product product = productList.First().ToDomainModel();
-            product.Characteristics = productList.Select(item => new Characteristics { Name = item.CharacteristicsName, Value = item.CharacteristicsValue });
+            product.Properties = productList.First().PropertyValue != null
+                ? productList.Select(item =>
+                    new Property
+                    {
+                        Name = item.PropertyName,
+                        Value = item.PropertyValue
+                    })
+                : Enumerable.Empty<Property>();
+
             return product;
         }
 

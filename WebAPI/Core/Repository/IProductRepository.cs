@@ -7,7 +7,7 @@ namespace Core.Repository
     public interface IProductRepository
     {
         IEnumerable<Product> GetAll();
-        IEnumerable<Product> GetByCategory(int Id);
         Product GetById(int Id);
+        IEnumerable<Product> GetByCategory(int Id);
     }
 }

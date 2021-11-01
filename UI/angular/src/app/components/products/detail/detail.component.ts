@@ -1,8 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Product } from 'src/app/models/Product';
-import { ProductService } from 'src/app/services/product.service';
+import { Characteristic } from 'src/app/models/product/characteristic';
+import { Product } from 'src/app/models/product/product';
+import { CartItem } from 'src/app/models/cart/cartItem';
+import { CartService } from 'src/app/services/cart.service';
+import { ProductHttpService } from 'src/app/services/http/product.http.service';
+import { CartModuleComponent } from 'src/app/module/cart-dashboard/cart-dashboard.component';
 
 @Component({
   selector: 'app-detail',
@@ -11,18 +16,32 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class DetailComponent implements OnInit {
 
-  product: Product = <Product>{};
+  product: Product = <Product>{
+    characteristics: <Characteristic[]>[]
+  };
 
   constructor(
-    private _productService: ProductService,
-    private _activeRoute: ActivatedRoute,
+    private _modalService: NgbModal,
+    private _productHttpService: ProductHttpService,
+    private _cartService: CartService,
+    private _activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this._productService
-    .getProductById(Number(
-      this._activeRoute.snapshot.paramMap.get("id")
+    this._productHttpService
+      .getProductById(Number(
+        this._activeRoute.snapshot.paramMap.get("id")
       ))
-    .subscribe(res => this.product = res);
+      .subscribe(res => this.product = res);
+  }
+
+  addCartProduct() {
+    const modalRef = this._modalService.open(CartModuleComponent, { centered: true });
+    const module = <CartModuleComponent>modalRef.componentInstance;
+    module.product = this.product;
+    module.cartItem.subscribe((item: CartItem) => {
+      module.activeModal.close();
+      this._cartService.addItemCart(item.productId, item.quantity, item.note);
+    });
   }
 }

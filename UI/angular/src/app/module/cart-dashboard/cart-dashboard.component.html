@@ -1,0 +1,73 @@
+<div class="shadow-sm-md p-2">
+  <div class="modal-header">
+    <button class="btn"
+            type="button"
+            aria-label="Close"
+            (click)="activeModal.dismiss()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="modal-body text-transform-none">
+    <form name="form"
+          class="input-group"
+          #cartForm="ngForm"
+          (ngSubmit)="cartForm.form.valid && cartItem.next(this.model)"
+          novalidate>
+      <div class="container">
+        <div class="form-group">
+          <img src="{{productModal.photoFileName}}"
+               class="image">
+          <span> {{productModal.name}}</span>
+
+        </div>
+        <div class="form-group required">
+          <label for="noteInput">Note</label>
+          <div class="d-flex justify-content-center">
+            <textarea id="noteInput"
+                      type="text"
+                      name="note"
+                      rows="3"
+                      class="form-control"
+                      [(ngModel)]="model.note"
+                      #note="ngModel"
+                      [ngClass]="{ 'is-invalid': cartForm.submitted && note.invalid }">
+            </textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="quantityInput">Quantity</label>
+          <div class="d-flex justify-content-center">
+            <button type="button"
+                    class="btn"
+                    (click)="decrementQuantity()"><i class="bi bi-dash-square"></i></button>
+            <input id="quantityInput"
+                   type="number"
+                   name="quantity"
+                   class="form-control"
+                   size="1rem"
+                   [(ngModel)]="model.quantity"
+                   #quatity="ngModel"
+                   [ngClass]="{ 'is-invalid': cartForm.submitted && quatity.invalid }"
+                   pattern="[0-9]+"
+                   required />
+            <button type="button"
+                    class="btn"
+                    (click)="incrementQuantity()">
+              <i class="bi bi-plus-square"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback"
+               *ngIf="cartForm.submitted && quatity.invalid">
+            <div *ngIf="quatity.errors?.pattern">Quantity is invalid.</div>
+            <div *ngIf="quatity.errors?.required">Quantity is required.</div>
+          </div>
+        </div>
+        <button type="submit"
+                class="btn btn-outline-dark w-100 mt-3 py-2">
+          Add
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+import { Inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+
+import { Product } from 'src/app/models/product/product';
+import { API_URL } from 'src/app/app-injection-tokens';
+import { ProductsList } from 'src/app/models/product/products';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductHttpService {
+
+  constructor(
+    private _http: HttpClient,
+    @Inject(API_URL) private _apiUrl: string
+  ) { }
+
+  getProducts(): Observable<ProductsList> {
+    return this._http.get<ProductsList>(`${this._apiUrl}product`);
+  }
+
+  getProductById(id: number): Observable<Product> {
+    return this._http.get<Product>(`${this._apiUrl}product/` + id);
+  }
+
+  getProductByCategory(id: number): Observable<ProductsList> {
+    return this._http.get<ProductsList>(`${this._apiUrl}product/category/` + id);
+  }
+}

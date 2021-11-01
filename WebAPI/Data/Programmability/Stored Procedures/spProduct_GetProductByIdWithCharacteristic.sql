@@ -34,13 +34,13 @@ BEGIN
 		Products.[Price], 
 		Products.[CategoryId], 
 		Products.[PhotoFileName], 
-		CategoryCharacterictic.[Name] AS CharName, 
-		ProductCharacteristics.[Value] AS CharValue 
+		CategoryCharacterictic.[Name] AS PropertyName, 
+		ProductCharacteristics.[Value] AS PropertyValue 
 	From Products
-	INNER JOIN ProductCharacteristics
+	Left JOIN ProductCharacteristics
 		ON Products.Id = ProductCharacteristics.ProductId
-	INNER JOIN CategoryCharacterictic
+	Left JOIN CategoryCharacterictic
 		ON ProductCharacteristics.CharacteristicId = CategoryCharacterictic.Id
-	WHERE p.Id = @id
+	WHERE Products.Id = @id
 END
 GO

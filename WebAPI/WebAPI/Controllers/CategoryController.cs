@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Domain.Models;
+using WebAPI.Models;
 using Core.Services;
 
 namespace WebAPI.Controllers
@@ -19,10 +19,12 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            IEnumerable<Category> products = _categoryServices.Get();
+            var categories = new GetCategoryList
+            {
+                Categories = this._categoryServices.Get().ToList()
+            };
 
-            if (products != null)
-                return Ok(products);
+            if (categories.Categories.Any()) return Ok(categories);
 
             return NotFound();
         }

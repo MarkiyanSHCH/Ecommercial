@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,20 +21,22 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            ProductList products = new ProductList
+            var products = new GetProductList
             {
-                Products = _productServices.Get().ToList()
+                Products = this._productServices.Get().ToList()
             };
 
-            if (products != null) return Ok(products);
+            if (products.Products.Any()) return Ok(products);
 
             return NotFound();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById([Required] int id)
         {
-            Product product = _productServices.GetById(id);
+            if (id > 0) return BadRequest();
+
+            Product product = this._productServices.GetById(id);
 
             if (product != null) return Ok(product);
 
@@ -41,14 +44,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("category/{id}")]
-        public IActionResult GetByCategory(int id)
+        public IActionResult GetByCategory([Required] int id)
         {
-            ProductList products = new ProductList
+            if (id > 0) return BadRequest();
+
+            var products = new GetProductList
             {
-                Products = _productServices.GetByCategory(id).ToList()
+                Products = this._productServices.GetByCategory(id).ToList()
             };
 
-            if (products != null) return Ok(products);
+            if (products.Products.Any()) return Ok(products);
 
             return NotFound();
         }

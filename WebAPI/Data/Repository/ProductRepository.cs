@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data;
+using System;
 
 using Microsoft.Extensions.Configuration;
 
@@ -20,58 +21,80 @@ namespace Data.Repository
 
         public IEnumerable<Product> GetAll()
         {
-            var productList = new List<ProductDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = new SqlCommand("ReadAllProducts", connection))
+            try
             {
-                connection.Open();
+                var productList = new List<ProductDTO>();
 
-                using SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
+                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlCommand command = new SqlCommand("ReadAllProducts", connection))
+                {
+                    connection.Open();
+
+                    using SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
+                }
+                return productList.Select(dto => dto.ToDomainModel());
             }
-            return productList.Select(dto => dto.ToDomainModel());
-        }
-
-        public IEnumerable<Product> GetByCategory(int Id)
-        {
-            var productList = new List<ProductDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = new SqlCommand("ReadProductsByCategory", connection))
+            catch (Exception ex)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters
-                    .Add("@id", SqlDbType.Int)
-                    .Value = Id;
-
-                connection.Open();
-
-                using SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
+                return Enumerable.Empty<Product>();
             }
-            return productList.Select(dto => dto.ToDomainModel());
         }
 
         public Product GetById(int Id)
         {
-            var productList = new List<ProductDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = 
-                new SqlCommand("spProduct_GetProductByIdWithCharacteristic", connection))
+            try
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters
-                    .Add("@id", SqlDbType.Int)
-                    .Value = Id;
+                var productList = new List<ProductDTO>();
 
-                connection.Open();
+                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlCommand command =
+                    new SqlCommand("spProduct_GetProductByIdWithCharacteristic", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters
+                        .Add("@id", SqlDbType.Int)
+                        .Value = Id;
 
-                using SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
+                    connection.Open();
+
+                    using SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
+                }
+                return ProductDTO.ToDomainModel(productList);
             }
-            return ProductDTO.ToDomainModel(productList);
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public IEnumerable<Product> GetByCategory(int Id)
+        {
+            try
+            {
+                var productList = new List<ProductDTO>();
+
+                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlCommand command = new SqlCommand("ReadProductsByCategory", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters
+                        .Add("@id", SqlDbType.Int)
+                        .Value = Id;
+
+                    connection.Open();
+
+                    using SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) productList.Add(ProductDTO.MapFrom(reader));
+                }
+                return productList.Select(dto => dto.ToDomainModel());
+            }
+
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<Product>();
+            }
         }
     }
 }

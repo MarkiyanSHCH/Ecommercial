@@ -12,11 +12,11 @@ namespace Domain.Models
         public int CategoryId { get; set; }
         public string PhotoFileName { get; set; }
 
-        public IEnumerable<Characteristics> Characteristics { get; set; }
+        public IEnumerable<Property> Properties { get; set; }
 
         public Product()
         {
-            Characteristics = Enumerable.Empty<Characteristics>();
+            Properties = Enumerable.Empty<Property>();
         }
     }
 }

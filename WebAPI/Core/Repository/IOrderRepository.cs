@@ -6,6 +6,12 @@ namespace Core.Repository
 {
     public interface IOrderRepository
     {
-        IEnumerable<Product> GetAll(string Id);
+        IEnumerable<Order> GetAllOrders(int UserId);
+        IEnumerable<OrderLine> GetAllOrderLines(int OrderId);
+        int AddOrderProduct(
+            int UserId,
+            int ShopId,
+            double TotalPrice,
+            IEnumerable<OrderLine> orderLines);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data;
+using System;
 
 using Microsoft.Extensions.Configuration;
 
@@ -20,17 +21,24 @@ namespace Data.Repository
 
         public IEnumerable<Category> GetAll()
         {
-            var categoryList = new List<CategoryDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = new SqlCommand("ReadAllCategories", connection))
+            try
             {
-                connection.Open();
+                var categoryList = new List<CategoryDTO>();
 
-                using SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read()) categoryList.Add(CategoryDTO.MapFrom(reader));
+                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlCommand command = new SqlCommand("ReadAllCategories", connection))
+                {
+                    connection.Open();
+
+                    using SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) categoryList.Add(CategoryDTO.MapFrom(reader));
+                }
+                return categoryList.Select(dto => dto.ToDomainModel());
             }
-            return categoryList.Select(dto => dto.ToDomainModel());
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<Category>();
+            }
         }
     }
 }
