@@ -24,7 +24,8 @@ namespace WebAPI.Controllers
                 Categories = this._categoryServices.Get().ToList()
             };
 
-            if (categories.Categories.Any()) return Ok(categories);
+            if (categories.Categories.Any()) 
+                return Ok(categories);
 
             return NotFound();
         }

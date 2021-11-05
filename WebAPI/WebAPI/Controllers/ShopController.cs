@@ -26,7 +26,8 @@ namespace WebAPI.Controllers
                 Shops = this._shopServices.GetAll().ToList()
             };
 
-            if (shops.Shops.Any()) return Ok(shops);
+            if (shops.Shops.Any()) 
+                return Ok(shops);
 
             return NotFound();
         }
@@ -34,11 +35,13 @@ namespace WebAPI.Controllers
         [HttpGet("{shopId}")]
         public IActionResult GetById([Required][FromQuery]int shopId)
         {
-            if (shopId <= 0) return BadRequest();
+            if (shopId <= 0) 
+                return BadRequest();
 
             Shop shop = this._shopServices.GetById(shopId);
 
-            if (shop != null) return Ok(shop);
+            if (shop != null) 
+                return Ok(shop);
 
             return NotFound();
         }

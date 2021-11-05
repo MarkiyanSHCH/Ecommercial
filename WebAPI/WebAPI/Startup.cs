@@ -23,9 +23,9 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var authOptions = _configuration.GetSection("Auth").Get<AuthOptions>();
+            var authOptions = this._configuration.GetSection("Auth").Get<AuthOptions>();
 
-            services.Configure<AuthOptions>(_configuration.GetSection("Auth"));
+            services.Configure<AuthOptions>(this._configuration.GetSection("Auth"));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>

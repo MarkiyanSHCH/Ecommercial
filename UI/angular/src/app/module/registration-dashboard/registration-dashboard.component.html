@@ -10,28 +10,28 @@
   </div>
 
   <div class="modal-body text-transform-none">
-    <div class="form-group required">
-      <label for="nameInput">Name</label>
-      <input id="nameInput"
-             type="text"
-             name="name"
-             class="form-control"
-             [(ngModel)]="model.name"
-             #name="ngModel"
-             [ngClass]="{ 'is-invalid': registrationForm.submitted && name.invalid }"
-             pattern="[A-Za-zÀ-ÿ ]+"
-             required />
-      <div class="invalid-feedback"
-           *ngIf="registrationForm.submitted && email.invalid">
-        <div *ngIf="name.errors?.pattern">Name is invalid.</div>
-        <div *ngIf="name.errors?.required">Name is required.</div>
-      </div>
-    </div>
-
     <form name="form"
           (ngSubmit)="registrationForm.form.valid && registration.next(model)"
           #registrationForm="ngForm"
           novalidate>
+      <div class="form-group required">
+        <label for="nameInput">Name</label>
+        <input id="nameInput"
+               type="text"
+               name="name"
+               class="form-control"
+               [(ngModel)]="model.name"
+               #name="ngModel"
+               [ngClass]="{ 'is-invalid': registrationForm.submitted && name.invalid }"
+               pattern="[A-Za-zÀ-ÿ- ]+"
+               required />
+        <div class="invalid-feedback"
+             *ngIf="registrationForm.submitted && email.invalid">
+          <div *ngIf="name.errors?.pattern">Name is invalid.</div>
+          <div *ngIf="name.errors?.required">Name is required.</div>
+        </div>
+      </div>
+
       <div class="form-group required">
         <label for="emailInput">Email</label>
         <input id="emailInput"

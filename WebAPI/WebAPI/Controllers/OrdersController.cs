@@ -25,14 +25,16 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetOrders()
         {
-            if (this._userId == 0) return Unauthorized();
+            if (this._userId == 0) 
+                return Unauthorized();
 
             var orders = new GetOrdersList
             {
                 Orders = this._orderServices.GetAllOrders(_userId).ToList()
             };
 
-            if (orders.Orders.Any()) return Ok(orders);
+            if (orders.Orders.Any()) 
+                return Ok(orders);
 
             return NotFound();
         }
@@ -40,15 +42,19 @@ namespace WebAPI.Controllers
         [HttpGet("{orderId}/lines")]
         public IActionResult GetOrderLines([Required] int orderId)
         {
-            if (this._userId <= 0) return Unauthorized();
-            if (orderId <= 0) return BadRequest();
+            if (this._userId <= 0) 
+                return Unauthorized();
+
+            if (orderId <= 0) 
+                return BadRequest();
 
             var orderLines = new GetOrderLinesList
             {
                 OrderLines = this._orderServices.GetAllOrderLines(orderId).ToList()
             };
 
-            if (orderLines.OrderLines.Any()) return Ok(orderLines);
+            if (orderLines.OrderLines.Any()) 
+                return Ok(orderLines);
 
             return NotFound();
         }
@@ -56,7 +62,8 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult PostOrder([FromBody] PostOrderRequest request)
         {
-            if (this._userId <= 0) return Unauthorized();
+            if (this._userId <= 0) 
+                return Unauthorized();
 
             if (request != null)
                 return Ok(

@@ -26,7 +26,8 @@ namespace WebAPI.Controllers
                 Products = this._productServices.Get().ToList()
             };
 
-            if (products.Products.Any()) return Ok(products);
+            if (products.Products.Any()) 
+                return Ok(products);
 
             return NotFound();
         }
@@ -34,11 +35,13 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById([Required] int id)
         {
-            if (id <= 0) return BadRequest();
+            if (id <= 0) 
+                return BadRequest();
 
             Product product = this._productServices.GetById(id);
 
-            if (product != null) return Ok(product);
+            if (product != null) 
+                return Ok(product);
 
             return NotFound();
         }
@@ -46,14 +49,16 @@ namespace WebAPI.Controllers
         [HttpGet("category/{id}")]
         public IActionResult GetByCategory([Required] int id)
         {
-            if (id <= 0) return BadRequest();
+            if (id <= 0) 
+                return BadRequest();
 
             var products = new GetProductList
             {
                 Products = this._productServices.GetByCategory(id).ToList()
             };
 
-            if (products.Products.Any()) return Ok(products);
+            if (products.Products.Any()) 
+                return Ok(products);
 
             return NotFound();
         }
