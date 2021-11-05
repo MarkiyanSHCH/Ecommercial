@@ -5,12 +5,12 @@ GO
 IF EXISTS(
     SELECT *
     FROM INFORMATION_SCHEMA.ROUTINES
-    WHERE [ROUTINE_NAME] = 'spUsers_GetUser'
+    WHERE [ROUTINE_NAME] = 'spUsers_Get'
         AND [ROUTINE_TYPE] = 'PROCEDURE'
         AND [ROUTINE_BODY] = 'SQL'
         AND [SPECIFIC_SCHEMA] = 'dbo')
     BEGIN
-        DROP PROCEDURE dbo.spUsers_GetUser;
+        DROP PROCEDURE dbo.spUsers_Get;
     END
 GO
 ------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ GO
 
 --============================================================================
 
-CREATE PROCEDURE [dbo].[spUsers_GetUser]
+CREATE PROCEDURE [dbo].[spUsers_Get]
 	@Email VARCHAR(50)
 AS
 BEGIN

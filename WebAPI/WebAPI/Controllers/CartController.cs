@@ -20,14 +20,16 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetCartItems([FromQuery] IEnumerable<int> productIds)
         {
-            if (productIds == null) return BadRequest();
+            if (productIds == null) 
+                return BadRequest();
 
             var cartItems = new GetProductList
             {
                 Products = this._cartServices.GetCartItems(productIds).ToList()
             };
 
-            if (cartItems.Products.Any()) return Ok(cartItems);
+            if (cartItems.Products.Any()) 
+                return Ok(cartItems);
 
             return NotFound();
         }

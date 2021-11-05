@@ -30,6 +30,7 @@ namespace AuthApi.Controllers
         public IActionResult Registration([FromBody] PostRegistrationAccountRequest request)
         {
             Account newUser = this._authServices.AddUser(request.Name, request.Email, request.Password);
+
             if (newUser != null)
                 return Ok(new { access_token = this._authServices.GenerateJWT(newUser) });
 

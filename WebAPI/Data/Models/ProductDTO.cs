@@ -34,11 +34,11 @@ namespace Data.Models
                         ? reader.GetString(nameof(PhotoFileName)) : null,
                  PropertyName = HasColumn(reader, nameof(PropertyName))
                         ? !reader.IsDBNull(reader.GetOrdinal(nameof(PropertyName)))
-                        ? reader.GetString("CharName") : null
+                        ? reader.GetString(nameof(PropertyName)) : null
                         : null,
                  PropertyValue = HasColumn(reader, nameof(PropertyValue))
                         ? !reader.IsDBNull(reader.GetOrdinal(nameof(PropertyValue)))
-                        ? reader.GetString("CharValue") : null
+                        ? reader.GetString(nameof(PropertyValue)) : null
                         : null,
              };
 

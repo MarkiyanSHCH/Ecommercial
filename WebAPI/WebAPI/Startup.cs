@@ -5,28 +5,27 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Data.Repository;
 using Core;
 using Core.Services;
-using Data.Repository;
 using Core.Repository;
+using Core.Services.Hashing;
+using WebAPI.Models;
 
 namespace WebAPI
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
         public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+            => _configuration = configuration;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var authOptions = Configuration.GetSection("Auth").Get<AuthOptions>();
+            var authOptions = this._configuration.GetSection("Auth").Get<AuthOptions>();
 
-            services.Configure<AuthOptions>(Configuration.GetSection("Auth"));
+            services.Configure<AuthOptions>(this._configuration.GetSection("Auth"));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -57,12 +56,14 @@ namespace WebAPI
 
             services.AddControllers();
 
-            services.AddScoped<IAuthRepository, AuthRepository>()
+            services.AddSingleton<IHashingSettings>(this._configuration.GetSection("HashingSettings").Get<HashingSettings>())
+                    .AddScoped<IAuthRepository, AuthRepository>()
                     .AddScoped<IProductRepository, ProductRepository>()
                     .AddScoped<ICategoryRepository, CategoryRepository>()
                     .AddScoped<IOrderRepository, OrderRepository>()
                     .AddScoped<ICartRepository, CartRepository>()
                     .AddScoped<IShopRepository, ShopRepository>()
+                    .AddScoped<HashingService, HashingService>()
                     .AddScoped<ProductServices, ProductServices>()
                     .AddScoped<OrderServices, OrderServices>()
                     .AddScoped<CategoryServices, CategoryServices>()

@@ -11,9 +11,27 @@
 
   <div class="modal-body text-transform-none">
     <form name="form"
-          (ngSubmit)="loginForm.form.valid && login.next(model)"
-          #loginForm="ngForm"
+          (ngSubmit)="registrationForm.form.valid && registration.next(model)"
+          #registrationForm="ngForm"
           novalidate>
+      <div class="form-group required">
+        <label for="nameInput">Name</label>
+        <input id="nameInput"
+               type="text"
+               name="name"
+               class="form-control"
+               [(ngModel)]="model.name"
+               #name="ngModel"
+               [ngClass]="{ 'is-invalid': registrationForm.submitted && name.invalid }"
+               pattern="['A-Za-zÀ-ÿ' -]+"
+               required />
+        <div class="invalid-feedback"
+             *ngIf="registrationForm.submitted && name.invalid">
+          <div *ngIf="name.errors?.pattern">Name is invalid.</div>
+          <div *ngIf="name.errors?.required">Name is required.</div>
+        </div>
+      </div>
+
       <div class="form-group required">
         <label for="emailInput">Email</label>
         <input id="emailInput"
@@ -22,12 +40,12 @@
                class="form-control"
                [(ngModel)]="model.email"
                #email="ngModel"
-               [ngClass]="{ 'is-invalid': loginForm.submitted && email.invalid }"
+               [ngClass]="{ 'is-invalid': registrationForm.submitted && email.invalid }"
                pattern="[A-Za-zÀ-ÿ0-9.@]+"
                email
                required />
         <div class="invalid-feedback"
-             *ngIf="loginForm.submitted && email.invalid">
+             *ngIf="registrationForm.submitted && email.invalid">
           <div *ngIf="email.errors?.pattern">Email is invalid.</div>
           <div *ngIf="email.errors?.required">Email is required.</div>
         </div>
@@ -41,18 +59,18 @@
                class="form-control"
                [(ngModel)]="model.password"
                #password="ngModel"
-               [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid }"
+               [ngClass]="{ 'is-invalid': registrationForm.submitted && password.invalid }"
                minlength="6"
                required />
         <div class="invalid-feedback"
-             *ngIf="loginForm.submitted && password.invalid">
+             *ngIf="registrationForm.submitted && password.invalid">
           <div *ngIf="password.errors?.required">Password is required.</div>
           <div *ngIf="password.errors?.minlength">The Password must be at least 6 characters long.</div>
         </div>
       </div>
       <button type="submit"
               class="btn btn-outline-dark w-100 mt-3 py-2">
-        Login
+        Sign up
       </button>
     </form>
   </div>
