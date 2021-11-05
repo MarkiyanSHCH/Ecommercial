@@ -56,7 +56,7 @@ namespace Core.Services
             try
             {
                 if (string.IsNullOrWhiteSpace(hash) || string.IsNullOrWhiteSpace(input))
-                    throw new ArgumentNullException();
+                    throw new ArgumentException();
 
                 HashContext hashContext = HashFormatter.Parse(hash);
                 if (hashContext == null)

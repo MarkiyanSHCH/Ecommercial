@@ -23,10 +23,10 @@
                [(ngModel)]="model.name"
                #name="ngModel"
                [ngClass]="{ 'is-invalid': registrationForm.submitted && name.invalid }"
-               pattern="[A-Za-zÀ-ÿ- ]+"
+               pattern="['A-Za-zÀ-ÿ' -]+"
                required />
         <div class="invalid-feedback"
-             *ngIf="registrationForm.submitted && email.invalid">
+             *ngIf="registrationForm.submitted && name.invalid">
           <div *ngIf="name.errors?.pattern">Name is invalid.</div>
           <div *ngIf="name.errors?.required">Name is required.</div>
         </div>
