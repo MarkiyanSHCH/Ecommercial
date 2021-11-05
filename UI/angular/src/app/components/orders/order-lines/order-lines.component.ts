@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { OrderLine } from 'src/app/models/order/orderLine';
-import { OrderHttpService } from 'src/app/services/http/order.http.service';
 
 @Component({
   selector: 'app-order-lines',
@@ -9,5 +9,5 @@ import { OrderHttpService } from 'src/app/services/http/order.http.service';
 })
 export class OrderLinesComponent {
 
-  @Input() orderLines: OrderLine[] = <OrderLine[]>[];
+  @Input() orderLine: OrderLine = <OrderLine>{};
 }

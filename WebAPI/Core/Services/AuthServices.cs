@@ -18,37 +18,42 @@ namespace Core.Services
         private readonly HashingService _hashingService;
 
         public AuthServices(IOptions<AuthOptions> authOptions, IAuthRepository authRepository, HashingService hashingService)
-            => (this._authOptions, this._authRepository, this._hashingService) = (authOptions, authRepository, hashingService);
-
-        public Account GetAccount(string inputEmail, string inputPassword)
         {
-            if (string.IsNullOrWhiteSpace(inputEmail) || string.IsNullOrWhiteSpace(inputPassword))
+            this._authOptions = authOptions;
+            this._authRepository = authRepository;
+            this._hashingService = hashingService;
+        }
+
+
+        public Account GetAccount(string email, string password)
+        {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 return null;
 
-            Account user = this._authRepository.GetAccount(inputEmail);
-            return user != null && _hashingService.Check(user.Password, inputPassword) ? user : null;
+            Account user = this._authRepository.GetAccount(email);
+            return user != null && this._hashingService.Check(user.Password, password) ? user : null;
         }
 
         public Account AddUser(string name, string email, string password)
         {
             Account user = this._authRepository.GetAccount(email);
 
-            if (user == null) {
+            if (user == null)
+            {
                 string hashResult = this._hashingService.Hash(password);
                 return new Account
                 {
                     Id = this._authRepository.AddUser(name, email, hashResult),
                     Name = name,
-                    Email = email,
-                    Password = hashResult
+                    Email = email
                 };
             }
-            else return null;
+            return null;
         }
 
         public string GenerateJWT(Account user)
         {
-            AuthOptions authParams = _authOptions.Value;
+            AuthOptions authParams = this._authOptions.Value;
             SymmetricSecurityKey securityKey = authParams.GetSymmetricSecurityKey();
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 

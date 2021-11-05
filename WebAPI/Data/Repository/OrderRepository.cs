@@ -19,7 +19,7 @@ namespace Data.Repository
         public OrderRepository(IConfiguration configuration)
             => (this._sqlDataSource) = (configuration.GetConnectionString("ProductAppCon"));
 
-        public IEnumerable<Order> GetAllOrders(int UserId)
+        public IEnumerable<Order> GetAllOrders(int userId)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Data.Repository
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters
                         .Add("@UserId", SqlDbType.Int)
-                        .Value = UserId;
+                        .Value = userId;
 
                     connection.Open();
 
@@ -46,7 +46,7 @@ namespace Data.Repository
             }
         }
 
-        public IEnumerable<OrderLine> GetAllOrderLines(int OrderId)
+        public IEnumerable<OrderLine> GetAllOrderLines(int orderId)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Data.Repository
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters
                         .Add("@OrderId", SqlDbType.Int)
-                        .Value = OrderId;
+                        .Value = orderId;
 
                     connection.Open();
 
@@ -74,9 +74,9 @@ namespace Data.Repository
         }
 
         public int AddOrderProduct(
-            int UserId,
-            int ShopId,
-            double TotalPrice,
+            int userId,
+            int shopId,
+            double totalPrice,
             IEnumerable<OrderLine> orderLines)
         {
             try
@@ -102,9 +102,9 @@ namespace Data.Repository
                     CommandType = CommandType.StoredProcedure
                 };
 
-                command.Parameters.Add("@UserId", SqlDbType.Int).Value = UserId;
-                command.Parameters.Add("@ShopId", SqlDbType.Int).Value = ShopId;
-                command.Parameters.Add("@TotalPrice", SqlDbType.Int).Value = TotalPrice;
+                command.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+                command.Parameters.Add("@ShopId", SqlDbType.Int).Value = shopId;
+                command.Parameters.Add("@TotalPrice", SqlDbType.Int).Value = totalPrice;
                 SqlParameter udttParam = command.Parameters.AddWithValue("@OrderLines", linesTable);
                 udttParam.SqlDbType = SqlDbType.Structured;
                 udttParam.TypeName = "dbo.Lines";

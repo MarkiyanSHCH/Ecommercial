@@ -7,5 +7,5 @@ export interface Product {
     price: number;
     categoryId: number;
     photoFileName: string;
-    characteristics: Characteristic[]
+    characteristics: Characteristic[];
 }

@@ -41,7 +41,7 @@ namespace Data.Repository
             }
         }
 
-        public Product GetById(int Id)
+        public Product GetById(int id)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Data.Repository
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters
                         .Add("@id", SqlDbType.Int)
-                        .Value = Id;
+                        .Value = id;
 
                     connection.Open();
 
