@@ -7,9 +7,12 @@
     <div class="col-3">Total Price</div>
   </div>
   <app-order-collapse *ngFor="let order of orders"
+                      (expand)="getOrderLines($event)"
                       [shop]="returnShop(order.shopId)"
-                      [order]="order"
-                      (expand)="getOrderLines($event)">
-    <app-order-lines *ngFor="let orderLine of orderLines" [orderLine]="orderLine" ></app-order-lines>
+                      [order]="order">
+    <h3>Order Items</h3>
+    <app-order-line *ngFor="let line of orderLinesMap.get(order.id)"
+                    [line]="line">
+    </app-order-line>
   </app-order-collapse>
 </div>

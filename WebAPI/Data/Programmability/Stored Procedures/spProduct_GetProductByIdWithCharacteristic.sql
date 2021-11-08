@@ -22,25 +22,21 @@ GO
 
 --============================================================================
 
-CREATE PROCEDURE spProduct_GetProductByIdWithCharacteristic 
+CREATE PROCEDURE [dbo].[spProduct_GetProductByIdWithCharacteristic] 
 	@id INT
 AS
 BEGIN
 	SET NOCOUNT OFF;
 	SELECT
-		Products.[Id],
-		Products.[Name], 
-		Products.[Description], 
-		Products.[Price], 
-		Products.[CategoryId], 
-		Products.[PhotoFileName], 
-		CategoryCharacterictic.[Name] AS PropertyName, 
-		ProductCharacteristics.[Value] AS PropertyValue 
-	From Products
-	Left JOIN ProductCharacteristics
-		ON Products.Id = ProductCharacteristics.ProductId
-	Left JOIN CategoryCharacterictic
-		ON ProductCharacteristics.CharacteristicId = CategoryCharacterictic.Id
-	WHERE Products.Id = @id
+		Product.[Id],
+		Product.[Name], 
+		Product.[Description], 
+		Product.[Price], 
+		Product.[CategoryId], 
+		Product.[PhotoFileName], 
+		Product.[PropertyName], 
+		Product.[PropertyValue] 
+	From vProductsWithProperty AS Product
+	WHERE Product.Id = @id
 END
 GO

@@ -1,4 +1,4 @@
-export interface Characteristic {
+export interface Property {
     name: string;
     value: string;
 }

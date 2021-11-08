@@ -17,8 +17,8 @@ import { ProductsComponent } from './components/products/products.component';
 import { ACCESS_TOKEN_KEY } from './services/http/auth.http.service';
 import { ModalWindowModule } from './module/modal-window.module';
 import { CartComponent } from './components/cart/cart.component';
-import { OrderLinesComponent } from './components/orders/order-lines/order-lines.component';
 import { OrderCollapseComponent } from './components/orders/order-collapse/order-collapse.component';
+import { OrderLineComponent } from './components/orders/order-line/order-line.component';
 
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)
@@ -31,8 +31,8 @@ export function tokenGetter() {
     DetailComponent,
     OrdersComponent,
     CartComponent,
-    OrderLinesComponent,
-    OrderCollapseComponent
+    OrderCollapseComponent,
+    OrderLineComponent
   ],
 
   imports: [

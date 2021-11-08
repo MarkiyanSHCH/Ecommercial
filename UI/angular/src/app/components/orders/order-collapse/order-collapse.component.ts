@@ -11,9 +11,9 @@ import { Shop } from 'src/app/models/shop/shop';
 export class OrderCollapseComponent {
 
   expanded = false;
+
   @Input() order: Order = <Order>{};
   @Input() shop: Shop = <Shop>{};
-
   @Output() expand: EventEmitter<number> = new EventEmitter<number>();
 
   toggle(orderNumber: number): void {

@@ -1,0 +1,14 @@
+<div class="row pb-3">
+  <div class="col-4 col-md-3 col-lg-2 mb-4 mb-md-0">
+    <img class="img-fluid"
+         [src]="line.photoFileName"
+         alt="{{line.name}} image" />
+  </div>
+
+  <div class="col-12 col-md-9 col-lg-10">
+    <p class="mb-1 text-uppercase">{{line.name}}</p>
+    <p class="mb-1">Note: {{line.note}}</p>
+    <p class="mb-1">Quantity: {{line.quantity}}</p>
+    <p class="mb-1">Price: ${{line.quantity*line.price}}</p>
+  </div>
+</div>

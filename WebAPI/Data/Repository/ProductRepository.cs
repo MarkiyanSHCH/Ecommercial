@@ -76,7 +76,7 @@ namespace Data.Repository
                 var productList = new List<ProductDTO>();
 
                 using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-                using (SqlCommand command = new SqlCommand("ReadProductsByCategory", connection))
+                using (SqlCommand command = new SqlCommand("spProducts_GetByCategoryId", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters

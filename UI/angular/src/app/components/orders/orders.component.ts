@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 import { forkJoin } from 'rxjs';
 
@@ -16,13 +17,15 @@ import { ShopHttpService } from 'src/app/services/http/shop.http.service';
 export class OrdersComponent implements OnInit {
 
   orders: Order[] = <Order[]>[];
-  orderLines: OrderLine[] = <OrderLine[]>[];
+  orderLinesMap: Map<number, OrderLine[]> = new Map<number, OrderLine[]>();
   shops: Shop[] = <Shop[]>[];
 
   constructor(
     private _orderHttpService: OrderHttpService,
     private _shopHttpService: ShopHttpService
-  ) { }
+  ) {
+    this.orderLinesMap.clear();
+  }
 
   ngOnInit(): void {
     forkJoin({
@@ -31,7 +34,7 @@ export class OrdersComponent implements OnInit {
         .subscribe(res => this.orders = res.orders),
       shop: this._shopHttpService
         .getShops()
-        .subscribe(res => this.shops = res.shops)
+        .subscribe(res => this.shops = res.shops),
     });
   }
 
@@ -40,8 +43,9 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrderLines(orderId: number) {
-    this._orderHttpService
-      .getOrderLines(orderId)
-      .subscribe(res => this.orderLines = res.orderLines);
+    if (!this.orderLinesMap.get(orderId))
+      this._orderHttpService
+        .getOrderLines(orderId)
+        .subscribe(res => this.orderLinesMap.set(orderId, res.orderLines));
   }
 }

@@ -12,6 +12,7 @@ namespace Data.Models
         public string Note { get; set; }
         public int Quantity { get; set; }
         public int ProductId { get; set; }
+        public string PhotoFileName { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
 
@@ -24,6 +25,8 @@ namespace Data.Models
                         ? reader.GetString(nameof(Note)) : null,
                  Quantity = reader.GetInt32(nameof(Quantity)),
                  ProductId = reader.GetInt32(nameof(ProductId)),
+                 PhotoFileName = !reader.IsDBNull(reader.GetOrdinal(nameof(PhotoFileName)))
+                        ? reader.GetString(nameof(PhotoFileName)) : null,
                  Name = !reader.IsDBNull(reader.GetOrdinal(nameof(Name)))
                         ? reader.GetString(nameof(Name)) : null,
                  Price = !reader.IsDBNull(reader.GetOrdinal(nameof(Price)))
@@ -39,6 +42,7 @@ namespace Data.Models
                 Note = this.Note,
                 Quantity = this.Quantity,
                 ProductId = this.ProductId,
+                PhotoFileName = this.PhotoFileName,
                 Name = this.Name,
                 Price = this.Price
             };

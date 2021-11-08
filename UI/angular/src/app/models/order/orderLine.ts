@@ -4,6 +4,7 @@ export interface OrderLine {
     note: string;
     quantity: number;
     productId: number;
+    photoFileName: string;
     name: string;
     price: number;
 }
