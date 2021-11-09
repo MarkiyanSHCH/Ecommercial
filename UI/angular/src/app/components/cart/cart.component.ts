@@ -1,7 +1,9 @@
-import { forkJoin } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { forkJoin } from 'rxjs';
 
 import { CartItem } from 'src/app/models/cart/cartItem';
 import { Order } from 'src/app/models/order/order';
@@ -42,7 +44,7 @@ export class CartComponent implements OnInit {
     this.loadPageInfo();
   }
 
-  returnProduct(productId: number): Product {
+  getProductByProductId(productId: number): Product {
     return this.items.find(x => x.id === productId) ?? <Product>{};
   }
 
@@ -51,11 +53,12 @@ export class CartComponent implements OnInit {
     this._productIds = this.cartItems.map(x => x.productId);
     forkJoin({
       cartItem: this._cartHttpService
-        .getCartItem(this._productIds)
-        .subscribe(res => this.items = res.products),
-      shop: this._shopHttpService
+        .getCartItem(this._productIds),
+      shopList: this._shopHttpService
         .getShops()
-        .subscribe(res => this.shops = res.shops)
+    }).subscribe(({ cartItem, shopList }) => {
+      this.items = cartItem.products;
+      this.shops = shopList.shops;
     });
   }
 
@@ -75,7 +78,7 @@ export class CartComponent implements OnInit {
       this._authService.login();
       this._authService
         .isAutorise
-        .subscribe(() => this.addOrder())
+        .subscribe(() => this.addOrder());
     }
   }
 

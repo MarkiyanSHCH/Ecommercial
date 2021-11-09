@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
 
 import { forkJoin } from 'rxjs';
 
@@ -29,16 +28,17 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     forkJoin({
-      order: this._orderHttpService
-        .getOrders()
-        .subscribe(res => this.orders = res.orders),
-      shop: this._shopHttpService
+      orderList: this._orderHttpService
+        .getOrders(),
+      shopList: this._shopHttpService
         .getShops()
-        .subscribe(res => this.shops = res.shops),
+    }).subscribe(({ orderList, shopList }) => {
+      this.orders = orderList.orders;
+      this.shops = shopList.shops;
     });
   }
 
-  returnShop(shopId: number): Shop {
+  getShopByShopId(shopId: number): Shop {
     return this.shops.find(x => x.id === shopId) ?? <Shop>{}
   }
 

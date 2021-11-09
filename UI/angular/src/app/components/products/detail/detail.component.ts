@@ -39,7 +39,6 @@ export class DetailComponent implements OnInit {
   addCartProduct() {
     const modalRef = this._modalService.open(CartModuleComponent, { centered: true });
     const module = <CartModuleComponent>modalRef.componentInstance;
-    console.log(this.product)
     module.product = this.product;
     module.cartItem.subscribe((item: CartItem) => {
       module.activeModal.close();

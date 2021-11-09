@@ -8,9 +8,12 @@ a:active {
   text-decoration: none;
   color: inherit;
 }
-font-size-lg {
+.font-size-lg {
   font-size: 1.125rem;
 }
-font-size-sm {
+.font-size-sm {
   font-size: 0.875rem;
+}
+.image-max-width {
+  max-width: 100%;
 }
