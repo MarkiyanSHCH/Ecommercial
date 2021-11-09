@@ -21,6 +21,8 @@ import { OrderCollapseComponent } from './components/orders/order-collapse/order
 import { OrderLineComponent } from './components/orders/order-line/order-line.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { LoadableComponent } from './shared/loadable/loadable.component';
+import { AnonymousGuard } from './guards/anonymous.guard';
+
 
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)
@@ -59,7 +61,9 @@ export function tokenGetter() {
   providers: [{
     provide: API_URL,
     useValue: environment.authApi
-  }],
+  },
+    AnonymousGuard
+  ],
 
   bootstrap: [AppComponent]
 })
