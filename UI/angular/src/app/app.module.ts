@@ -20,6 +20,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { OrderCollapseComponent } from './components/orders/order-collapse/order-collapse.component';
 import { OrderLineComponent } from './components/orders/order-line/order-line.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { LoadableComponent } from './shared/loadable/loadable.component';
 
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)
@@ -34,7 +35,8 @@ export function tokenGetter() {
     CartComponent,
     OrderCollapseComponent,
     OrderLineComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    LoadableComponent
   ],
 
   imports: [
