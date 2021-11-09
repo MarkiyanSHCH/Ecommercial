@@ -19,7 +19,7 @@ import { ModalWindowModule } from './module/modal-window.module';
 import { CartComponent } from './components/cart/cart.component';
 import { OrderCollapseComponent } from './components/orders/order-collapse/order-collapse.component';
 import { OrderLineComponent } from './components/orders/order-line/order-line.component';
-import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { AnonymousGuard } from './guards/anonymous.guard';
 
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)
@@ -34,7 +34,6 @@ export function tokenGetter() {
     CartComponent,
     OrderCollapseComponent,
     OrderLineComponent,
-    SpinnerComponent
   ],
 
   imports: [
@@ -57,7 +56,9 @@ export function tokenGetter() {
   providers: [{
     provide: API_URL,
     useValue: environment.authApi
-  }],
+  },
+    AnonymousGuard
+  ],
 
   bootstrap: [AppComponent]
 })
