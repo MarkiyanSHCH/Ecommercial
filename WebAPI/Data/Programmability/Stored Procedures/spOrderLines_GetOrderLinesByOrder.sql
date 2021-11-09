@@ -33,6 +33,7 @@ BEGIN
 		OrderLines.Note,
 		OrderLines.Quantity,
 		Products.Id AS ProductId,
+		Products.PhotoFileName,
 		Products.[Name],
 		Products.Price
 	FROM OrderLines

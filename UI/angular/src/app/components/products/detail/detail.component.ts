@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Characteristic } from 'src/app/models/product/characteristic';
+import { Property } from 'src/app/models/product/property';
 import { Product } from 'src/app/models/product/product';
 import { CartItem } from 'src/app/models/cart/cartItem';
 import { CartService } from 'src/app/services/cart.service';
@@ -17,7 +18,7 @@ import { CartModuleComponent } from 'src/app/module/cart-dashboard/cart-dashboar
 export class DetailComponent implements OnInit {
 
   product: Product = <Product>{
-    characteristics: <Characteristic[]>[]
+    properties: <Property[]>[]
   };
 
   constructor(

@@ -17,10 +17,10 @@
           </div>
           <h3>$ {{product.price}}</h3>
           <div class="mt-4"
-               *ngIf="product.characteristics.length > 0">
+               *ngIf="product.properties.length > 0">
             <span class="fw-bold">Characteristics : </span>
             <div class="mt-1 text-center"
-                 *ngFor="let property of product.characteristics">
+                 *ngFor="let property of product.properties">
               <span>{{property.name}}: {{property.value}}</span>
             </div>
           </div>

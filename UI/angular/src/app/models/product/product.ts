@@ -1,4 +1,4 @@
-import { Characteristic } from "./characteristic";
+import { Property } from "./property";
 
 export interface Product {
     id: number;
@@ -7,5 +7,5 @@ export interface Product {
     price: number;
     categoryId: number;
     photoFileName: string;
-    characteristics: Characteristic[]
+    properties: Property[];
 }

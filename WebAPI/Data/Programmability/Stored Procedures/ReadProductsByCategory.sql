@@ -5,12 +5,12 @@ GO
 IF EXISTS(
     SELECT *
     FROM INFORMATION_SCHEMA.ROUTINES
-    WHERE [ROUTINE_NAME] = 'ReadProductsByCategory'
+    WHERE [ROUTINE_NAME] = 'spProducts_GetByCategoryId'
         AND [ROUTINE_TYPE] = 'PROCEDURE'
         AND [ROUTINE_BODY] = 'SQL'
         AND [SPECIFIC_SCHEMA] = 'dbo')
     BEGIN
-        DROP PROCEDURE dbo.ReadProductsByCategory;
+        DROP PROCEDURE dbo.spProducts_GetByCategoryId;
     END
 GO
 ------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ GO
 
 --============================================================================
 
-CREATE PROCEDURE [dbo].[ReadProductsByCategory]
+CREATE PROCEDURE [dbo].[spProducts_GetByCategoryId]
 	@id INT
 AS
 BEGIN
