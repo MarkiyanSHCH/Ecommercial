@@ -1,7 +1,7 @@
 <div class="container py-5">
   <h3 class="mb-4">Shopping Bag ({{cartItems.length}})</h3>
 
-  <div class="font-size-sm mt-3"
+  <div class="font-size-sm"
        *ngIf="cartItems.length > 0">
     <div class="row border-bottom border-dark d-none d-md-flex fw-bold">
       <div class="col-4">Name</div>
@@ -27,7 +27,7 @@
       <div class="col-12 col-md-1 d-flex justify-content-between mb-2">
         <span>
           <span class="d-md-none fw-bold">Price: </span>
-          <span>${{dataItem.quantity*getProductByProductId(dataItem.productId).price}}</span>
+          <span>${{dataItem.quantity * getProductByProductId(dataItem.productId).price}}</span>
         </span>
         <button class="btn btn-outline-dark d-md-none"
                 (click)="delete(i)">Delete
@@ -51,7 +51,7 @@
   <div class="row"
        *ngIf="cartItems.length === 0">
     <div class="col-12 col-md-4">
-      <h5 class="mb-6 text-transform-none">Your shopping bag is empty.</h5>
+      <h5>Your shopping bag is empty.</h5>
       <button routerLink="/"
               class="btn btn-outline-dark mt-2 px-4 py-2">
         Continue Browsing

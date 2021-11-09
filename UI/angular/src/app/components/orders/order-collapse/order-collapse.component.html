@@ -11,8 +11,7 @@
   <div class="col-3">{{order.orderDate | date:'shortDate'}}</div>
   <div class="col-3">${{order.totalPrice}}</div>
 </div>
-<div id="{{order.id}}"
-     *ngIf="expanded">
+<div *ngIf="expanded">
   <div class="pt-4 pl-3 pr-0">
     <div class="row">
       <div class="col-11 offset-1">
