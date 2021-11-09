@@ -1,18 +1,22 @@
-<div class="font-size-sm mt-3">
-  <div class="row border-bottom border-dark d-none d-md-flex fw-bold">
-    <div class="col-1"></div>
-    <div class="col-1">#</div>
-    <div class="col-4">Address</div>
-    <div class="col-3">Date</div>
-    <div class="col-3">Total Price</div>
+<app-loadable [active]="isLoading">
+  <div class="font-size-sm mt-3">
+    <div class="row border-bottom border-dark d-none d-md-flex fw-bold">
+      <div class="col-1"></div>
+      <div class="col-1">#</div>
+      <div class="col-4">Address</div>
+      <div class="col-3">Date</div>
+      <div class="col-3">Total Price</div>
+    </div>
+    <app-order-collapse *ngFor="let order of orders"
+                        (expand)="getOrderLines($event)"
+                        [shop]="getShopByShopId(order.shopId)"
+                        [order]="order">
+      <app-loadable [active]="loadableFragments[order.id]">
+        <h3>Order Items</h3>
+        <app-order-line *ngFor="let line of orderLinesMap.get(order.id)"
+                        [line]="line">
+        </app-order-line>
+      </app-loadable>
+    </app-order-collapse>
   </div>
-  <app-order-collapse *ngFor="let order of orders"
-                      (expand)="getOrderLines($event)"
-                      [shop]="getShopByShopId(order.shopId)"
-                      [order]="order">
-    <h3>Order Items</h3>
-    <app-order-line *ngFor="let line of orderLinesMap.get(order.id)"
-                    [line]="line">
-    </app-order-line>
-  </app-order-collapse>
-</div>
+</app-loadable>
