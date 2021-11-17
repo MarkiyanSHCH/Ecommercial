@@ -11,11 +11,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HeaderComponent,
     NotFoundComponent
   ],
-
   imports: [
     SharedModule
   ],
-
   exports: [
     FooterComponent,
     HeaderComponent

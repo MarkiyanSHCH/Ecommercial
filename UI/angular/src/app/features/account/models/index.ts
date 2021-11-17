@@ -1,1 +1,1 @@
-export * from './router-group'
+export * from './router-group';

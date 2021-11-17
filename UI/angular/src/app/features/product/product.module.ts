@@ -11,7 +11,6 @@ import { ProductRoutingModule } from './product-routing.module';
     ProductsComponent,
     DetailComponent
   ],
-
   imports: [
     ProductRoutingModule,
     SharedModule,

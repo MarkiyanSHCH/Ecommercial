@@ -28,7 +28,6 @@ import {
     OrderLineComponent,
     ChangePasswordComponent
   ],
-
   imports: [
     SharedModule,
     AccountRoutingModule

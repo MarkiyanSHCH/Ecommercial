@@ -14,7 +14,6 @@ import { BothMatchDirective } from './validation';
     FormsModule,
     RouterModule
   ],
-
   exports: [
     CommonModule,
     FormsModule,
@@ -25,7 +24,6 @@ import { BothMatchDirective } from './validation';
 
     BothMatchDirective
   ],
-
   declarations: [
     LoadableComponent,
     SpinnerComponent,

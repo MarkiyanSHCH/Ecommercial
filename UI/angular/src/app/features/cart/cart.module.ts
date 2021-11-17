@@ -9,7 +9,6 @@ import { CartComponent } from './pages/cart/cart.component';
   declarations: [
     CartComponent
   ],
-
   imports: [
     CartRoutingModule,
     SharedModule,

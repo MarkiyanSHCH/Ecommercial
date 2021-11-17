@@ -24,5 +24,4 @@ export class HeaderComponent implements OnInit {
         this.categoriesList = data.categories
       );
   }
-
 }

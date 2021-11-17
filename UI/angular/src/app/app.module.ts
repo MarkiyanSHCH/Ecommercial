@@ -23,7 +23,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent
   ],
-
   imports: [
     BrowserModule,
     HttpClientModule,
