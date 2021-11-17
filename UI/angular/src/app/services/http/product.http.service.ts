@@ -3,9 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { Product } from 'src/app/models/product/product';
+import { Product, ProductsList } from 'src/app/models';
 import { API_URL } from 'src/app/app-injection-tokens';
-import { ProductsList } from 'src/app/models/product/products';
 
 
 @Injectable({

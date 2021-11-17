@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Order } from 'src/app/models/order/order';
-import { Shop } from 'src/app/models/shop/shop';
+import { Order, Shop } from 'src/app/models';
 
 @Component({
   selector: 'app-order-dashboard',

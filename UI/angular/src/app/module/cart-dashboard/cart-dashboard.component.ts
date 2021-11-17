@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { CartItem } from 'src/app/models/cart/cartItem';
-import { Product } from 'src/app/models/product/product';
+import { CartItem, Product } from 'src/app/models';
 
 @Component({
   selector: 'app-cart-dashboard',

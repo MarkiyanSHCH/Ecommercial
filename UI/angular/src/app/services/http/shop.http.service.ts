@@ -4,9 +4,8 @@ import { Inject, Injectable } from '@angular/core';
 import * as qs from 'qs';
 import { Observable } from 'rxjs';
 
-import { ShopList } from 'src/app/models/shop/shopList';
+import { Shop, ShopList } from 'src/app/models';
 import { API_URL } from 'src/app/app-injection-tokens';
-import { Shop } from 'src/app/models/shop/shop';
 
 @Injectable({
   providedIn: 'root'

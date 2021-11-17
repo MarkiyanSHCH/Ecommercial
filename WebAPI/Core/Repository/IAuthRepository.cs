@@ -4,7 +4,7 @@ namespace Core.Repository
 {
     public interface IAuthRepository
     {
-        Account GetAccount(string Email);
+        Account GetByEmail(string Email);
         int AddUser(string name, string email, string password);
     }
 }

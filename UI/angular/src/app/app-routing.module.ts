@@ -1,33 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './core/not-found/not-found.component';
 
-import { DetailComponent } from './components//products/detail/detail.component';
-import { ProductsComponent } from './components/products/products.component';
-import { OrdersComponent } from './components/orders/orders.component';
-import { CartComponent } from './components/cart/cart.component';
 import { AnonymousGuard } from './guards/anonymous.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProductsComponent
+    loadChildren: () => import('./features/product/product.module').then(m => m.ProductModule)
   },
   {
-    path: 'product/:id',
-    component: DetailComponent
-  },
-  {
-    path: 'category/:id'
-    , component: ProductsComponent
-  },
-  {
-    path: 'order',
+    path: 'account',
     canActivate: [AnonymousGuard],
-    component: OrdersComponent
+    loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule)
   },
   {
     path: 'cart',
-    component: CartComponent
+    loadChildren: () => import('./features/cart/cart.module').then(m => m.CartModule)
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
+    pathMatch: 'full'
   }
 ];
 

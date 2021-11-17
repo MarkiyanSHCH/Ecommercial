@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CartItem } from '../models/cart/cartItem';
+import { CartItem } from 'src/app/models';
 
 export const CART_ITEMS = ('CartItemArray');
 

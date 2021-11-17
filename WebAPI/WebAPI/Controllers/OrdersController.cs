@@ -16,24 +16,26 @@ namespace WebAPI.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private int _userId => Convert.ToInt32(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
         private readonly OrderServices _orderServices;
+        private readonly AuthServices _authServices;
 
-        public OrdersController(OrderServices orderServices)
-            => this._orderServices = orderServices;
+        public OrdersController(OrderServices orderServices, AuthServices authServices)
+            => (this._orderServices, this._authServices) = (orderServices, authServices);
+
 
         [HttpGet]
         public IActionResult GetOrders()
         {
-            if (this._userId == 0) 
+            int userId = this._authServices.GetUserId(base.User);
+            if (userId == 0)
                 return Unauthorized();
 
             var orders = new GetOrdersList
             {
-                Orders = this._orderServices.GetAllOrders(_userId).ToList()
+                Orders = this._orderServices.GetAllOrders(userId).ToList()
             };
 
-            if (orders.Orders.Any()) 
+            if (orders.Orders.Any())
                 return Ok(orders);
 
             return NotFound();
@@ -42,10 +44,11 @@ namespace WebAPI.Controllers
         [HttpGet("{orderId}/lines")]
         public IActionResult GetOrderLines([Required] int orderId)
         {
-            if (this._userId <= 0) 
+            int userId = this._authServices.GetUserId(base.User);
+            if (userId <= 0)
                 return Unauthorized();
 
-            if (orderId <= 0) 
+            if (orderId <= 0)
                 return BadRequest();
 
             var orderLines = new GetOrderLinesList
@@ -53,7 +56,7 @@ namespace WebAPI.Controllers
                 OrderLines = this._orderServices.GetAllOrderLines(orderId).ToList()
             };
 
-            if (orderLines.OrderLines.Any()) 
+            if (orderLines.OrderLines.Any())
                 return Ok(orderLines);
 
             return NotFound();
@@ -62,14 +65,15 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult PostOrder([FromBody] PostOrderRequest request)
         {
-            if (this._userId <= 0) 
+            int userId = this._authServices.GetUserId(base.User);
+            if (userId <= 0)
                 return Unauthorized();
 
             if (request != null)
                 return Ok(
                     this._orderServices
                         .AddOrderProduct(
-                            _userId,
+                            userId,
                             request.ShopId,
                             request.TotalPrice,
                             request.OrderLines)

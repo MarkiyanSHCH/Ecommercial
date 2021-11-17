@@ -1,5 +1,8 @@
+<h5 class="mb-3">ORDERS</h5>
+
 <app-loadable [active]="isLoading">
-  <div class="font-size-sm mt-3">
+  <div class="font-size-sm mt-3"
+       *ngIf="orders.length > 0">
     <div class="row border-bottom border-dark d-none d-md-flex fw-bold">
       <div class="col-1"></div>
       <div class="col-1">#</div>
@@ -18,5 +21,12 @@
         </app-order-line>
       </app-loadable>
     </app-order-collapse>
+  </div>
+
+  <div class="row"
+       *ngIf="orders.length === 0">
+    <div class="col-12 col-md-4">
+      <h5>Your order is empty.</h5>
+    </div>
   </div>
 </app-loadable>

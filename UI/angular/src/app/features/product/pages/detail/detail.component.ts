@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -25,7 +25,8 @@ export class DetailComponent implements OnInit {
     private _modalService: NgbModal,
     private _productHttpService: ProductHttpService,
     private _cartService: CartService,
-    private _activeRoute: ActivatedRoute
+    private _activeRoute: ActivatedRoute,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +34,10 @@ export class DetailComponent implements OnInit {
       .getProductById(Number(
         this._activeRoute.snapshot.paramMap.get("id")
       ))
-      .subscribe(res => this.product = res);
+      .subscribe(
+        res => this.product = res,
+        () => this._router.navigate(['not-found'])
+      );
   }
 
   addCartProduct() {

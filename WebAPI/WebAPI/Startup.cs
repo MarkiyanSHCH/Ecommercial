@@ -63,13 +63,15 @@ namespace WebAPI
                     .AddScoped<IOrderRepository, OrderRepository>()
                     .AddScoped<ICartRepository, CartRepository>()
                     .AddScoped<IShopRepository, ShopRepository>()
+                    .AddScoped<IProfileRepository, ProfileRepository>()
                     .AddScoped<HashingService, HashingService>()
                     .AddScoped<ProductServices, ProductServices>()
                     .AddScoped<OrderServices, OrderServices>()
                     .AddScoped<CategoryServices, CategoryServices>()
                     .AddScoped<AuthServices, AuthServices>()
                     .AddScoped<CartServices, CartServices>()
-                    .AddScoped<ShopServices, ShopServices>();
+                    .AddScoped<ShopServices, ShopServices>()
+                    .AddScoped<ProfileServices,ProfileServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

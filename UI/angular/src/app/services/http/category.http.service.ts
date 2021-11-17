@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { API_URL } from 'src/app/app-injection-tokens';
-import { CategoryList } from 'src/app/models/category/categories';
+import { CategoryList } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'
