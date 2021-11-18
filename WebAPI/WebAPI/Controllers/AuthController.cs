@@ -18,7 +18,7 @@ namespace AuthApi.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] PostLoginRequest request)
         {
-            Account user = this._authServices.GetAccount(request.Email, request.Password);
+            Account user = this._authServices.GetByEmail(request.Email, request.Password);
 
             if (user != null)
                 return Ok(new { access_token = this._authServices.GenerateJWT(user) });

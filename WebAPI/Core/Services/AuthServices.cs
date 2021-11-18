@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -24,19 +25,18 @@ namespace Core.Services
             this._hashingService = hashingService;
         }
 
-
-        public Account GetAccount(string email, string password)
+        public Account GetByEmail(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 return null;
 
-            Account user = this._authRepository.GetAccount(email);
+            Account user = this._authRepository.GetByEmail(email);
             return user != null && this._hashingService.Check(user.Password, password) ? user : null;
         }
 
         public Account AddUser(string name, string email, string password)
         {
-            Account user = this._authRepository.GetAccount(email);
+            Account user = this._authRepository.GetByEmail(email);
 
             if (user == null)
             {
@@ -50,6 +50,18 @@ namespace Core.Services
             }
             return null;
         }
+
+        public bool Authenticate(Account user, string inputPassword)
+        {
+            if (user == null || string.IsNullOrWhiteSpace(inputPassword))
+                return false;
+
+            bool checkResult = this._hashingService.Check(user.Password, inputPassword);
+            return checkResult;
+        }
+
+        public int GetUserId(ClaimsPrincipal userPrincipal)
+            => Convert.ToInt32(userPrincipal.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
         public string GenerateJWT(Account user)
         {

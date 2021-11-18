@@ -21,9 +21,7 @@ namespace Core.Services
                     input,
                     this._settings.SaltSizeInBytes,
                     this._settings.IterationsCount,
-                    (HashAlgorithmName)Enum.Parse(
-                        typeof(HashAlgorithmName),
-                        this._settings.HashAlgorithmName));
+                    new HashAlgorithmName(this._settings.HashAlgorithmName));
 
                 string salt = Convert.ToBase64String(hashAlgorithm.Salt);
 
@@ -32,9 +30,7 @@ namespace Core.Services
 
                 string hash = HashFormatter.Build(new HashContext
                 {
-                    HashAlgorithm = (HashAlgorithmName)Enum.Parse(
-                        typeof(HashAlgorithmName),
-                        this._settings.HashAlgorithmName),
+                    HashAlgorithm = new HashAlgorithmName(this._settings.HashAlgorithmName),
 
                     SaltSizeInBytes = this._settings.SaltSizeInBytes,
                     HashSizeInBytes = this._settings.HashSizeInBytes,
@@ -45,7 +41,7 @@ namespace Core.Services
 
                 return hash;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

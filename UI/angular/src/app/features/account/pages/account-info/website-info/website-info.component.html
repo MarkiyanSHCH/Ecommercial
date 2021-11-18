@@ -1,0 +1,34 @@
+<h6>WEB INFO</h6>
+
+<app-loadable [active]="isLoading">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-3 bg-light p-2">
+        <span>Name</span>
+      </div>
+      <div class="col-10 col-md-7 bg-light p-2">
+        <span>{{profile.name}}</span>
+      </div>
+      <div class="col-2 bg-light p-2">
+        <a [routerLink]="['edit']"
+           [state]="{ profile: profile }">Edit</a>
+      </div>
+      <div class="col-12 col-md-3 bg-dark text-white p-2">
+        <span>Email</span>
+      </div>
+      <div class="col-12 col-md-9 bg-dark text-white p-2">
+        <span>{{profile.email}}</span>
+      </div>
+      <div class="col-12 col-md-3 bg-light p-2">
+        <span>Password</span>
+      </div>
+      <div class="col-10 col-md-7 bg-light p-2">
+        <span>*******</span>
+      </div>
+      <div class="col-2 bg-light p-2">
+        <a [routerLink]="['change-password']"
+           [state]="{ profile: profile }">Edit</a>
+      </div>
+    </div>
+  </div>
+</app-loadable>

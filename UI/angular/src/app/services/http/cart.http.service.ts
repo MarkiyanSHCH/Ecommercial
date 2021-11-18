@@ -5,7 +5,7 @@ import * as qs from 'qs';
 import { Observable } from 'rxjs';
 
 import { API_URL } from 'src/app/app-injection-tokens';
-import { ProductsList } from 'src/app/models/product/products';
+import { ProductsList } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'

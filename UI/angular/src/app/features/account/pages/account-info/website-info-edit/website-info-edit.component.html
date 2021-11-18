@@ -1,0 +1,46 @@
+<h6>EDIT</h6>
+
+<app-loadable [active]="isLoading">
+  <form name="form"
+        class="form-striped"
+        (ngSubmit)="userEditForm.form.valid && onUserEditSubmit()"
+        #userEditForm="ngForm"
+        novalidate>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-4 bg-dark text-white py-2">Name</div>
+        <div class="col-12 col-md-8 bg-dark py-2">
+          <input name="Name"
+                 type="text"
+                 class="form-control"
+                 [(ngModel)]="profile.name"
+                 #Name="ngModel"
+                 [ngClass]="{ 'is-invalid': userEditForm.submitted && Name.invalid }"
+                 minlength="2"
+                 maxlength="40"
+                 pattern="[A-Za-zÀ-ÿ' -]+"
+                 required />
+          <div class="invalid-feedback"
+               *ngIf="userEditForm.submitted && Name.invalid">
+            <div *ngIf="Name.errors?.required">Name field is required.</div>
+            <div *ngIf="Name.errors?.minlength">Name must be at least 2 characters long.</div>
+            <div *ngIf="Name.errors?.maxlength">Name must not have more than 40 characters.</div>
+            <div *ngIf="Name.errors?.pattern">Invalid characters used in Name.</div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 bg-light py-2">Email</div>
+        <div class="col-12 col-md-8 bg-light py-2">{{profile.email}}</div>
+      </div>
+
+      <div class="d-flex justify-content-between mt-2">
+        <button type="button"
+                class="btn btn-outline-secondary px-5"
+                (click)="location.back()">Back</button>
+        <button type="submit"
+                class="btn btn-outline-dark px-5">Save</button>
+      </div>
+
+    </div>
+  </form>
+</app-loadable>

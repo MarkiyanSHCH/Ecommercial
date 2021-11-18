@@ -4,9 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { API_URL } from 'src/app/app-injection-tokens';
-import { Order } from 'src/app/models/order/order';
-import { OrderLineList } from 'src/app/models/order/orderLines';
-import { OrderList } from 'src/app/models/order/orders';
+import { Order, OrderList, OrderLineList } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'

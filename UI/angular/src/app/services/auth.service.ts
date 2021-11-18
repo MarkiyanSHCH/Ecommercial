@@ -4,14 +4,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Login } from '../models/auth/login';
-import { Registration } from '../models/auth/registration';
+import { Login, Registration } from 'src/app/models';
 
 import { LoginDashboardComponent } from '../module/login-dashboard/login-dashboard.component';
 import { RegistrationDashboardComponent } from '../module/registration-dashboard/registration-dashboard.component';
 import { AuthHttpService } from './http/auth.http.service';
 
-export const ACCESS_TOKEN_KEY = 'store_access_token'
+const ACCESS_TOKEN_KEY = 'store_access_token'
 
 @Injectable({
   providedIn: 'root'

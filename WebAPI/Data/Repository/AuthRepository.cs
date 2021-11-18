@@ -17,7 +17,7 @@ namespace Data.Repository
         public AuthRepository(IConfiguration configuration)
             => this._sqlDataSource = configuration.GetConnectionString("ProductAppCon");
 
-        public Account GetAccount(string Email)
+        public Account GetByEmail(string Email)
         {
             using (SqlConnection connection = new SqlConnection(_sqlDataSource))
             using (SqlCommand command = new SqlCommand("spUsers_Get", connection))
