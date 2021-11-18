@@ -48,7 +48,7 @@ namespace Data.Repository
             try
             {
                 using var connection = new SqlConnection(_sqlDataSource);
-                using var command = new SqlCommand("spUsers_UpdateUserName", connection)
+                using var command = new SqlCommand("spUsers_UpdateName", connection)
                 {
                     CommandType = CommandType.StoredProcedure
                 };

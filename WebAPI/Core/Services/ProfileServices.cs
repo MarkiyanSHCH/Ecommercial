@@ -20,10 +20,8 @@ namespace Core.Services
         public bool UpdatePassword(int userId, string password)
         {
             string hashResult = this._hashingService.Hash(password);
-            if (hashResult == null)
-                return false;
 
-            return this._profileRepository.UpdatePassword(userId, hashResult);
+            return hashResult == null && this._profileRepository.UpdatePassword(userId, hashResult);
         }
     }
 }

@@ -6,12 +6,12 @@ GO
 IF EXISTS(
     SELECT *
     FROM INFORMATION_SCHEMA.ROUTINES
-    WHERE [ROUTINE_NAME] = 'spUsers_UpdateUserName'
+    WHERE [ROUTINE_NAME] = 'spUsers_UpdateName'
         AND [ROUTINE_TYPE] = 'PROCEDURE'
         AND [ROUTINE_BODY] = 'SQL'
         AND [SPECIFIC_SCHEMA] = 'dbo')
     BEGIN
-        DROP PROCEDURE dbo.spUsers_UpdateUserName;
+        DROP PROCEDURE dbo.spUsers_UpdateName;
     END
 GO
 ------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ SET ANSI_NULLS ON;
 SET QUOTED_IDENTIFIER ON;
 GO
 
-CREATE PROCEDURE dbo.spUsers_UpdateUserName
+CREATE PROCEDURE dbo.spUsers_UpdateName
     @UserId INT,
     @Name NVARCHAR(40)
 AS

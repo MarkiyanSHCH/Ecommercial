@@ -1,10 +1,13 @@
 <div class="container">
   <div class="row py-5">
-    
+
     <div class="col-md-3 mb-5 mb-md-0 pr-5">
       <div class="mt-md-0">
-        <div class="card my-2" *ngFor="let routeGroup of groupedRoutes">
-          <a [routerLink]="[getGroupRoutePath(routeGroup)]"><div class="card-header">{{routeGroup.name}}</div></a>
+        <div class="card my-2"
+             *ngFor="let routeGroup of groupedRoutes">
+          <a [routerLink]="[getGroupRoutePath(routeGroup)]">
+            <div class="card-header">{{routeGroup.name}}</div>
+          </a>
         </div>
       </div>
     </div>
@@ -16,6 +19,6 @@
 
       </div>
     </div>
-    
+
   </div>
 </div>

@@ -25,7 +25,6 @@ namespace Core.Services
             this._hashingService = hashingService;
         }
 
-
         public Account GetByEmail(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))

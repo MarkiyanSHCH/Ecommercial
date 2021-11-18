@@ -1,6 +1,4 @@
-﻿using Domain.Models;
-
-namespace WebAPI.Models
+﻿namespace WebAPI.Models
 {
     public class GetProfileResponse
     {

@@ -14,6 +14,5 @@ namespace WebAPI.Models
         [Required]
         [StringLength(maximumLength: 15, MinimumLength = 6)]
         public string NewPassword { get; set; }
-
     }
 }
