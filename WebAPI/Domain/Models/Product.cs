@@ -11,7 +11,6 @@ namespace Domain.Models
         public double Price { get; set; }
         public int CategoryId { get; set; }
         public string PhotoFileName { get; set; }
-
         public IEnumerable<Property> Properties { get; set; }
 
         public Product()

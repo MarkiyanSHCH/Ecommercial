@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using Core.Services;
+using Core.Domain.Auth;
+
 using Domain.Models;
-using WebAPI.Models;
+using WebAPI.Models.Api.Auth;
 
 namespace AuthApi.Controllers
 {

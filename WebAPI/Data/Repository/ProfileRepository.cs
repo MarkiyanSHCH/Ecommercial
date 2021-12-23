@@ -1,27 +1,29 @@
-﻿using System.Data.SqlClient;
+﻿using System;
 using System.Data;
-using System;
+using System.Data.SqlClient;
 
-using Microsoft.Extensions.Configuration;
+using Core.Domain.Profiles;
+using Core.Handlers.Logging;
+using Core.Handlers.Logging.Models;
 
 using Data.Models;
 using Domain.Models;
-using Core.Repository;
 
 namespace Data.Repository
 {
     public class ProfileRepository : IProfileRepository
     {
-        private readonly string _sqlDataSource;
+        private readonly IDbSettings _settings;
+        private readonly ILogger _logger;
 
-        public ProfileRepository(IConfiguration configuration)
-            => this._sqlDataSource = configuration.GetConnectionString("ProductAppCon");
+        public ProfileRepository(IDbSettings settings, ILogger logger)
+            => (this._settings, this._logger) = (settings, logger);
 
         public Account GetProfileById(int userId)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlConnection connection = new SqlConnection(this._settings.ConnectionString))
                 using (SqlCommand command = new SqlCommand("spUsers_GetById", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -37,8 +39,14 @@ namespace Data.Repository
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                this._logger.Error(
+                   "Failed to get profile by user id",
+                   ApplicationScope.Profile,
+                   new { userId },
+                   ex);
+
                 return null;
             }
         }
@@ -47,7 +55,7 @@ namespace Data.Repository
         {
             try
             {
-                using var connection = new SqlConnection(_sqlDataSource);
+                using var connection = new SqlConnection(this._settings.ConnectionString);
                 using var command = new SqlCommand("spUsers_UpdateName", connection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -65,8 +73,14 @@ namespace Data.Repository
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                this._logger.Error(
+                   "Failed to update profile's name by user id",
+                   ApplicationScope.Profile,
+                   new { userId, name },
+                   ex);
+
                 return false;
             }
         }
@@ -75,7 +89,7 @@ namespace Data.Repository
         {
             try
             {
-                using var connection = new SqlConnection(_sqlDataSource);
+                using var connection = new SqlConnection(this._settings.ConnectionString);
                 using var command = new SqlCommand("spUsers_UpdatePassword", connection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -93,8 +107,14 @@ namespace Data.Repository
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                this._logger.Error(
+                   "Failed to update profile's password by user id",
+                   ApplicationScope.Profile,
+                   new { userId, hashPassword },
+                   ex);
+
                 return false;
             }
         }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using Core.Services;
-using WebAPI.Models;
+using Core.Domain.Auth;
+using Core.Domain.Profiles;
+
+using WebAPI.Models.Api.Profile;
 using Domain.Models;
 
 namespace WebAPI.Controllers

@@ -2,8 +2,9 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using WebAPI.Models;
-using Core.Services;
+using Core.Domain.Categories;
+
+using WebAPI.Models.Api.Categories;
 
 namespace WebAPI.Controllers
 {

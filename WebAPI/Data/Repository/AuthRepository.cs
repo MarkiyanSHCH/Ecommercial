@@ -1,39 +1,54 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
-using System;
 
-using Microsoft.Extensions.Configuration;
+using Core.Domain.Auth;
+using Core.Handlers.Logging;
+using Core.Handlers.Logging.Models;
 
 using Data.Models;
 using Domain.Models;
-using Core.Repository;
 
 namespace Data.Repository
 {
     public class AuthRepository : IAuthRepository
     {
-        private readonly string _sqlDataSource;
+        private readonly IDbSettings _settings;
+        private readonly ILogger _logger;
 
-        public AuthRepository(IConfiguration configuration)
-            => this._sqlDataSource = configuration.GetConnectionString("ProductAppCon");
+        public AuthRepository(IDbSettings settings, ILogger logger)
+            => (this._settings, this._logger) = (settings, logger);
 
-        public Account GetByEmail(string Email)
+        public Account GetByEmail(string email)
         {
-            using (SqlConnection connection = new SqlConnection(_sqlDataSource))
-            using (SqlCommand command = new SqlCommand("spUsers_Get", connection))
+            try
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters
-                    .Add("@Email", SqlDbType.NVarChar, 100)
-                    .Value = Email;
+                using (SqlConnection connection = new SqlConnection(this._settings.ConnectionString))
+                using (SqlCommand command = new SqlCommand("spUsers_Get", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters
+                        .Add("@Email", SqlDbType.NVarChar, 100)
+                        .Value = email;
 
-                connection.Open();
+                    connection.Open();
 
-                using SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                    return AccountDTO.MapFrom(reader).ToDomainModel();
+                    using SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                        return AccountDTO.MapFrom(reader).ToDomainModel();
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                this._logger.Error(
+                   "Failed to get account by Email.",
+                   ApplicationScope.Auth,
+                   email,
+                   ex);
+
+                return null;
+            }
         }
 
         public int AddUser(
@@ -43,7 +58,7 @@ namespace Data.Repository
         {
             try
             {
-                using var connection = new SqlConnection(_sqlDataSource);
+                using var connection = new SqlConnection(this._settings.ConnectionString);
                 using var command = new SqlCommand("spUsers_Add", connection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -59,6 +74,12 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
+                this._logger.Error(
+                   "Failed to add account",
+                   ApplicationScope.Auth,
+                   new { name, email, password },
+                   ex);
+
                 return 0;
             }
         }

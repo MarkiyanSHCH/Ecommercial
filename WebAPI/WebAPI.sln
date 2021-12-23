@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31612.314
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{FF038E71-D440-4B6E-A3E8-9D51813CD439}"
 EndProject
@@ -10,6 +10,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{584CF5A5-1B89-4621-82CF-125E59E28AFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{1BAE482E-5ED7-4088-953A-867E87DDD4AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.API.MailKit", "EmailService\WebAPI.API.MailKit.csproj", "{6B94E317-7CCB-41E3-9B4C-21DFE1166780}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.API.RazorTemplateEngine", "WebAPI.API.RazorTemplateEngine\WebAPI.API.RazorTemplateEngine.csproj", "{D9670063-11B8-42C6-BA0E-385E282F7D67}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.API.Serilog", "WebAPI.API.Serilog\WebAPI.API.Serilog.csproj", "{87D31A66-491A-4B4D-8E6D-2B7BCEA16218}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.API.Common", "WebAPI.API.Common\WebAPI.API.Common.csproj", "{A13BFB1A-6001-407F-9175-3112B9DC562F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,22 @@ Global
 		{1BAE482E-5ED7-4088-953A-867E87DDD4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BAE482E-5ED7-4088-953A-867E87DDD4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BAE482E-5ED7-4088-953A-867E87DDD4AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B94E317-7CCB-41E3-9B4C-21DFE1166780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B94E317-7CCB-41E3-9B4C-21DFE1166780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B94E317-7CCB-41E3-9B4C-21DFE1166780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B94E317-7CCB-41E3-9B4C-21DFE1166780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9670063-11B8-42C6-BA0E-385E282F7D67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9670063-11B8-42C6-BA0E-385E282F7D67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9670063-11B8-42C6-BA0E-385E282F7D67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9670063-11B8-42C6-BA0E-385E282F7D67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87D31A66-491A-4B4D-8E6D-2B7BCEA16218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87D31A66-491A-4B4D-8E6D-2B7BCEA16218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87D31A66-491A-4B4D-8E6D-2B7BCEA16218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87D31A66-491A-4B4D-8E6D-2B7BCEA16218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A13BFB1A-6001-407F-9175-3112B9DC562F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A13BFB1A-6001-407F-9175-3112B9DC562F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A13BFB1A-6001-407F-9175-3112B9DC562F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A13BFB1A-6001-407F-9175-3112B9DC562F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

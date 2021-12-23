@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators'
 import { API_URL } from 'src/app/app-injection-tokens';
 import { Token } from 'src/app/models';
 
-export const ACCESS_TOKEN_KEY = 'store_access_token'
+export const ACCESS_TOKEN_KEY = 'store_access_token';
 
 @Injectable({
   providedIn: 'root'

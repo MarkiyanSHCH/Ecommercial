@@ -3,9 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Core.Services;
-using WebAPI.Models;
+using Core.Domain.Shops;
+
 using Domain.Models;
+using WebAPI.Models.Api.Shops;
 
 namespace WebAPI.Controllers
 {

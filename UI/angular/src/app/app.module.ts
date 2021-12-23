@@ -14,7 +14,6 @@ import { ACCESS_TOKEN_KEY } from './services/http/auth.http.service';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { CoreModule } from './core/core.module';
 
-
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)
 }
@@ -36,7 +35,6 @@ export function tokenGetter() {
     }),
     NgbModule
   ],
-
   providers: [{
     provide: API_URL,
     useValue: environment.authApi

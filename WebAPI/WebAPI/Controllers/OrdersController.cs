@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using Core.Services;
-using WebAPI.Models;
+using Core.Domain.Orders;
+using Core.Domain.Auth;
+
+using WebAPI.Models.Api.Orders;
 
 namespace WebAPI.Controllers
 {
@@ -20,8 +20,10 @@ namespace WebAPI.Controllers
         private readonly AuthServices _authServices;
 
         public OrdersController(OrderServices orderServices, AuthServices authServices)
-            => (this._orderServices, this._authServices) = (orderServices, authServices);
-
+        {
+            this._orderServices = orderServices;
+            this._authServices = authServices;
+        }
 
         [HttpGet]
         public IActionResult GetOrders()
@@ -65,19 +67,23 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult PostOrder([FromBody] PostOrderRequest request)
         {
+            if (request == null)
+                return BadRequest();
+
             int userId = this._authServices.GetUserId(base.User);
             if (userId <= 0)
                 return Unauthorized();
 
-            if (request != null)
-                return Ok(
-                    this._orderServices
-                        .AddOrderProduct(
-                            userId,
-                            request.ShopId,
-                            request.TotalPrice,
-                            request.OrderLines)
-                        );
+            int result = this._orderServices
+                            .AddOrderProduct(
+                                userId,
+                                this._authServices.GetUserEmail(base.User),
+                                request.ShopId,
+                                request.TotalPrice,
+                                request.OrderLines.Select(x => x.ToDomainModel()));
+
+            if (result != 0)
+                return Ok(result);
 
             return BadRequest();
         }

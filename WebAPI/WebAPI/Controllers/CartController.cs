@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Core.Services;
-using WebAPI.Models;
+using Core.Domain.Cart;
+
+using WebAPI.Models.Api.Products;
 
 namespace WebAPI.Controllers
 {

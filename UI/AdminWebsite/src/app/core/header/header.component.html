@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-xl">
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseTarget">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse"
+         id="collapseTarget">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-item nav-link"
+             routerLink="/product"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}">
+            Product
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link"
+             routerLink="/category"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}">
+            Category
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link"
+             routerLink="/order"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}">
+            Order
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mr-right">
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="">
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

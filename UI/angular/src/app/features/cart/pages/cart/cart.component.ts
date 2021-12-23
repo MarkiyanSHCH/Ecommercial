@@ -105,7 +105,7 @@ export class CartComponent extends Loadable implements OnInit {
         localStorage.removeItem(CART_ITEMS);
         this.cartItems = [];
         this.items = [];
-        this._router.navigate(['order']);
+        this._router.navigate(['account/order']);
       });
     });
   }

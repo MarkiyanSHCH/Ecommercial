@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Collections.Generic;
 using System.Linq;
 using System.Data;
+using System.Data.SqlClient;
+using System.Collections.Generic;
 
-using Microsoft.Extensions.Configuration;
+using Core.Domain.Orders;
+using Core.Handlers.Logging;
+using Core.Handlers.Logging.Models;
 
 using Data.Models;
 using Domain.Models;
-using Core.Repository;
 
 namespace Data.Repository
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly string _sqlDataSource;
+        private readonly IDbSettings _settings;
+        private readonly ILogger _logger;
 
-        public OrderRepository(IConfiguration configuration)
-            => (this._sqlDataSource) = (configuration.GetConnectionString("ProductAppCon"));
+        public OrderRepository(IDbSettings settings, ILogger logger)
+            => (this._settings, this._logger) = (settings, logger);
 
         public IEnumerable<Order> GetAllOrders(int userId)
         {
@@ -25,7 +27,7 @@ namespace Data.Repository
             {
                 var orderList = new List<OrderDTO>();
 
-                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlConnection connection = new SqlConnection(this._settings.ConnectionString))
                 using (SqlCommand command = new SqlCommand("spOrders_GetOrderByUserId", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -42,6 +44,12 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
+                this._logger.Error(
+                    "Cannot get orders by User Id",
+                    ApplicationScope.Orders,
+                    new { userId },
+                    ex);
+
                 return Enumerable.Empty<Order>();
             }
         }
@@ -52,7 +60,7 @@ namespace Data.Repository
             {
                 var orderLineList = new List<OrderLineDTO>();
 
-                using (SqlConnection connection = new SqlConnection(_sqlDataSource))
+                using (SqlConnection connection = new SqlConnection(this._settings.ConnectionString))
                 using (SqlCommand command = new SqlCommand("spOrderLines_GetOrderLinesByOrder", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -69,6 +77,12 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
+                this._logger.Error(
+                   "Cannot get order lines by Order Id",
+                   ApplicationScope.Orders,
+                   new { orderId },
+                   ex);
+
                 return Enumerable.Empty<OrderLine>();
             }
         }
@@ -96,7 +110,7 @@ namespace Data.Repository
                         line.Quantity,
                         line.ProductId);
 
-                using var connection = new SqlConnection(_sqlDataSource);
+                using var connection = new SqlConnection(this._settings.ConnectionString);
                 using var command = new SqlCommand("spOrders_AddOrderItem", connection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -115,6 +129,18 @@ namespace Data.Repository
             }
             catch (Exception ex)
             {
+                this._logger.Error(
+                   "Failed to add order and order line",
+                   ApplicationScope.Orders,
+                   new
+                   {
+                       userId,
+                       shopId,
+                       totalPrice,
+                       orderLines
+                   },
+                   ex);
+
                 return 0;
             }
         }

@@ -1,16 +1,30 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
+using Data;
 using Data.Repository;
+
 using Core;
-using Core.Services;
-using Core.Repository;
-using Core.Services.Hashing;
-using WebAPI.Models;
+using Core.Domain.Auth;
+using Core.Domain.Cart;
+using Core.Domain.Categories;
+using Core.Domain.Orders;
+using Core.Domain.Products;
+using Core.Domain.Profiles;
+using Core.Domain.Shops;
+using Core.Handlers.Hashing;
+using Core.Handlers.Emails;
+using Core.Handlers.Template;
+using Core.Handlers.Logging;
+
+using WebAPI.Models.Settings;
+
+using WebAPI.API.MailKit;
+using WebAPI.API.RazorTemplateEngine;
+using WebAPI.API.Serilog;
+using WebAPI.API.Common;
 
 namespace WebAPI
 {
@@ -18,80 +32,88 @@ namespace WebAPI
     {
         private readonly IConfiguration _configuration;
         public Startup(IConfiguration configuration)
-            => _configuration = configuration;
+            => this._configuration = configuration;
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            var authOptions = this._configuration.GetSection("Auth").Get<AuthOptions>();
+           => services
+                .Configure<AuthOptions>(this._configuration.GetSection("Auth"))
+                .Apply(this.ConfigureCORS)
+                .Apply(this.ConfigureAuthentication)
+                .Apply(this.RegisterSettings)
+                .Apply(this.RegisterHandlers)
+                .Apply(this.RegisterRepositories)
+                .Apply(this.RegisterServices)
+                .AddControllersWithViews();
 
-            services.Configure<AuthOptions>(this._configuration.GetSection("Auth"));
+        public void Configure(IApplicationBuilder app)
+         => app
+            .UseRouting()
+            .UseCors()
+            .Apply((builder) => SerilogConfigurator.Add(builder, this._configuration))
+            .UseAuthentication()
+            .UseAuthorization()
+            .UseEndpoints(endpoints => endpoints.MapControllers());
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
+        private IServiceCollection ConfigureCORS(IServiceCollection services)
+            => services
+                .AddCors(options => options
+                    .AddDefaultPolicy(corsPolicyBuilder => corsPolicyBuilder
+                        .SetIsOriginAllowed(_ => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .WithExposedHeaders("Content-Disposition")));
+
+        private IServiceCollection ConfigureAuthentication(IServiceCollection services)
+            => services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
-                        options.RequireHttpsMetadata = false;
-                        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                        {
+                        ValidateIssuer = true,
+                        ValidIssuer = this._configuration.GetValue<string>("Auth:Issuer"),
+                        ValidateAudience = true,
+                        ValidAudience = this._configuration.GetValue<string>("Auth:Audience"),
+                        ValidateLifetime = true,
+                        IssuerSigningKey = this._configuration.GetSection("Auth").Get<AuthOptions>().GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                })
+                .Bind(services);
 
-                            ValidateIssuer = true,
-                            ValidIssuer = authOptions.Issuer,
+        private IServiceCollection RegisterSettings(IServiceCollection services)
+            => services
+                .AddSingleton<IDbSettings>(new DbSettings { ConnectionString = this._configuration.GetConnectionString("ProductAppCon") })
+                .AddSingleton<IHashingSettings>(this._configuration.GetSection("HashingSettings").Get<HashingSettings>())
+                .AddSingleton<IMailKitSettings>(this._configuration.GetSection("EmailConfiguration").Get<MailKitSettings>());
 
+        private IServiceCollection RegisterHandlers(IServiceCollection services)
+            => services
+                .AddScoped<IEmailSmtpClient, EmailStmpClient>()
+                .AddScoped<IRazorTemplate, RazorTemplate>()
+                .AddScoped<IEmailNotificationService, EmailNotificationService>()
+                .AddScoped<ILogger, SerilogLogger>();
 
-                            ValidateAudience = true,
-                            ValidAudience = authOptions.Audience,
+        private IServiceCollection RegisterRepositories(IServiceCollection services)
+            => services
+                .AddScoped<IAuthRepository, AuthRepository>()
+                .AddScoped<IProductRepository, ProductRepository>()
+                .AddScoped<ICategoryRepository, CategoryRepository>()
+                .AddScoped<IOrderRepository, OrderRepository>()
+                .AddScoped<IShopRepository, ShopRepository>()
+                .AddScoped<IProfileRepository, ProfileRepository>();
 
-                            ValidateLifetime = true,
-
-
-                            IssuerSigningKey = authOptions.GetSymmetricSecurityKey(),
-                            ValidateIssuerSigningKey = true,
-                        };
-                    });
-
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            });
-
-            services.AddControllers();
-
-            services.AddSingleton<IHashingSettings>(this._configuration.GetSection("HashingSettings").Get<HashingSettings>())
-                    .AddScoped<IAuthRepository, AuthRepository>()
-                    .AddScoped<IProductRepository, ProductRepository>()
-                    .AddScoped<ICategoryRepository, CategoryRepository>()
-                    .AddScoped<IOrderRepository, OrderRepository>()
-                    .AddScoped<ICartRepository, CartRepository>()
-                    .AddScoped<IShopRepository, ShopRepository>()
-                    .AddScoped<IProfileRepository, ProfileRepository>()
-                    .AddScoped<HashingService, HashingService>()
-                    .AddScoped<ProductServices, ProductServices>()
-                    .AddScoped<OrderServices, OrderServices>()
-                    .AddScoped<CategoryServices, CategoryServices>()
-                    .AddScoped<AuthServices, AuthServices>()
-                    .AddScoped<CartServices, CartServices>()
-                    .AddScoped<ShopServices, ShopServices>()
-                    .AddScoped<ProfileServices,ProfileServices>();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+        private IServiceCollection RegisterServices(IServiceCollection services)
+            => services
+                .AddScoped<HashingService, HashingService>()
+                .AddScoped<ProductServices, ProductServices>()
+                .AddScoped<OrderServices, OrderServices>()
+                .AddScoped<CategoryServices, CategoryServices>()
+                .AddScoped<AuthServices, AuthServices>()
+                .AddScoped<CartServices, CartServices>()
+                .AddScoped<ShopServices, ShopServices>()
+                .AddScoped<ProfileServices, ProfileServices>();
     }
 }
