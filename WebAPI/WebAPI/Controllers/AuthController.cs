@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 using Core.Domain.Auth;
+using Core.Domain.Token.Models;
 
 using Domain.Models;
 using WebAPI.Models.Api.Auth;
@@ -20,9 +25,17 @@ namespace AuthApi.Controllers
         public IActionResult Login([FromBody] PostLoginRequest request)
         {
             Account user = this._authServices.GetByEmail(request.Email, request.Password);
+            if (user == null)
+                return BadRequest();
 
-            if (user != null)
-                return Ok(new { access_token = this._authServices.GenerateJWT(user) });
+            Tokens tokens = this._authServices.GenerateToken(user);
+            if (tokens != null)
+                return Ok(
+                    new
+                    {
+                        access_token = tokens.Token,
+                        refresh_token = tokens.RefreshToken
+                    });
 
             return Unauthorized();
         }
@@ -31,11 +44,29 @@ namespace AuthApi.Controllers
         public IActionResult Registration([FromBody] PostRegistrationAccountRequest request)
         {
             Account newUser = this._authServices.AddUser(request.Name, request.Email, request.Password);
+            if (newUser == null)
+                return BadRequest();
 
-            if (newUser != null)
-                return Ok(new { access_token = this._authServices.GenerateJWT(newUser) });
+            Tokens tokens = this._authServices.GenerateToken(newUser);
+            if (tokens != null)
+                return Ok(
+                    new
+                    {
+                        access_token = tokens.Token,
+                        refresh_token = tokens.RefreshToken
+                    });
 
             return BadRequest();
+        }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout([FromHeader] string authorization)
+        {
+            if (base.HttpContext.User.Identity.IsAuthenticated && !string.IsNullOrWhiteSpace(authorization))
+                await this._authServices.LogoutAsync(authorization);
+
+            return NoContent();
         }
     }
 }

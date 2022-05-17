@@ -5,6 +5,7 @@
         Auth,
         Categories,
         Products,
+        Token,
         Profile,
         Shop,
         Emails,

@@ -7,6 +7,7 @@ using Core.Handlers.Logging;
 using Core.Handlers.Logging.Models;
 
 using Data.Models;
+
 using Domain.Models;
 
 namespace Data.Repository

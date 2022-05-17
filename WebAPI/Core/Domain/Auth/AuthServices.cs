@@ -1,31 +1,29 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
 
 using Domain.Models;
 using Core.Handlers.Hashing;
+using Core.Domain.Token;
+using Core.Domain.Token.Models;
 
 namespace Core.Domain.Auth
 {
     public class AuthServices
     {
-        private readonly IOptions<AuthOptions> _authOptions;
         private readonly IAuthRepository _authRepository;
         private readonly HashingService _hashingService;
+        private readonly TokenServices _tokenServices;
 
-        public AuthServices(
-            IOptions<AuthOptions> authOptions, 
-            IAuthRepository authRepository, 
-            HashingService hashingService)
+        public AuthServices( 
+            IAuthRepository authRepository,
+            HashingService hashingService,
+            TokenServices tokenServices)
         {
-            this._authOptions = authOptions;
             this._authRepository = authRepository;
             this._hashingService = hashingService;
+            this._tokenServices = tokenServices;
         }
 
         public Account GetByEmail(string email, string password)
@@ -42,15 +40,13 @@ namespace Core.Domain.Auth
             Account user = this._authRepository.GetByEmail(email);
 
             if (user == null)
-            {
-                string hashResult = this._hashingService.Hash(password);
                 return new Account
                 {
-                    Id = this._authRepository.AddUser(name, email, hashResult),
+                    Id = this._authRepository.AddUser(name, email, this._hashingService.Hash(password)),
                     Name = name,
                     Email = email
                 };
-            }
+
             return null;
         }
 
@@ -69,26 +65,10 @@ namespace Core.Domain.Auth
         public string GetUserEmail(ClaimsPrincipal userPrincipal)
             => Convert.ToString(userPrincipal.Claims.Single(c => c.Type == ClaimTypes.Email).Value);
 
-        public string GenerateJWT(Account user)
-        {
-            AuthOptions authParams = this._authOptions.Value;
-            SymmetricSecurityKey securityKey = authParams.GetSymmetricSecurityKey();
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        public Tokens GenerateToken(Account user)
+            => this._tokenServices.GenerateToken(user);
 
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
-            };
-
-            var token = new JwtSecurityToken(authParams.Issuer,
-                authParams.Audience,
-                claims,
-                expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
-                signingCredentials: credentials
-                );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        public async Task LogoutAsync(string authHeader)
+            => await this._tokenServices.DeactivateTokenAsync(authHeader.Split(" ").Last());
     }
 }

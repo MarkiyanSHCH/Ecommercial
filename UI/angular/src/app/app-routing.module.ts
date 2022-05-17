@@ -11,7 +11,6 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    canActivate: [AnonymousGuard],
     loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule)
   },
   {

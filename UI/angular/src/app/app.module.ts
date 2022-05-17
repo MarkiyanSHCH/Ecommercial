@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ACCESS_TOKEN_KEY } from './services/http/auth.http.service';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { CoreModule } from './core/core.module';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 export function tokenGetter() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)
@@ -35,10 +36,16 @@ export function tokenGetter() {
     }),
     NgbModule
   ],
-  providers: [{
-    provide: API_URL,
-    useValue: environment.authApi
-  },
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: API_URL,
+      useValue: environment.authApi
+    },
     AnonymousGuard
   ],
 

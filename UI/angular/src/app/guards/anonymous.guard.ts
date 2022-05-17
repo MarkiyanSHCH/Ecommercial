@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { ACCESS_TOKEN_KEY, AuthHttpService } from '../services';
 
 import { AuthService } from '../services/auth.service';
 
@@ -10,7 +11,8 @@ export class AnonymousGuard implements CanActivate {
 
   constructor(
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _authHttpService: AuthHttpService
   ) { }
 
   canActivate(): Observable<boolean> | boolean {

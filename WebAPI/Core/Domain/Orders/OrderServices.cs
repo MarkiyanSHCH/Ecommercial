@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Core.Domain.Orders.Models;
 using Core.Domain.Products;
 using Core.Domain.Shops;
 using Core.Handlers.Emails;
-using Core.Domain.Orders.Models;
 
 using Domain.Models;
 

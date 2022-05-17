@@ -35,34 +35,34 @@ BEGIN
     --========================================================================
 	BEGIN TRANSACTION;
 
-	INSERT INTO Orders 
-	(
-		[TotalPrice],
-		[UserId],
-		[ShopId]
-	)
-	VALUES 
-	(
-		@TotalPrice,
-		@UserId,
-		@ShopId
-	);
+		INSERT INTO Orders 
+		(
+			[TotalPrice],
+			[UserId],
+			[ShopId]
+		)
+		VALUES 
+		(
+			@TotalPrice,
+			@UserId,
+			@ShopId
+		);
 
-	DECLARE @OrderId INT = CONVERT(INT, SCOPE_IDENTITY());
-	
-	INSERT INTO OrderLines
-	(
-		[OrderId],
-		[ProductId],
-		[Note],
-		[Quantity]
-	)
-	SELECT 
-		@OrderId,
-		ProductId,
-		Note,
-		Quantity
-	FROM @OrderLines;
+		DECLARE @OrderId INT = CONVERT(INT, SCOPE_IDENTITY());
+		
+		INSERT INTO OrderLines
+		(
+			[OrderId],
+			[ProductId],
+			[Note],
+			[Quantity]
+		)
+		SELECT 
+			@OrderId,
+			ProductId,
+			Note,
+			Quantity
+		FROM @OrderLines;
 
 	COMMIT TRANSACTION;
 

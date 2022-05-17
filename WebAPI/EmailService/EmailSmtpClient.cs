@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using MimeKit;
-
-using MailKit.Net.Smtp;
-
 using Core.Handlers.Emails;
 using Core.Handlers.Emails.Models;
 using Core.Handlers.Logging;
 using Core.Handlers.Logging.Models;
+
+using MailKit.Net.Smtp;
+
+using MimeKit;
 
 namespace WebAPI.API.MailKit
 {
